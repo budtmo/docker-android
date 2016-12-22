@@ -25,7 +25,7 @@ Quick Start
     An Example:
 
     ```bash
-    docker run -d -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 --name appium-container docker-android-appium
+    docker run -d -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 --name appium-container butomo1989/docker-appium
     ```
 
 2. See the docker logs with command:
