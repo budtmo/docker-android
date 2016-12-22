@@ -1,6 +1,9 @@
 Docker-Android-Appium
 =====================
 
+[![Build Status](https://travis-ci.org/butomo1989/docker-appium.svg?branch=master)](https://travis-ci.org/butomo1989/docker-appium)
+[![codecov](https://codecov.io/gh/butomo1989/docker-appium/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-appium)
+
 Android emulator and Appium server in docker solution.
 
 Requirements
