@@ -45,4 +45,4 @@ Quick Start
 
 4. Run your UI tests by using docker-appium.
 
-***Note: There is an example UITests in folder example.***
+    ***Note: There is an example UITests in folder example.***
