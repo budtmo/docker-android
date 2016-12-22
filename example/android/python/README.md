@@ -11,4 +11,4 @@ Requirements
 Quick Start
 ===========
 1. pip install -r requirements
-2. python android_simple.py
+2. python app_simple.py
