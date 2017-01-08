@@ -17,32 +17,38 @@ Quick Start
 1. Run docker-appium with command:
 
     ```bash
-    docker run -d -p 4723:4723 -v <apk_path_that_will_be_tested>:/target_apk -e ANDROID_VERSION=<target_android_version> --name appium-container butomo1989/docker-appium
+    docker run -d -p 6080:6080 -p 4723:4723 -v <path_of_apk_that_want_to_be_tested>:/target_apk -e ANDROID_VERSION=<target_android_version> --name appium-container butomo1989/docker-appium
     ```
 
-    ***Note: There is an example apk in folder example.***
+    ***Note: There is an example apk in folder "example".***
 
     An Example:
 
     ```bash
-    docker run -d -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 --name appium-container butomo1989/docker-appium
+    docker run -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 --name appium-container butomo1989/docker-appium
     ```
 
-2. See the docker logs with command:
+2. Verify the ip address of docker-machine.
 
-    ```bash
-    docker logs appium-container -f
-    ```
+   - For OSX, you can find out by using following command:
 
-3. Wait until you see this following example messages in logs that showing that appium server is ready to use:
+	   ```bash
+	   docker-machine ip default
+	   ```
 
-    ```bash
-    INFO:android_appium:Android emulator is created
-    INFO:android_appium:android emulator name: emulator_4.2.2
-    [Appium] Welcome to Appium v1.6.3
-    [Appium] Appium REST http interface listener started on 0.0.0.0:4723
-    ```
+   - For different OS, localhost should work.
 
-4. Run your UI tests by using docker-appium.
+3. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser and connect to it without password.
 
-    ***Note: There is an example UITests in folder example.***
+   ![][noVNC]
+
+4. Wait until the installation of selected android version packages is done and appium is ready to use by waiting following message shown in Terminal:
+
+   ![][Appium is ready]
+
+5. Run your UI tests by using docker-appium.
+
+***Note: In folder "example" there is an example of Appium-UITest that is written in python.***
+
+[noVNC]: <images/noVNC.png> "login with noVNC to see what happen inside container"
+[Appium is ready]: <images/appium.png> "appium is ready"
