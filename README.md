@@ -4,7 +4,7 @@ Docker-Android-Appium
 [![Build Status](https://travis-ci.org/butomo1989/docker-appium.svg?branch=master)](https://travis-ci.org/butomo1989/docker-appium)
 [![codecov](https://codecov.io/gh/butomo1989/docker-appium/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-appium)
 
-Android emulator and Appium server in docker solution.
+Android emulator and Appium server in docker solution with noVNC supported.
 
 Requirements
 ------------
@@ -46,7 +46,15 @@ Quick Start
 
    ![][Appium is ready]
 
-5. Run your UI tests by using docker-appium.
+   *The name of created emulator can be seen in that terminal. In screenshot above, the emulator name is* ***emulator_4.2.2***.
+
+5. Run your UI tests by using docker-appium and Android emulator will be started automatically by following desire capability:
+
+   ```
+   desired_caps = {
+   		'avd': 'emulator_4.2.2'
+   }
+   ```
 
 ***Note: In folder "example" there is an example of Appium-UITest that is written in python.***
 
