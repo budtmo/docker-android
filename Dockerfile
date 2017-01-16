@@ -1,21 +1,21 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 #=======================
 # General Configuration
 #=======================
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update -y
 
 #=====================================
 # Install virtual display framebuffer
 #=====================================
-RUN apt-get install Xvfb x11vnc -y
+RUN apt-get install xvfb x11vnc -y
 
-#================================================
-# Install Windows Manager, Debian Menu and Numpy
+#=========================================================
+# Install Windows Manager, Debian Menu, Numpy and Netstat
 # https://github.com/novnc/websockify/issues/77
-#================================================
-RUN apt-get install openbox menu python-numpy -y
+#=========================================================
+RUN apt-get install openbox menu python-numpy net-tools -y
 
 #======================
 # Clone noVNC projects
@@ -28,8 +28,8 @@ RUN git clone https://github.com/kanaka/noVNC.git && \
 #==============
 # Install Java
 #==============
-RUN apt-get install openjdk-7-jdk -y
-ENV JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64/jre"
+RUN apt-get install openjdk-8-jdk -y
+ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre"
 ENV PATH="${PATH}:${JAVA_HOME}/bin"
 
 #=====================
@@ -55,7 +55,7 @@ RUN ln -s ${ANDROID_HOME}/tools/emulator64-arm ${ANDROID_HOME}/tools/emulator
 # Install latest nodejs, npm, appium
 #====================================
 RUN apt-get install curl -y
-RUN curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
 RUN apt-get install nodejs -y
 ENV APPIUM_VERSION 1.6.3
 RUN npm install -g appium@$APPIUM_VERSION
