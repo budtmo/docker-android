@@ -49,7 +49,6 @@ RUN echo y | android update sdk --no-ui --filter 2,3
 ENV PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 ENV PATH="${PATH}:${ANDROID_HOME}/build-tools"
 RUN mv ${ANDROID_HOME}/tools/emulator ${ANDROID_HOME}/tools/emulator.backup
-RUN ln -s ${ANDROID_HOME}/tools/emulator64-arm ${ANDROID_HOME}/tools/emulator
 
 #====================================
 # Install latest nodejs, npm, appium
@@ -59,6 +58,12 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
 RUN apt-get install nodejs -y
 ENV APPIUM_VERSION 1.6.3
 RUN npm install -g appium@$APPIUM_VERSION
+
+#============================================================
+# Install KVM for emulator x86
+# Source: https://help.ubuntu.com/community/KVM/Installation
+#============================================================
+RUN apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils -y
 
 #======================
 # noVNC Configurations
@@ -72,6 +77,12 @@ ENV DISPLAY=:0 \
     TARGET_PORT=6080 \
     TIMEOUT=1
 RUN ln -s noVNC/vnc_auto.html noVNC/index.html
+
+#==============
+# Expose Ports
+#==============
+EXPOSE 4723
+EXPOSE 6080
 
 #===================
 # Run docker-appium

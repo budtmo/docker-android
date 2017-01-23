@@ -14,19 +14,21 @@ Docker is installed in your system.
 Quick Start
 -----------
 
-1. Run docker-appium with command:
+1. Enable **Virtualization** under **System Setup** in **BIOS**. (It is only for Ubuntu OS. If you use different OS, you can skip this step).
+
+2. Run docker-appium with command:
 
     ```bash
-    docker run -d -p 6080:6080 -p 4723:4723 -v <path_of_apk_that_want_to_be_tested>:/target_apk -e ANDROID_VERSION=<target_android_version> --name appium-container butomo1989/docker-appium
+    docker run -d -p 6080:6080 -p 4723:4723 -v <path_of_apk_that_want_to_be_tested>:/target_apk -e ANDROID_VERSION=<target_android_version> -e EMULATOR_TYPE=<emulator_type> --name appium-container butomo1989/docker-appium
     ```
-
-    ***Note: There is an example apk in folder "example".***
 
     An Example:
 
     ```bash
-    docker run -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 --name appium-container butomo1989/docker-appium
+    docker run -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 -e EMULATOR_TYPE=armeabi --name appium-container butomo1989/docker-appium
     ```
+
+	**Note: use flag *--privileged* and *EMULATOR_TYPE=x86* for ubuntu OS to make emulator faster**
 
 2. Verify the ip address of docker-machine.
 
