@@ -84,6 +84,11 @@ RUN ln -s noVNC/vnc_auto.html noVNC/index.html
 EXPOSE 4723
 EXPOSE 6080
 
+#=================
+# Add Browser Apk
+#=================
+COPY example/browser_apk /root/browser_apk
+
 #===================
 # Run docker-appium
 #===================

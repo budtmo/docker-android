@@ -11,6 +11,16 @@ Requirements
 
 Docker is installed in your system.
 
+Features
+--------
+
+1. Android emulator
+2. noVNC
+3. Appium server
+4. Browser application for mobile website testing
+	- Chrome version 55 (for x86 and armeabi)
+	- Firefox version 51 (for x86 and armeabi)
+
 Quick Start
 -----------
 
