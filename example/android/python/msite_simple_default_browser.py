@@ -16,7 +16,7 @@ class MSiteDefaultBrowserAndroidUITests(unittest.TestCase):
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
-    def test_open_google(self):
+    def test_open_url(self):
         self.driver.get('http://targeturl.com')
 
     def tearDown(self):
