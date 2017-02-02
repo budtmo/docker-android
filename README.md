@@ -42,7 +42,7 @@ Quick Start
 
 		-e APPIUM_HOST="<host_ip_address>": if appium is running under different host. default value: 127.0.0.1
 		-e APPIUM_PORT=<port_number>: if appium is running under different port. default port: 4723
-		-e SELENIUM_HOST="<host_ip_address>": if selenium hub is running under different host. default value: 127.0.0.1
+		-e SELENIUM_HOST="<host_ip_address>": if selenium hub is running under different host. default value: 172.17.0.1
 		-e SELENIUM_PORT=<port_number>: if selenium hub is running under different port. default port: 4444
 
 	**Note: use flag *--privileged* and *EMULATOR_TYPE=x86* for ubuntu OS to make emulator faster**
