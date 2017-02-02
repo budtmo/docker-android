@@ -3,8 +3,12 @@ import os
 import re
 import subprocess
 
+import appium
+
+from service import CONFIG_FILE
+
 logging.basicConfig()
-logger = logging.getLogger('android_appium')
+logger = logging.getLogger('main')
 
 # not using enum because need to install pip that will make docker image size bigger
 TYPE_ARMEABI = 'armeabi'
@@ -18,7 +22,8 @@ def run():
     """
     # Get android version package
     android_version = os.getenv('ANDROID_VERSION', '4.2.2')
-    os.environ['emulator_name'] = 'emulator_{version}'.format(version=android_version)
+    emulator_name = 'emulator_{version}'.format(version=android_version)
+    os.environ['EMULATOR_NAME'] = emulator_name
 
     # Get emulator type
     types = [TYPE_ARMEABI, TYPE_X86]
@@ -33,16 +38,35 @@ def run():
     subprocess.check_call('Xvfb ${DISPLAY} -screen ${SCREEN} ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH} & '
                           'sleep ${TIMEOUT}', shell=True)
 
-    # Start noVNC, installation of android packages, emulator creation and appium
+    # Start noVNC
     vnc_cmd = 'openbox-session & x11vnc -display ${DISPLAY} -nopw -ncache 10 -forever & ' \
               './noVNC/utils/launch.sh --vnc localhost:${LOCAL_PORT} --listen ${TARGET_PORT}'
+
+    # Option to connect with selenium server
+    connect_to_grid = str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
+    logger.info('Connect with selenium grid? {input}'.format(input=connect_to_grid))
+    appium_cmd = 'appium'
+    if connect_to_grid:
+        try:
+            appium_host = os.getenv('APPIUM_HOST', '127.0.0.1')
+            appium_port = int(os.getenv('APPIUM_PORT', 4723))
+            selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
+            selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
+            appium.create_node_config(CONFIG_FILE, emulator_name, android_version,
+                                      appium_host, appium_port, selenium_host, selenium_port)
+            appium_cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
+        except ValueError as v_err:
+            logger.error(v_err)
+
+    # Start installation of android packages, emulator creation and appium in a terminal
     android_cmd = get_android_bash_commands(android_version, emulator_type)
     if android_cmd:
         cmd = '({vnc}) & (xterm -T "Android-Appium" -n "Android-Appium" -e \"{android} && ' \
-              '/bin/echo $emulator_name && appium\")'.format(vnc=vnc_cmd, android=android_cmd)
+              '/bin/echo $EMULATOR_NAME && {appium}\")'.format(
+                  vnc=vnc_cmd, android=android_cmd, appium=appium_cmd)
     else:
         logger.warning('There is no android packages installed!')
-        cmd = '({vnc}) & (xterm -e \"appium\")'.format(vnc=vnc_cmd)
+        cmd = '({vnc}) & (xterm -e \"{appium}\")'.format(vnc=vnc_cmd, appium=appium_cmd)
     subprocess.check_call(cmd, shell=True)
 
 
@@ -64,7 +88,7 @@ def get_item_position(keyword, items):
     """
     Get position of item in array by given keyword.
 
-    :return: Item position.
+    :return: item position
     :rtype: int
     """
     pos = 0
@@ -127,6 +151,18 @@ def get_android_bash_commands(android_version, emulator_type):
         logger.error(i_err)
 
     return bash_command
+
+
+def str_to_bool(str):
+    """
+    Convert string to boolean.
+
+    :param str: given string
+    :type str: str
+    :return: converted string
+    :rtype: bool
+    """
+    return str.lower() in ('yes', 'true', 't', '1')
 
 
 if __name__ == '__main__':
