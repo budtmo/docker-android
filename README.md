@@ -3,6 +3,7 @@ Docker-Android-Appium
 
 [![Build Status](https://travis-ci.org/butomo1989/docker-appium.svg?branch=master)](https://travis-ci.org/butomo1989/docker-appium)
 [![codecov](https://codecov.io/gh/butomo1989/docker-appium/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-appium)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 
 Android emulator and Appium server in docker solution with noVNC supported.
 
@@ -19,8 +20,8 @@ Features
 3. Appium server
 4. Able to connect to selenium grid
 5. Browser application for mobile website testing
-	- Chrome version 55 (for x86 and armeabi)
-	- Firefox version 51 (for x86 and armeabi)
+  - Chrome version 55 (for x86 and armeabi)
+  - Firefox version 51 (for x86 and armeabi)
 
 Quick Start
 -----------
@@ -38,22 +39,22 @@ Quick Start
     ```bash
     docker run -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 -e EMULATOR_TYPE=armeabi -e CONNECT_TO_GRID=False --name appium-container butomo1989/docker-appium
     ```
-	**Optional arguments for CONNECT\_TO\_GRID=True**
+  **Optional arguments for CONNECT\_TO\_GRID=True**
 
-		-e APPIUM_HOST="<host_ip_address>": if appium is running under different host. default value: 127.0.0.1
-		-e APPIUM_PORT=<port_number>: if appium is running under different port. default port: 4723
-		-e SELENIUM_HOST="<host_ip_address>": if selenium hub is running under different host. default value: 172.17.0.1
-		-e SELENIUM_PORT=<port_number>: if selenium hub is running under different port. default port: 4444
+    -e APPIUM_HOST="<host_ip_address>": if appium is running under different host. default value: 127.0.0.1
+    -e APPIUM_PORT=<port_number>: if appium is running under different port. default port: 4723
+    -e SELENIUM_HOST="<host_ip_address>": if selenium hub is running under different host. default value: 172.17.0.1
+    -e SELENIUM_PORT=<port_number>: if selenium hub is running under different port. default port: 4444
 
-	**Note: use flag *--privileged* and *EMULATOR_TYPE=x86* for ubuntu OS to make emulator faster**
+  **Note: use flag *--privileged* and *EMULATOR_TYPE=x86* for ubuntu OS to make emulator faster**
 
 2. Verify the ip address of docker-machine.
 
    - For OSX, you can find out by using following command:
 
-	   ```bash
-	   docker-machine ip default
-	   ```
+     ```bash
+     docker-machine ip default
+     ```
 
    - For different OS, localhost should work.
 
@@ -71,7 +72,7 @@ Quick Start
 
    ```
    desired_caps = {
-   		'avd': 'emulator_4.2.2'
+      'avd': 'emulator_4.2.2'
    }
    ```
 
