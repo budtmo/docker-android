@@ -17,11 +17,20 @@ RUN apt-get install xvfb x11vnc -y
 #=========================================================
 RUN apt-get install openbox menu python-numpy net-tools -y
 
+#====================
+# Install Supervisor
+#====================
+RUN apt-get install supervisor -y
+
+#=============
+# Set WORKDIR
+#=============
+WORKDIR /root
+
 #======================
 # Clone noVNC projects
 #======================
 RUN apt-get install git -y
-WORKDIR /root
 RUN git clone https://github.com/kanaka/noVNC.git && \
     cd noVNC/utils && git clone https://github.com/kanaka/websockify websockify
 
@@ -65,9 +74,10 @@ RUN npm install -g appium@$APPIUM_VERSION
 #============================================================
 RUN apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils -y
 
-#======================
-# noVNC Configurations
-#======================
+#================================================
+# noVNC Default Configurations
+# These Configurations can be changed through -e
+#================================================
 ENV DISPLAY=:0 \
     SCREEN=0 \
     SCREEN_WIDTH=1600 \
@@ -75,7 +85,8 @@ ENV DISPLAY=:0 \
     SCREEN_DEPTH=16 \
     LOCAL_PORT=5900 \
     TARGET_PORT=6080 \
-    TIMEOUT=1
+    TIMEOUT=1 \
+    LOG_PATH=/var/log/supervisor
 RUN ln -s noVNC/vnc_auto.html noVNC/index.html
 
 #==============
@@ -84,13 +95,14 @@ RUN ln -s noVNC/vnc_auto.html noVNC/index.html
 EXPOSE 4723
 EXPOSE 6080
 
-#=================
-# Add Browser Apk
-#=================
+#==================
+# Add Browser APKs
+#==================
 COPY example/browser_apk /root/browser_apk
 
 #===================
 # Run docker-appium
 #===================
+COPY supervisord.conf /root/
 COPY service /root/service
-CMD python -m service.start
+CMD /usr/bin/supervisord --configuration supervisord.conf

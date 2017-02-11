@@ -34,14 +34,6 @@ def run():
     subprocess.check_call('ln -s $ANDROID_HOME/tools/{shortcut_file} $ANDROID_HOME/tools/emulator'.format(
         shortcut_file='emulator64-x86' if emulator_type == TYPE_X86 else 'emulator64-arm'), shell=True)
 
-    # Start Xvfb
-    subprocess.check_call('Xvfb ${DISPLAY} -screen ${SCREEN} ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH} & '
-                          'sleep ${TIMEOUT}', shell=True)
-
-    # Start noVNC
-    vnc_cmd = 'openbox-session & x11vnc -display ${DISPLAY} -nopw -ncache 10 -forever & ' \
-              './noVNC/utils/launch.sh --vnc localhost:${LOCAL_PORT} --listen ${TARGET_PORT}'
-
     # Option to connect with selenium server
     connect_to_grid = str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect with selenium grid? {input}'.format(input=connect_to_grid))
@@ -61,12 +53,11 @@ def run():
     # Start installation of android packages, emulator creation and appium in a terminal
     android_cmd = get_android_bash_commands(android_version, emulator_type)
     if android_cmd:
-        cmd = '({vnc}) & (xterm -T "Android-Appium" -n "Android-Appium" -e \"{android} && ' \
-              '/bin/echo $EMULATOR_NAME && {appium}\")'.format(
-                  vnc=vnc_cmd, android=android_cmd, appium=appium_cmd)
+        cmd = 'xterm -T "Android-Appium" -n "Android-Appium" -e \"{android} && ' \
+              '/bin/echo $EMULATOR_NAME && {appium}\"'.format(android=android_cmd, appium=appium_cmd)
     else:
         logger.warning('There is no android packages installed!')
-        cmd = '({vnc}) & (xterm -e \"{appium}\")'.format(vnc=vnc_cmd, appium=appium_cmd)
+        cmd = 'xterm -e \"{appium}\"'.format(appium=appium_cmd)
     subprocess.check_call(cmd, shell=True)
 
 
