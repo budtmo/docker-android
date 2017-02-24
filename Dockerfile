@@ -44,10 +44,11 @@ ENV PATH="${PATH}:${JAVA_HOME}/bin"
 #=====================
 # Install Android SDK
 #=====================
-RUN apt-get install wget -y
-RUN wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
-RUN tar -xvzf android-sdk_r24.4.1-linux.tgz && rm android-sdk_r24.4.1-linux.tgz
-ENV ANDROID_HOME="/root/android-sdk-linux"
+RUN apt-get install wget unzip -y
+
+RUN wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
+RUN unzip tools_r25.2.3-linux.zip && rm tools_r25.2.3-linux.zip
+ENV ANDROID_HOME="/root"
 ENV PATH="${PATH}:${ANDROID_HOME}/tools"
 
 #=====================================================
