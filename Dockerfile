@@ -44,7 +44,7 @@ ENV PATH="${PATH}:${JAVA_HOME}/bin"
 #=====================
 # Install Android SDK
 #=====================
-RUN apt-get install wget unzip -y
+RUN apt-get install wget unzip libqt5webkit5 -y
 
 RUN wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
 RUN unzip tools_r25.2.3-linux.zip && rm tools_r25.2.3-linux.zip
