@@ -1,0 +1,133 @@
+parts {
+  device {
+    display {
+      width 480
+      height 800
+      x 0
+      y 0
+    }
+  }
+  portrait {
+    background {
+      image port_back.png
+    }
+    onion {
+      image port_fore.png
+    }
+    buttons {
+      back {
+        image button.png
+        x 165
+        y 991
+      }
+      soft-left {
+        image button.png
+        x 279
+        y 991
+      }
+      search {
+        image button.png
+        x 390
+        y 991
+      }
+      home {
+        image button.png
+        x 502
+        y 993
+      }
+      volume-up {
+        image volume_up.png
+        x 23
+        y 305
+      }
+      volume-down {
+        image volume_down.png
+        x 23
+        y 412
+      }
+      power {
+        image power.png
+        x 627
+        y 215
+      }
+    }
+  }
+  landscape {
+    background {
+      image land_back.png
+    }
+    onion {
+      image land_fore.png
+    }
+    buttons {
+      back {
+        image button.png
+        x 1039
+        y 430
+      }
+      soft-left {
+        image button.png
+        x 1039
+        y 318
+      }
+      search {
+        image button.png
+        x 1039
+        y 206
+      }
+      home {
+        image button.png
+        x 1039
+        y 94
+      }
+      volume-up {
+        image volume_up_land.png
+        x 361
+        y 519
+      }
+      volume-down {
+        image volume_down_land.png
+        x 459
+        y 519
+      }
+      power {
+        image power_land.png
+        x 266
+        y -11
+      }
+    }
+  }
+}
+layouts {
+  portrait {
+    width 719
+    height 1139
+    event EV_SW:0:1
+    part1 {
+      name portrait
+      x 0
+      y 0
+    }
+    part2 {
+      name device
+      x 119
+      y 160
+    }
+  }
+  landscape {
+    width 1210
+    height 586
+    event EV_SW:0:0
+    part1 {
+      name landscape
+      x 0
+      y 0
+    }
+    part2 {
+      name device
+      x 208
+      y 524
+      rotation 3
+    }
+  }
+}

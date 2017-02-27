@@ -99,11 +99,16 @@ EXPOSE 6080
 #==================
 # Add Browser APKs
 #==================
-COPY example/browser_apk /root/browser_apk
+COPY browser_apk /root/browser_apk
+
+#====================
+# Add Emulator Skins
+#====================
+COPY skins /root/skins
 
 #===================
 # Run docker-appium
 #===================
 COPY supervisord.conf /root/
-COPY service /root/service
+COPY src /root/src
 CMD /usr/bin/supervisord --configuration supervisord.conf
