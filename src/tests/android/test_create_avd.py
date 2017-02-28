@@ -11,7 +11,9 @@ class TestAvd(TestCase):
 
     def setUp(self):
         self.android_path = '/root'
-        self.avd_name = 'test'
+        self.device = 'Nexus\ 5'
+        self.skin = 'nexus_5'
+        self.avd_name = 'nexus_5_5.0'
         self.api_level = 21
 
     @mock.patch('os.symlink')
@@ -22,7 +24,7 @@ class TestAvd(TestCase):
             self.assertFalse(mocked_list_dir.called)
             self.assertFalse(mocked_sys_link.called)
             self.assertFalse(mocked_suprocess.called)
-            android.create_avd(self.android_path, self.avd_name, self.api_level)
+            android.create_avd(self.android_path, self.device, self.skin, self.avd_name, self.api_level)
             self.assertTrue(mocked_list_dir.called)
             self.assertTrue(mocked_sys_link.called)
             self.assertTrue(mocked_suprocess.called)

@@ -1,7 +1,6 @@
 """Unit test for appium.py."""
-from unittest import TestCase
-
 import os
+from unittest import TestCase
 
 import mock
 

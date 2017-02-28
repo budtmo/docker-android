@@ -28,8 +28,7 @@ def get_api_level(android_version):
 
             item_info = item.split('-')
             api_version = re.search('%s(.*)%s' % ('API', ','), item_info[1]).group(1).strip()
-            logger.info(
-                'API level: {api}'.format(api=api_version))
+            logger.info('API level: {api}'.format(api=api_version))
         else:
             raise RuntimeError('List of packages is empty!')
 
@@ -64,12 +63,16 @@ def install_package(android_path, emulator_file, api_level, sys_img):
     subprocess.check_call('xterm -e \"{cmd}\"'.format(cmd=cmd), shell=True)
 
 
-def create_avd(android_path, avd_name, api_level):
+def create_avd(android_path, device, skin, avd_name, api_level):
     """
     Create android virtual device.
 
     :param android_path: location where android SDK is installed
     :type android_path: str
+    :param device: name of device
+    :type device: str
+    :param skin: emulator skin that want to be used
+    :type skin: str
     :param avd_name: desire name
     :type avd_name: str
     :param api_level: api level
@@ -83,6 +86,8 @@ def create_avd(android_path, avd_name, api_level):
 
     # Create android emulator
     cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
+    if device and skin:
+        cmd += ' -d {device} -s {skin}'.format(device=device.replace(' ', '\ '), skin=skin)
     logger.info('Emulator creation command : {cmd}'.format(cmd=cmd))
     subprocess.check_call('xterm -e \"{cmd}\"'.format(cmd=cmd), shell=True)
 

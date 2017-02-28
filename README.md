@@ -15,7 +15,7 @@ Docker is installed in your system.
 Features
 --------
 
-1. Android emulator
+1. Android emulator with different devices / skins
 2. noVNC
 3. Appium server
 4. Able to connect to selenium grid
@@ -28,25 +28,21 @@ Quick Start
 
 1. Enable **Virtualization** under **System Setup** in **BIOS**. (It is only for Ubuntu OS. If you use different OS, you can skip this step).
 
-2. Run docker-appium with command:
+2. Run docker-appium.
+
+  **Optional arguments**
+
+	    --privileged              			: Only for ubuntu OS. This flag allow to use system image x86 for better performance
+	    -v <path_of_apk>:/target_apk      	: Path of android apk that want to be tested
+	    -e DEVICE="<device_name>"       	: Device name. Default device is Nexus 5
+	    -e ANDROID_VERSION=<android_version>: Android version of emulator. Default android version is 5.0
+	    -e EMULATOR_TYPE=<armeabi/x86>      : Emulator system image. Default system image is armeabi
+
+    **An Example command to run docker-appium under linux**
 
     ```bash
-    docker run -d -p 6080:6080 -p 4723:4723 -v <path_of_apk_that_want_to_be_tested>:/target_apk -e ANDROID_VERSION=<target_android_version> -e EMULATOR_TYPE=<emulator_type> -e CONNECT_TO_GRID=<True/False> --name appium-container butomo1989/docker-appium
+    docker run --privileged -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e DEVICE="Nexus 5" -e ANDROID_VERSION=5.0 -e EMULATOR_TYPE=armeabi --name appium-container butomo1989/docker-appium
     ```
-
-    An Example:
-
-    ```bash
-    docker run -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e ANDROID_VERSION=4.2.2 -e EMULATOR_TYPE=armeabi -e CONNECT_TO_GRID=False --name appium-container butomo1989/docker-appium
-    ```
-  **Optional arguments for CONNECT\_TO\_GRID=True**
-
-    -e APPIUM_HOST="<host_ip_address>": if appium is running under different host. default value: 127.0.0.1
-    -e APPIUM_PORT=<port_number>: if appium is running under different port. default port: 4723
-    -e SELENIUM_HOST="<host_ip_address>": if selenium hub is running under different host. default value: 172.17.0.1
-    -e SELENIUM_PORT=<port_number>: if selenium hub is running under different port. default port: 4444
-
-  **Note: use flag *--privileged* and *EMULATOR_TYPE=x86* for ubuntu OS to make emulator faster**
 
 2. Verify the ip address of docker-machine.
 
@@ -58,7 +54,7 @@ Quick Start
 
    - For different OS, localhost should work.
 
-3. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser and connect to it without password.
+3. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser.
 
    ![][noVNC]
 
@@ -66,17 +62,60 @@ Quick Start
 
    ![][Appium is ready]
 
-   *The name of created emulator can be seen in that terminal. In screenshot above, the emulator name is* ***emulator_4.2.2***.
+   *The name of created emulator can be seen in that terminal. In screenshot above, the emulator name is* ***nexus\_5_5.0***.
 
 5. Run your UI tests by using docker-appium and Android emulator will be started automatically by following desire capability:
 
    ```
    desired_caps = {
-      'avd': 'emulator_4.2.2'
+      'avd': 'nexus_5_5.0'
    }
    ```
 
 ***Note: In folder "example" there is an example of Appium-UITest that is written in python.***
 
+Connect to Selenium Grid
+------------------------
+pass environment variable **CONNECT\_TO\_GRID=True** to connect docker-appium to your selenium grid.
+
+**Optional arguments**
+
+    -e APPIUM_HOST="<host_ip_address>"    : where / on which instance is appium server running. Default value: 127.0.0.1
+    -e APPIUM_PORT=<port_number>      : which port is appium server running. Default port: 4723
+    -e SELENIUM_HOST="<host_ip_address>"  : where / on which instance is selenium grid running. Default value: 172.17.0.1
+    -e SELENIUM_PORT=<port_number>      : which port is selenium grid running. default port: 4444
+
+![][connect to grid 1]  ![][connect to grid 2]
+
+List of Devices
+---------------
+Type | Device Name
+--- | ---
+Phone | Galaxy Nexus
+Phone | Nexus 4
+Phone | Nexus 5
+Phone | Nexus 5x
+Phone | Nexus 6
+Phone | Nexus 6P
+Phone | Nexus One
+Phone | Nexus S
+Tablet | Pixel C
+Tablet | Nexus 7
+Tablet | Nexus 9
+Tablet | Nexus 10
+
+![][nexus 5]
+
+Troubleshooting
+---------------
+All logs inside container are stored under folder **/var/log/supervisor**. you can print out log file by using **docker exec**. Example:
+
+```bash
+docker exec -it appium-container tail -f /var/log/supervisor/docker-appium.stdout.log
+```
+
 [noVNC]: <images/noVNC.png> "login with noVNC to see what happen inside container"
 [Appium is ready]: <images/appium.png> "appium is ready"
+[connect to grid 1]: <images/appium_with_selenium_grid_01.png>
+[connect to grid 2]: <images/appium_with_selenium_grid_02.png>
+[nexus 5]: <images/run_under_nexus_5.png>
