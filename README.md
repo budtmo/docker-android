@@ -80,10 +80,10 @@ pass environment variable **CONNECT\_TO\_GRID=True** to connect docker-appium to
 
 **Optional arguments**
 
-    -e APPIUM_HOST="<host_ip_address>"    : where / on which instance is appium server running. Default value: 127.0.0.1
-    -e APPIUM_PORT=<port_number>      : which port is appium server running. Default port: 4723
-    -e SELENIUM_HOST="<host_ip_address>"  : where / on which instance is selenium grid running. Default value: 172.17.0.1
-    -e SELENIUM_PORT=<port_number>      : which port is selenium grid running. default port: 4444
+    -e APPIUM_HOST="<host_ip_address>"	: where / on which instance is appium server running. Default value: 127.0.0.1
+    -e APPIUM_PORT=<port_number>		: which port is appium server running. Default port: 4723
+    -e SELENIUM_HOST="<host_ip_address>": where / on which instance is selenium grid running. Default value: 172.17.0.1
+    -e SELENIUM_PORT=<port_number>		: which port is selenium grid running. default port: 4444
 
 ![][connect to grid 1]  ![][connect to grid 2]
 
