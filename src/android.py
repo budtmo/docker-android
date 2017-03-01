@@ -59,8 +59,10 @@ def install_package(android_path, emulator_file, api_level, sys_img):
     # Install package based on given android version
     cmd = 'echo y | android update sdk --no-ui -a -t android-{api},sys-img-{sys_img}-android-{api}'.format(
         api=api_level, sys_img=sys_img)
-    logger.info('Android installation command : {install}'.format(install=cmd))
-    subprocess.check_call('xterm -e \"{cmd}\"'.format(cmd=cmd), shell=True)
+    logger.info('SDK package installation command: {install}'.format(install=cmd))
+    titel = 'SDK package installation process'
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
+        titel=titel, cmd=cmd), shell=True)
 
 
 def create_avd(android_path, device, skin, avd_name, api_level):
@@ -88,8 +90,10 @@ def create_avd(android_path, device, skin, avd_name, api_level):
     cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
     if device and skin:
         cmd += ' -d {device} -s {skin}'.format(device=device.replace(' ', '\ '), skin=skin)
-    logger.info('Emulator creation command : {cmd}'.format(cmd=cmd))
-    subprocess.check_call('xterm -e \"{cmd}\"'.format(cmd=cmd), shell=True)
+    logger.info('AVD creation command: {cmd}'.format(cmd=cmd))
+    titel = 'AVD creation process'
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
+        titel=titel, cmd=cmd), shell=True)
 
 
 def get_available_sdk_packages():
@@ -99,9 +103,8 @@ def get_available_sdk_packages():
     :return: List of available packages.
     :rtype: bytearray
     """
-    cmd = ['android', 'list', 'sdk']
-    output_str = subprocess.check_output(cmd)
     logger.info('List of Android SDK: ')
+    output_str = subprocess.check_output('android list sdk'.split())
     logger.info(output_str)
     return [output.strip() for output in output_str.split('\n')] if output_str else None
 

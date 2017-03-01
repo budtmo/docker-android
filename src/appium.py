@@ -30,8 +30,9 @@ def run(connect_to_grid, emulator_name, android_version):
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
-    subprocess.check_call('xterm -T "{name}" -n "{name}" -e \"{cmd}\"'.format(
-        name=emulator_name, cmd=cmd), shell=True)
+    titel = 'avd name: {name}'.format(name=emulator_name)
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
+        titel=titel, cmd=cmd), shell=True)
 
 
 def create_node_config(config_file, emulator_name, android_version, appium_host, appium_port,
