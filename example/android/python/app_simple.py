@@ -9,9 +9,8 @@ class SimpleAndroidUITests(unittest.TestCase):
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
-            'platformVersion': '4.2',
             'app': '/target_apk/sample_apk_debug.apk',
-            'avd': 'emulator_4.2.2'
+            'avd': 'nexus_5_5.0'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 

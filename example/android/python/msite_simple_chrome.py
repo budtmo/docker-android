@@ -9,13 +9,12 @@ class MSiteChromeAndroidUITests(unittest.TestCase):
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
-            'platformVersion': '4.2',
             #  For emulator type armeabi, please use browser apk :
             # /root/browser_apk/chrome_55.0.2883.91-288309100_min_android4.1_armeabi-v7a.apk
             'app': '/root/browser_apk/chrome_55.0.2883.91_min_android4.1_x86.apk',
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
-            'avd': 'emulator_4.2.2'
+            'avd': 'nexus_5_5.0'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 

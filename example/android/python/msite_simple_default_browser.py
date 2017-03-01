@@ -9,10 +9,9 @@ class MSiteDefaultBrowserAndroidUITests(unittest.TestCase):
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
-            'platformVersion': '4.2',
             'appPackage': 'com.android.browser',
             'appActivity': 'com.android.browser.BrowserActivity',
-            'avd': 'emulator_4.2.2'
+            'avd': 'nexus_5_5.0'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
