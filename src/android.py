@@ -6,6 +6,13 @@ import subprocess
 logging.basicConfig()
 logger = logging.getLogger('android')
 
+# not using enum because need to install pip that will make docker image size bigger
+TYPE_ARMEABI = 'armeabi'
+TYPE_X86 = 'x86'
+TYPE_X86_64 = 'x86_64'
+
+API_LEVEL_ANDROID_5 = 21
+
 
 def get_api_level(android_version):
     """
@@ -65,7 +72,7 @@ def install_package(android_path, emulator_file, api_level, sys_img):
         titel=titel, cmd=cmd), shell=True)
 
 
-def create_avd(android_path, device, skin, avd_name, api_level):
+def create_avd(android_path, device, skin, avd_name, sys_img, api_level):
     """
     Create android virtual device.
 
@@ -77,19 +84,26 @@ def create_avd(android_path, device, skin, avd_name, api_level):
     :type skin: str
     :param avd_name: desire name
     :type avd_name: str
+    :param sys_img: system image
+    :type sys_img: str
     :param api_level: api level
     :type api_level: str
     """
-    # Link emulator skins
-    skins_rsc = os.path.join(android_path, 'skins')
-    skins_dst = os.path.join(android_path, 'platforms', 'android-{api}'.format(api=api_level), 'skins')
-    for skin_file in os.listdir(skins_rsc):
-        os.symlink(os.path.join(skins_rsc, skin_file), os.path.join(skins_dst, skin_file))
+    # Bug: cannot use skin for system image x86 with android version < 5.0
+    if sys_img == TYPE_X86:
+        cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
+    else:
+        # Link emulator skins
+        skins_rsc = os.path.join(android_path, 'skins')
+        skins_dst = os.path.join(android_path, 'platforms', 'android-{api}'.format(api=api_level), 'skins')
+        for skin_file in os.listdir(skins_rsc):
+            os.symlink(os.path.join(skins_rsc, skin_file), os.path.join(skins_dst, skin_file))
 
-    # Create android emulator
-    cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
-    if device and skin:
-        cmd += ' -d {device} -s {skin}'.format(device=device.replace(' ', '\ '), skin=skin)
+        # Create android emulator
+        cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
+        if device and skin:
+            cmd += ' -d {device} -s {skin}'.format(device=device.replace(' ', '\ '), skin=skin)
+
     logger.info('AVD creation command: {cmd}'.format(cmd=cmd))
     titel = 'AVD creation process'
     subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(

@@ -89,6 +89,9 @@ pass environment variable **CONNECT\_TO\_GRID=True** to connect docker-appium to
 
 List of Devices
 ---------------
+
+For **EMULATOR_TYPE=x86** and android version < 5.0 this feature will be not available.
+
 Type | Device Name
 --- | ---
 Phone | Galaxy Nexus
