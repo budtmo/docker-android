@@ -96,8 +96,11 @@ def create_avd(android_path, device, skin, avd_name, sys_img, api_level):
         # Link emulator skins
         skins_rsc = os.path.join(android_path, 'skins')
         skins_dst = os.path.join(android_path, 'platforms', 'android-{api}'.format(api=api_level), 'skins')
-        for skin_file in os.listdir(skins_rsc):
-            os.symlink(os.path.join(skins_rsc, skin_file), os.path.join(skins_dst, skin_file))
+
+        for provider in os.listdir(skins_rsc):
+            provider_devices = os.path.join(skins_rsc, provider)
+            for device in os.listdir(provider_devices):
+                os.symlink(os.path.join(provider_devices, device), os.path.join(skins_dst, device))
 
         # Create android emulator
         cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
