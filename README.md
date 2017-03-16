@@ -15,7 +15,7 @@ Docker is installed in your system.
 Features
 --------
 
-1. Android emulator with different devices / skins
+1. Android emulator with different devices
 2. noVNC
 3. Appium server
 4. Able to connect to selenium grid
@@ -92,9 +92,11 @@ List of Devices
 
 For **EMULATOR_TYPE=x86** and android version < 5.0 this feature will be not available.
 
+![][galaxy s6] ![][nexus 5]
+
 Type | Device Name
 --- | ---
-Phone | Galaxy Nexus
+Phone | Samsung Galaxy S6
 Phone | Nexus 4
 Phone | Nexus 5
 Phone | Nexus 5x
@@ -106,8 +108,6 @@ Tablet | Pixel C
 Tablet | Nexus 7
 Tablet | Nexus 9
 Tablet | Nexus 10
-
-![][nexus 5]
 
 Troubleshooting
 ---------------
@@ -121,4 +121,5 @@ docker exec -it appium-container tail -f /var/log/supervisor/docker-appium.stdou
 [Appium is ready]: <images/appium.png> "appium is ready"
 [connect to grid 1]: <images/appium_with_selenium_grid_01.png>
 [connect to grid 2]: <images/appium_with_selenium_grid_02.png>
+[galaxy s6]: <images/run_under_galaxy_s6.png>
 [nexus 5]: <images/run_under_nexus_5.png>

@@ -1,1 +1,0 @@
-copied from Android Studio IDE

@@ -101,10 +101,10 @@ EXPOSE 6080
 #==================
 COPY browser_apk /root/browser_apk
 
-#====================
-# Add Emulator Skins
-#====================
-COPY skins /root/skins
+#======================
+# Add Emulator Devices
+#======================
+COPY devices /root/devices
 
 #===================
 # Run docker-appium

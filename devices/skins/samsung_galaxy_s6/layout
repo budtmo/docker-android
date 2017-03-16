@@ -1,0 +1,459 @@
+parts {
+    portrait {
+        background {
+            image   S6_Port.png
+        }
+		buttons {
+            soft-left {
+                    image port-button1.png
+                    x 131
+                    y 1015
+            }
+            home {
+                    image port-button2.png
+                    x 240
+                    y 1006
+            }
+            back {
+                    image port-button3.png
+                    x 431
+                    y 1015
+            }
+		}	
+    }
+    landscape {
+        background {
+            image   S6_Land.png
+        }
+		buttons {
+            soft-left {
+                    image land-button1.png
+                     x 1019
+                     y 411
+            }
+            home {
+                    image land-button2.png
+                    x 1010
+                    y 222
+            }
+            back {
+                    image land-button3.png
+                    x 1021
+                    y 113
+            }
+		}
+    }
+
+    device {
+        display {
+            width   474
+            height  839
+            x       0
+            y       0
+        }
+    }
+    
+    controls {
+        background {
+            image   controls.png
+        }
+        buttons {
+            soft-left {
+                    image button.png
+                    x 61
+                    y 147
+            }
+            home {
+                    image button.png
+                    x 5
+                    y 147
+            }
+            back {
+                    image button.png
+                    x 117
+                    y 147
+            }
+            dpad-up {
+                    image arrow_up.png
+                    x 77
+                    y 53
+            }
+            dpad-down {
+                    image arrow_down.png
+                    x 77
+                    y 106
+            }
+            dpad-left {
+                    image arrow_left.png
+                    x 53
+                    y 53
+            }
+            dpad-right {
+                    image arrow_right.png
+                    x 123
+                    y 53
+            }
+            dpad-center {
+                    image select.png
+                    x 77
+                    y 81
+            }
+            phone-dial {
+                    image button.png
+                    x 5
+                    y 76
+            }
+            phone-hangup {
+                    image button.png
+                    x 173
+                    y 76
+            }
+
+            power {
+                    image button.png
+                    x 173
+                    y 5
+            }
+
+            volume-up {
+                    image button.png
+                    x 117
+                    y 5
+            }
+
+            volume-down {
+                    image button.png
+                    x 61
+                    y 5
+            }
+
+            search {
+                    image button.png
+                    x 173
+                    y 147
+            }
+
+        }
+    }
+
+    keyboard {
+        background {
+            image   keyboard.png
+        }
+        buttons {
+            1 {
+                image  key-num.png
+                x  6
+                y  3
+            }
+            2 {
+                image  key-num.png
+                x 44
+                y 3
+            }
+            3 {
+                image  key-num.png
+                x 82
+                y 3
+            }
+            4 {
+                image  key-num.png
+                x 120
+                y 3
+            }
+            5 {
+                image  key-num.png
+                x 158
+                y 3
+            }
+            6 {
+                image  key-num.png
+                x 196
+                y 3
+            }
+            7 {
+                image  key-num.png
+                x 234
+                y 3
+            }
+            8 {
+                image  key-num.png
+                x 272
+                y 3
+            }
+            9 {
+                image  key-num.png
+                x 309
+                y 3
+            }
+            0 {
+                image  key-num.png
+                x 348S
+                y 3
+            }
+
+            q {
+                image  key.png
+                x  6
+                y  23
+            }
+            w {
+                image  key.png
+                x 44
+                y 23
+            }
+            e {
+                image  key.png
+                x 82
+                y 23
+            }
+            r {
+                image  key.png
+                x 120
+                y 23
+            }
+            t {
+                image  key.png
+                x 158
+                y 23
+            }
+            y {
+                image  key.png
+                x 196
+                y 23
+            }
+            u {
+                image  key.png
+                x 234
+                y 23
+            }
+            i {
+                image  key.png
+                x 272
+                y 23
+            }
+            o {
+                image  key.png
+                x 310
+                y 23
+            }
+            p {
+                image  key.png
+                x 347
+                y 23
+            }
+
+            a {
+                image  key.png
+                x  25
+                y 47
+            }
+            s {
+                image  key.png
+                x 63
+                y 47
+            }
+            d {
+                image  key.png
+                x 101
+                y 47
+            }
+            f {
+                image  key.png
+                x 139
+                y 47
+            }
+            g {
+                image  key.png
+                x 177
+                y 47
+            }
+            h {
+                image  key.png
+                x 215
+                y 47
+            }
+            j {
+                image  key.png
+                x 253
+                y 47
+            }
+            k {
+                image  key.png
+                x 291
+                y 47
+            }
+            l {
+                image  key.png
+                x 329
+                y 47
+            }
+            
+
+            CAP {
+                image  key2.png
+                x  5
+                y 71
+            }
+            z {
+                image  key.png
+                x 63
+                y 71
+            }
+            x {
+                image  key.png
+                x 101
+                y 71
+            }
+            c {
+                image  key.png
+                x 139
+                y 71
+            }
+            v {
+                image  key.png
+                x 177
+                y 71
+            }
+            b {
+                image  key.png
+                x 215
+                y 71
+            }
+            n {
+                image  key.png
+                x 253
+                y 71
+            }
+            m {
+                image  key.png
+                x 291
+                y 71
+            }
+			DEL {
+                image  key2.png
+                x 329
+                y 71
+            }
+			
+			SYM {
+                image  key2.png
+                x  6
+                y 95
+            }
+			T {
+                image  key.png
+                x 63
+                y 95
+            }
+			SPACE {
+                image  spacebar.png
+                x 100
+                y 95
+            }
+            PERIOD {
+                image  key.png
+                x 291
+                y 95
+            }
+            NEXT {
+                image  key2.png
+                x 329
+                y 95
+            }
+
+           
+            
+            
+            
+
+        }
+    }
+}
+
+layouts {
+    portrait {
+        width     1000
+        height    1100
+        color     0xe0e0e0
+        event     EV_SW:0:1
+        
+        part1 {
+            name    portrait
+            x       0
+            y       0
+        }
+
+        part2 {
+            name    landscape
+            x       1000
+            y       0
+        }
+
+        part3 {
+            name    device
+            x       57
+            y       133
+        }
+        part4 {
+            name    controls
+            x       691
+            y       266
+        }
+        part5 {
+            name    keyboard
+            x       608
+            y       649
+        }
+
+    }
+
+    landscape {
+        width     1100
+        height    1000
+        color     0xe0e0e0
+        event     EV_SW:0:0
+
+        dpad-rotation 3
+
+        part1 {
+            name    portrait
+            x       950
+            y       0
+        }
+
+        part2 {
+            name    landscape
+            x       0
+            y       0
+        }
+
+        part3 {
+            name      device
+            x         134
+            y         516
+            rotation  3
+        }
+
+        part4 {
+            name     controls
+            x        720
+            y        716
+        }
+
+        part5 {
+            name     keyboard
+            x        89
+            y        716
+        }
+    }
+}
+
+keyboard {
+    charmap qwerty2
+}
+
+network {
+    speed  full
+    delay  none
+}

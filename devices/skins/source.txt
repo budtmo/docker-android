@@ -1,0 +1,3 @@
+Sources:
+1. Android Studio IDE
+2. http://developer.samsung.com/technical-doc/view.do?v=T000000095
