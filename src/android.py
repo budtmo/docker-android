@@ -37,8 +37,7 @@ def get_item_position(keyword, items):
     pos = 0
     for p, v in enumerate(items):
         if keyword in v:
-            pos = p
-            break  # Get the first item that match with keyword
+            pos = p  # Get the last item that match with keyword
     return pos
 
 
@@ -58,8 +57,9 @@ def get_api_level(android_version):
 
         if packages:
             item_pos = get_item_position(android_version, packages)
-            logger.info('package in position: {pos}'.format(pos=item_pos))
+            logger.info('Package in position: {pos}'.format(pos=item_pos))
             item = packages[item_pos]
+            logger.info('Item: {item}'.format(item=item))
 
             item_info = item.split('-')
             api_version = re.search('%s(.*)%s' % ('API', ','), item_info[1]).group(1).strip()

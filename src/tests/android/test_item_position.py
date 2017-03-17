@@ -13,7 +13,7 @@ class TestItemPosition(TestCase):
     def test_valid_params(self):
         keyword = '4.2'
         output = android.get_item_position(keyword, self.items)
-        self.assertEqual(1, output)
+        self.assertEqual(4, output)
 
     def test_invalid_keyword(self):
         keyword = 'fake'
