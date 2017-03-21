@@ -1,44 +1,37 @@
 import logging
 import os
-import re
 import subprocess
 
-logging.basicConfig()
+from src import ANDROID_PATH
+
 logger = logging.getLogger('android')
 
-# not using enum because need to install pip that will make docker image size bigger
+EMULATOR = 'emulator'
 TYPE_ARMEABI = 'armeabi'
 TYPE_X86 = 'x86'
 TYPE_X86_64 = 'x86_64'
 
-API_LEVEL_ANDROID_5 = 21
-
-
-def get_available_sdk_packages():
-    """
-    Get list of available sdk packages.
-
-    :return: List of available packages.
-    :rtype: bytearray
-    """
-    logger.info('List of Android SDK: ')
-    output_str = subprocess.check_output('android list sdk'.split())
-    logger.info(output_str)
-    return [output.strip() for output in output_str.split('\n')] if output_str else None
-
-
-def get_item_position(keyword, items):
-    """
-    Get position of item in array by given keyword.
-
-    :return: item position
-    :rtype: int
-    """
-    pos = 0
-    for p, v in enumerate(items):
-        if keyword in v:
-            pos = p  # Get the last item that match with keyword
-    return pos
+API_LEVELS = {
+    '2.1': 7,
+    '2.2': 8,
+    '2.3.1': 9,
+    '2.3.3': 1,
+    '3.0': 11,
+    '3.1': 12,
+    '3.2': 13,
+    '4.0': 14,
+    '4.0.3': 15,
+    '4.1.2': 16,
+    '4.2.2': 17,
+    '4.3.1': 18,
+    '4.4.2': 19,
+    '4.4W.2': 20,
+    '5.0.1': 21,
+    '5.1.1': 22,
+    '6.0': 23,
+    '7.0': 24,
+    '7.1.1': 25
+}
 
 
 def get_api_level(android_version):
@@ -47,38 +40,25 @@ def get_api_level(android_version):
 
     :param android_version: android version
     :type android_version: str
-    :return: api version
-    :rtype: str
+    :return: api level
+    :rtype: int
     """
-    api_version = None
+    api_level = None
 
     try:
-        packages = get_available_sdk_packages()
+        for key in sorted(API_LEVELS):
+            if android_version in key:
+                api_level = API_LEVELS.get(key)
+    except TypeError as t_err:
+        logger.error(t_err)
 
-        if packages:
-            item_pos = get_item_position(android_version, packages)
-            logger.info('Package in position: {pos}'.format(pos=item_pos))
-            item = packages[item_pos]
-            logger.info('Item: {item}'.format(item=item))
-
-            item_info = item.split('-')
-            api_version = re.search('%s(.*)%s' % ('API', ','), item_info[1]).group(1).strip()
-            logger.info('API level: {api}'.format(api=api_version))
-        else:
-            raise RuntimeError('List of packages is empty!')
-
-    except IndexError as i_err:
-        logger.error(i_err)
-
-    return api_version
+    return api_level
 
 
-def install_package(android_path, emulator_file, api_level, sys_img):
+def install_package(emulator_file, api_level, sys_img):
     """
     Install sdk package.
 
-    :param android_path: location where android SDK is installed
-    :type android_path: str
     :param emulator_file: emulator file that need to be link
     :type emulator_file: str
     :param api_level: api level
@@ -87,8 +67,8 @@ def install_package(android_path, emulator_file, api_level, sys_img):
     :type sys_img: str
     """
     # Link emulator shortcut
-    emu_file = os.path.join(android_path, 'tools', emulator_file)
-    emu_target = os.path.join(android_path, 'tools', 'emulator')
+    emu_file = os.path.join(ANDROID_PATH, 'tools', emulator_file)
+    emu_target = os.path.join(ANDROID_PATH, 'tools', 'emulator')
     os.symlink(emu_file, emu_target)
 
     # Install package based on given android version
@@ -96,16 +76,13 @@ def install_package(android_path, emulator_file, api_level, sys_img):
         api=api_level, sys_img=sys_img)
     logger.info('SDK package installation command: {install}'.format(install=cmd))
     titel = 'SDK package installation process'
-    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
-        titel=titel, cmd=cmd), shell=True)
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
 
 
-def create_avd(android_path, device, avd_name, api_level):
+def create_avd(device, avd_name, api_level):
     """
     Create android virtual device.
 
-    :param android_path: location where android SDK is installed
-    :type android_path: str
     :param device: name of device
     :type device: str
     :param avd_name: desire name
@@ -115,13 +92,13 @@ def create_avd(android_path, device, avd_name, api_level):
     """
     # Create android emulator
     cmd = 'echo no | android create avd -f -n {name} -t android-{api}'.format(name=avd_name, api=api_level)
-    if device != 'emulator':
+    if device != EMULATOR:
         # Link emulator skins
         from src import ROOT
         skin_rsc_path = os.path.join(ROOT, 'devices', 'skins')
         logger.info('Skin ressource path: {rsc}'.format(rsc=skin_rsc_path))
 
-        skin_dst_path = os.path.join(android_path, 'platforms', 'android-{api}'.format(api=api_level), 'skins')
+        skin_dst_path = os.path.join(ANDROID_PATH, 'platforms', 'android-{api}'.format(api=api_level), 'skins')
         logger.info('Skin destination path: {dst}'.format(dst=skin_dst_path))
 
         for s in os.listdir(skin_rsc_path):
@@ -146,5 +123,4 @@ def create_avd(android_path, device, avd_name, api_level):
 
     logger.info('AVD creation command: {cmd}'.format(cmd=cmd))
     titel = 'AVD creation process'
-    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
-        titel=titel, cmd=cmd), shell=True)
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)

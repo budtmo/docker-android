@@ -12,7 +12,6 @@ class TestAvd(TestCase):
     """Unit test class to test method create_avd."""
 
     def setUp(self):
-        self.android_path = '/root'
         self.avd_name = 'test_avd'
         self.api_level = 21
 
@@ -22,7 +21,7 @@ class TestAvd(TestCase):
             self.assertFalse(mocked_list_dir.called)
             self.assertFalse(mocked_sys_link.called)
             self.assertFalse(mocked_suprocess.called)
-            android.create_avd(self.android_path, 'Nexus 5', self.avd_name, self.api_level)
+            android.create_avd('Nexus 5', self.avd_name, self.api_level)
             self.assertTrue(mocked_list_dir.called)
             self.assertTrue(mocked_sys_link.called)
             self.assertTrue(mocked_suprocess.called)
@@ -33,7 +32,7 @@ class TestAvd(TestCase):
             self.assertFalse(mocked_list_dir.called)
             self.assertFalse(mocked_sys_link.called)
             self.assertFalse(mocked_suprocess.called)
-            android.create_avd(self.android_path, 'Samsung Galaxy S6', self.avd_name, self.api_level)
+            android.create_avd('Samsung Galaxy S6', self.avd_name, self.api_level)
             self.assertTrue(mocked_list_dir.called)
             self.assertTrue(mocked_sys_link.called)
             self.assertTrue(mocked_suprocess.called)
@@ -44,5 +43,5 @@ class TestAvd(TestCase):
             self.assertFalse(mocked_list_dir.called)
             self.assertFalse(mocked_sys_link.called)
             self.assertFalse(mocked_suprocess.called)
-            android.create_avd(self.android_path, 'emulator', self.avd_name, self.api_level)
+            android.create_avd('emulator', self.avd_name, self.api_level)
             self.assertFalse(mocked_list_dir.called)

@@ -46,8 +46,8 @@ ENV PATH="${PATH}:${JAVA_HOME}/bin"
 #=====================
 RUN apt-get install wget unzip libqt5webkit5 -y
 
-RUN wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
-RUN unzip tools_r25.2.3-linux.zip && rm tools_r25.2.3-linux.zip
+RUN wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip && \
+    unzip tools_r25.2.3-linux.zip && rm tools_r25.2.3-linux.zip
 ENV ANDROID_HOME="/root"
 ENV PATH="${PATH}:${ANDROID_HOME}/tools"
 
@@ -55,9 +55,8 @@ ENV PATH="${PATH}:${ANDROID_HOME}/tools"
 # Install Platform-tools, Build-tools
 # To see list of available packages: android list sdk
 #=====================================================
-RUN echo y | android update sdk --no-ui --filter 2,3
-ENV PATH="${PATH}:${ANDROID_HOME}/platform-tools"
-ENV PATH="${PATH}:${ANDROID_HOME}/build-tools"
+RUN echo y | android update sdk --no-ui --filter platform-tools,build-tools-25.0.2
+ENV PATH="${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools"
 RUN mv ${ANDROID_HOME}/tools/emulator ${ANDROID_HOME}/tools/emulator.backup
 
 #====================================

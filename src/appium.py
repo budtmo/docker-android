@@ -6,14 +6,14 @@ import subprocess
 logger = logging.getLogger('appium')
 
 
-def run(connect_to_grid, emulator_name, android_version):
+def run(connect_to_grid, avd_name, android_version):
     """
     Run appium server.
 
     :param connect_to_grid: option to connect with selenium grid
     :type connect_to_grid: bool
-    :param emulator_name: name of emulator
-    :type emulator_name: str
+    :param avd_name: name of device
+    :type avd_name: str
     :param android_version: android version
     :type android_version: str
     """
@@ -25,14 +25,13 @@ def run(connect_to_grid, emulator_name, android_version):
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
-            create_node_config(CONFIG_FILE, emulator_name, android_version,
-                               appium_host, appium_port, selenium_host, selenium_port)
+            create_node_config(CONFIG_FILE, avd_name, android_version, appium_host, appium_port,
+                               selenium_host, selenium_port)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
-    titel = 'avd name: {name}'.format(name=emulator_name)
-    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(
-        titel=titel, cmd=cmd), shell=True)
+    titel = 'avd name: {name}'.format(name=avd_name)
+    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
 
 
 def create_node_config(config_file, emulator_name, android_version, appium_host, appium_port,
