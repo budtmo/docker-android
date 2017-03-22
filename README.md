@@ -4,6 +4,8 @@ Docker-Android-Appium
 [![Build Status](https://travis-ci.org/butomo1989/docker-appium.svg?branch=master)](https://travis-ci.org/butomo1989/docker-appium)
 [![codecov](https://codecov.io/gh/butomo1989/docker-appium/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-appium)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
+[![](https://images.microbadger.com/badges/image/butomo1989/docker-appium.svg)](https://microbadger.com/images/butomo1989/docker-appium "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/butomo1989/docker-appium.svg)](https://microbadger.com/images/butomo1989/docker-appium "Get your own version badge on microbadger.com")
 
 Android emulator and Appium server in docker solution with noVNC supported.
 
