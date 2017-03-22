@@ -18,6 +18,8 @@ WORKDIR /root
 #   Unzip zip file
 # curl
 #   Transfer data from or to a server
+# xterm
+#   Terminal emulator
 # supervisor
 #   Process manager
 # openjdk-8-jdk
@@ -49,11 +51,12 @@ WORKDIR /root
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     wget \
     unzip \
     curl \
+    xterm \
     supervisor \
     openjdk-8-jdk \
     libqt5webkit5 \
@@ -87,7 +90,7 @@ ENV SDK_VERSION=25.2.3 \
 RUN wget -O android.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip \
  && unzip android.zip && rm android.zip
 ENV PATH ${PATH}:${ANDROID_HOME}/tools
-RUN echo y | android update sdk --no-ui --filter platform-tools,build-tools-${BUILD_TOOL}
+RUN echo y | android update sdk --no-ui -a --filter platform-tools,build-tools-${BUILD_TOOL}
 ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools
 RUN mv ${ANDROID_HOME}/tools/emulator ${ANDROID_HOME}/tools/emulator.backup
 
