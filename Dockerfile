@@ -78,21 +78,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone https://github.com/kanaka/noVNC.git \
  && cd noVNC/utils && git clone https://github.com/kanaka/websockify websockify
 
-#======================================
-# Install Android SDK and its packages
-#======================================
+#=====================
+# Install Android SDK
+#=====================
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
 ENV SDK_VERSION=25.2.3 \
-    BUILD_TOOL=25.0.2 \
     ANDROID_HOME=/root
 RUN wget -O android.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip \
  && unzip android.zip && rm android.zip
 ENV PATH ${PATH}:${ANDROID_HOME}/tools
-RUN echo y | android update sdk --no-ui -a --filter platform-tools,build-tools-${BUILD_TOOL}
-ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools
-RUN mv ${ANDROID_HOME}/tools/emulator ${ANDROID_HOME}/tools/emulator.backup
+RUN echo y | android update sdk --no-ui -a --filter platform-tools
+ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools
 
 #====================================
 # Install latest nodejs, npm, appium
@@ -101,6 +99,26 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/*
 ENV APPIUM_VERSION 1.6.3
 RUN npm install -g appium@$APPIUM_VERSION && npm cache clean
+
+#======================
+# Install SDK packages
+#======================
+ARG ANDROID_VERSION=5.0.1
+ARG BUILD_TOOL=21.1.2
+ARG API_LEVEL=21
+ARG PROCESSOR=x86
+ARG SYS_IMG=x86_64
+ENV ANDROID_VERSION=$ANDROID_VERSION \
+    BUILD_TOOL=$BUILD_TOOL \
+    API_LEVEL=$API_LEVEL \
+    PROCESSOR=$PROCESSOR \
+    SYS_IMG=$SYS_IMG
+RUN echo y | android update sdk --no-ui -a --filter build-tools-${BUILD_TOOL}
+ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
+
+RUN rm ${ANDROID_HOME}/tools/emulator \
+ && ln -s ${ANDROID_HOME}/tools/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
+RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-android-${API_LEVEL}
 
 #================================================
 # noVNC Default Configurations
@@ -127,11 +145,6 @@ RUN ln -s noVNC/vnc_auto.html noVNC/index.html
 #===============
 EXPOSE 4723 6080
 
-#==================
-# Add Browser APKs
-#==================
-COPY browser_apk /root/browser_apk
-
 #======================
 # Add Emulator Devices
 #======================
@@ -140,6 +153,6 @@ COPY devices /root/devices
 #===================
 # Run docker-appium
 #===================
-COPY supervisord.conf /root/
 COPY src /root/src
+COPY supervisord.conf /root/
 CMD /usr/bin/supervisord --configuration supervisord.conf
