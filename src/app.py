@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import logging
 import os
@@ -10,14 +12,12 @@ log.init()
 logger = logging.getLogger('app')
 
 
-def get_or_raise(env):
+def get_or_raise(env: str) -> str:
     """
     Check if needed environment variables are given.
 
     :param env: key
-    :type env: str
     :return: value
-    :rtype: str
     """
     env_value = os.getenv(env)
     if not env_value:
@@ -26,14 +26,12 @@ def get_or_raise(env):
     return env_value
 
 
-def str_to_bool(str):
+def str_to_bool(str: str) -> bool:
     """
     Convert string to boolean.
 
     :param str: given string
-    :type str: str
     :return: converted string
-    :rtype: bool
     """
     try:
         return str.lower() in ('yes', 'true', 't', '1')
@@ -54,14 +52,12 @@ logger.info('Android version: {version} \n'
                                          img=SYS_IMG))
 
 
-def prepare_avd(device, avd_name):
+def prepare_avd(device: str, avd_name: str):
     """
     Create and run android virtual device.
 
     :param device: Device name
-    :type device: str
     :param avd_name: Name of android virtual device / emulator
-    :type avd_name: str
     """
     cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b {sys_img}'.format(
         name=avd_name, api=API_LEVEL, sys_img=SYS_IMG)
@@ -95,12 +91,11 @@ def prepare_avd(device, avd_name):
     subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
 
 
-def appium_run(avd_name):
+def appium_run(avd_name: str):
     """
     Run appium server.
 
     :param avd_name: Name of android virtual device / emulator
-    :type avd_name: str
     """
     cmd = 'appium'
 
@@ -120,21 +115,15 @@ def appium_run(avd_name):
     subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
 
 
-def create_node_config(avd_name, appium_host, appium_port, selenium_host, selenium_port):
+def create_node_config(avd_name: str, appium_host: str, appium_port: int, selenium_host: str, selenium_port: int):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
     :param avd_name: Name of android virtual device / emulator
-    :type avd_name: str
     :param appium_host: Host where appium server is running
-    :type appium_host: str
     :param appium_port: Port number where where appium server is running
-    :type appium_port: int
     :param selenium_host: Host where selenium server is running
-    :type selenium_host: str
     :param selenium_port: Port number where selenium server is running
-    :type selenium_port: int
-
     """
     config = {
         'capabilities': [
