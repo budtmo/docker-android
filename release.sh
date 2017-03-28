@@ -2,6 +2,7 @@
 # Bash version should >= 4 to be able to run this script.
 
 IMAGE="butomo1989/docker-android"
+LATEST_BUILD_TOOL=25.0.2
 
 if [ -z "$1" ]; then
     read -p "Environment (test|build|push|all) : " TASK
@@ -21,17 +22,16 @@ else
     PROCESSOR=$3
 fi
 
-function build_tool() {
-    declare -A build_tools=(
-        [5.0.1]=21.1.2
-        [5.1.1]=22.0.1
-        [6.0]=23.0.3
-        [7.0]=24.0.3
-        [7.1.1]=25.0.2
+function api_level() {
+    declare -A levels=(
+        [5.0.1]=21
+        [5.1.1]=22
+        [6.0]=23
+        [7.0]=24
+        [7.1.1]=25
     )
 
-    # TODO: Need to be sorted
-    for key in "${!build_tools[@]}"; do
+    for key in "${!levels[@]}"; do
         if [[ $key == *"$GIVEN_VERSION"* ]]; then
             version=$key
         fi
@@ -44,19 +44,6 @@ function build_tool() {
     fi
 
     echo "Android version: $version"
-    build_tools=${build_tools[$version]}
-    echo "Build tool: $build_tools"
-}
-
-function api_level() {
-    declare -A levels=(
-        [5.0.1]=21
-        [5.1.1]=22
-        [6.0]=23
-        [7.0]=24
-        [7.1.1]=25
-    )
-
     level=${levels[$version]}
     echo "Api level: $level"
 }
@@ -79,12 +66,12 @@ function system_image() {
 }
 
 function init() {
-    build_tool
     api_level
     system_image
 }
 
 init
+echo "Build tool: $build_tool"
 IMAGE_NAME="$IMAGE-$PROCESSOR-$version"
 echo "Image tag: $TAG"
 
@@ -97,7 +84,7 @@ function build() {
     # Remove pyc files
     find . -name "*.pyc" -exec rm -f {} \;
 
-    docker build -t $IMAGE_NAME --build-arg ANDROID_VERSION=$version --build-arg BUILD_TOOL=$$build_tools \
+    docker build -t $IMAGE_NAME --build-arg ANDROID_VERSION=$version --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
         --build-arg API_LEVEL=$level --build-arg PROCESSOR=$PROCESSOR --build-arg SYS_IMG=$sys_img .
 }
 
