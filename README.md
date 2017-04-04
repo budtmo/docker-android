@@ -1,52 +1,64 @@
-Docker-Android-Appium
-=====================
+Docker-Android
+==============
 
 [![Build Status](https://travis-ci.org/butomo1989/docker-appium.svg?branch=master)](https://travis-ci.org/butomo1989/docker-appium)
 [![codecov](https://codecov.io/gh/butomo1989/docker-appium/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-appium)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
-[![](https://images.microbadger.com/badges/image/butomo1989/docker-appium.svg)](https://microbadger.com/images/butomo1989/docker-appium "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/butomo1989/docker-appium.svg)](https://microbadger.com/images/butomo1989/docker-appium "Get your own version badge on microbadger.com")
 
-Android emulator and Appium server in docker solution with noVNC supported.
+Android in docker solution with noVNC supported
 
 Requirements
 ------------
 
 Docker is installed in your system.
 
+Purpose
+-------
+
+1. Build android project / application and run unit test inside docker-container
+2. Run UI Test for mobile website with appium framework
+3. Run UI Test for mobile application with different frameworks (appium, espresso, etc.)
+
 Features
 --------
 
 1. Android emulator with different devices
-2. noVNC
-3. Appium server
-4. Able to connect to selenium grid
-5. Browser application for mobile website testing
-  - Chrome version 55 (for x86 and armeabi)
-  - Firefox version 51 (for x86 and armeabi)
+2. latest build-tool (version 25.0.2)
+3. noVNC to see what happen inside docker container
+4. Appium server and it is able to connect with selenium grid
+
+List of Docker images
+---------------------
+
+|Supported OS   |Android version   |API level   |Image name   |Image status   |
+|:---|:---|:---|:---|:---:|
+|Linux|5.0.1|21|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
+|Linux|5.1.1|22|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
+|Linux|6.0|23|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
+|Linux|7.0|24|butomo1989/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
+|Linux|7.1.1|25|butomo1989/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
+|OSX / Windows|5.0.1|21|butomo1989/docker-android-arm-5.0.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own image badge on microbadger.com")|
+|OSX / Windows|5.1.1|22|butomo1989/docker-android-arm-5.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own image badge on microbadger.com")|
+|OSX / Windows|6.0|23|butomo1989/docker-android-arm-6.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own image badge on microbadger.com")|
+|OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
+|OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
 
 Quick Start
 -----------
 
 1. Enable **Virtualization** under **System Setup** in **BIOS**. (It is only for Ubuntu OS. If you use different OS, you can skip this step).
 
-2. Run docker-appium.
+2. Run docker-android
 
-  **Optional arguments**
+	```bash
+	docker run --privileged -d -p 6080:6080 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=False --name appium-container butomo1989/docker-android-x86-5.0.1
+	```
 
-	    --privileged              			: Only for ubuntu OS. This flag allow to use system image x86 for better performance
-	    -v <path_of_apk>:/target_apk      	: Path of android apk that want to be tested
-	    -e DEVICE="<device_name>"       	: Device name. Default device is Nexus 5
-	    -e ANDROID_VERSION=<android_version>: Android version of emulator. Default android version is 5.0
-	    -e EMULATOR_TYPE=<armeabi/x86>      : Emulator system image. Default system image is armeabi
+	**Optional arguments**
 
-    **An Example command to run docker-appium under linux**
+		-v <android_project_or_apk>:/root	: You need to share volume or apk file if for example you want to build the android project inside docker container or you want to run UI test by using appium.
+		-e APPIUM=True: If you want to use appium as UI test framework to test mobile website or android application
 
-    ```bash
-    docker run --privileged -d -p 6080:6080 -p 4723:4723 -v $PWD/example/sample_apk:/target_apk -e DEVICE="Nexus 5" -e ANDROID_VERSION=5.0 -e EMULATOR_TYPE=armeabi --name appium-container butomo1989/docker-appium
-    ```
-
-2. Verify the ip address of docker-machine.
+3. Verify the ip address of docker-machine.
 
    - For OSX, you can find out by using following command:
 
@@ -56,45 +68,27 @@ Quick Start
 
    - For different OS, localhost should work.
 
-3. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser.
+4. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser.
 
    ![][noVNC]
 
-4. Wait until the installation of selected android version packages is done and appium is ready to use by waiting following message shown in Terminal:
-
-   ![][Appium is ready]
-
-   *The name of created emulator can be seen in that terminal. In screenshot above, the emulator name is* ***nexus\_5_5.0***.
-
-5. Run your UI tests by using docker-appium and Android emulator will be started automatically by following desire capability:
-
-   ```
-   desired_caps = {
-      'avd': 'nexus_5_5.0'
-   }
-   ```
-
-***Note: In folder "example" there is an example of Appium-UITest that is written in python.***
 
 Connect to Selenium Grid
 ------------------------
-pass environment variable **CONNECT\_TO\_GRID=True** to connect docker-appium to your selenium grid.
+This feature can be used only if you set **APPIUM=True** in environment variable.
 
-**Optional arguments**
+**Arguments**
 
-    -e APPIUM_HOST="<host_ip_address>"	: where / on which instance is appium server running. Default value: 127.0.0.1
-    -e APPIUM_PORT=<port_number>		: which port is appium server running. Default port: 4723
-    -e SELENIUM_HOST="<host_ip_address>": where / on which instance is selenium grid running. Default value: 172.17.0.1
-    -e SELENIUM_PORT=<port_number>		: which port is selenium grid running. default port: 4444
+	-e CONNECT_TO_GRID=True	: to connect appium server to your selenium grid.
+	-e APPIUM_HOST="<host_ip_address>": where / on which instance appium server is running. Default value: 127.0.0.1
+    -e APPIUM_PORT=<port_number>: which port appium server is running. Default port: 4723
+    -e SELENIUM_HOST="<host_ip_address>": where / on which instance selenium grid is running. Default value: 172.17.0.1
+    -e SELENIUM_PORT=<port_number>: which port selenium grid is running. default port: 4444
 
 ![][connect to grid 1]  ![][connect to grid 2]
 
 List of Devices
 ---------------
-
-For **EMULATOR_TYPE=x86** and android version < 5.0 this feature will be not available.
-
-![][galaxy s6] ![][nexus 5]
 
 Type | Device Name
 --- | ---
@@ -111,6 +105,8 @@ Tablet | Nexus 7
 Tablet | Nexus 9
 Tablet | Nexus 10
 
+![][galaxy s6] ![][nexus 5]
+
 Troubleshooting
 ---------------
 All logs inside container are stored under folder **/var/log/supervisor**. you can print out log file by using **docker exec**. Example:
@@ -120,7 +116,6 @@ docker exec -it appium-container tail -f /var/log/supervisor/docker-appium.stdou
 ```
 
 [noVNC]: <images/noVNC.png> "login with noVNC to see what happen inside container"
-[Appium is ready]: <images/appium.png> "appium is ready"
 [connect to grid 1]: <images/appium_with_selenium_grid_01.png>
 [connect to grid 2]: <images/appium_with_selenium_grid_02.png>
 [galaxy s6]: <images/run_under_galaxy_s6.png>
