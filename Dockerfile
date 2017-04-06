@@ -10,8 +10,6 @@ WORKDIR /root
 #==================
 # General Packages
 #------------------
-# git
-#   Clone git repository
 # wget
 #   Network downloader
 # unzip
@@ -52,7 +50,6 @@ WORKDIR /root
 # bridge-utils
 #==================
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
     wget \
     unzip \
     curl \
@@ -72,11 +69,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bridge-utils \
  && rm -rf /var/lib/apt/lists/*
 
-#======================
-# Clone noVNC projects
-#======================
-RUN git clone https://github.com/kanaka/noVNC.git \
- && cd noVNC/utils && git clone https://github.com/kanaka/websockify websockify
+#=======
+# noVNC
+# Use same commit id that docker-selenium uses
+# https://github.com/elgalu/docker-selenium/blob/236b861177bd2917d864e52291114b1f5e4540d7/Dockerfile#L412-L413
+#=======
+ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
+    WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
+RUN  wget -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+ && unzip -x noVNC.zip \
+ && rm noVNC.zip  \
+ && mv noVNC-${NOVNC_SHA} noVNC \
+ && wget -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && unzip -x websockify.zip \
+ && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
+ && rm websockify.zip \
+ && ln noVNC/vnc_auto.html noVNC/index.html
 
 #=====================
 # Install Android SDK
@@ -133,7 +141,6 @@ ENV DISPLAY=:0 \
     TARGET_PORT=6080 \
     TIMEOUT=1 \
     LOG_PATH=/var/log/supervisor
-RUN ln -s noVNC/vnc_auto.html noVNC/index.html
 
 #===============
 # Expose Ports
