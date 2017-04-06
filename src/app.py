@@ -87,8 +87,7 @@ def prepare_avd(device: str, avd_name: str):
     # Append command
     cmd += ' -d {device} -s {skin}'.format(device=device_name_bash, skin=skin_name)
     logger.info('AVD creation command: {cmd}'.format(cmd=cmd))
-    titel = 'AVD creation process'
-    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
+    subprocess.check_call(cmd, shell=True)
 
 
 def appium_run(avd_name: str):
@@ -162,9 +161,15 @@ def run():
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
 
+    logger.info('Preparing emulator...')
     prepare_avd(device, avd_name)
+    logger.info('Run emulator...')
+    cmd = 'emulator -avd {name}'.format(name=avd_name)
+    subprocess.Popen(cmd.split())
+
     appium = str_to_bool(str(os.getenv('APPIUM', True)))
     if appium:
+        logger.info('Run appium server...')
         appium_run(avd_name)
 
 if __name__ == '__main__':

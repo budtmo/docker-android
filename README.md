@@ -68,7 +68,7 @@ Quick Start
 
    - For different OS, localhost should work.
 
-4. Open ***http://docker-machine-ip-address:6080/vnc.html*** from web browser.
+4. Open ***http://docker-machine-ip-address:6080*** from web browser.
 
    ![][noVNC]
 
