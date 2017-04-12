@@ -14,9 +14,10 @@ Docker is installed in your system.
 Purpose
 -------
 
-1. Build android project / application and run unit test inside docker-container
+1. Build android project / application and run unit test
 2. Run UI Test for mobile website with appium framework
 3. Run UI Test for mobile application with different frameworks (appium, espresso, etc.)
+4. Simulate Short Message Service (SMS)
 
 Features
 --------
@@ -34,13 +35,13 @@ List of Docker images
 |Linux|5.0.1|21|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
 |Linux|5.1.1|22|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
 |Linux|6.0|23|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
-|Linux|7.0|24|butomo1989/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
-|Linux|7.1.1|25|butomo1989/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
+|Linux|7.0|24|TODO because still have a Bug||
+|Linux|7.1.1|25|TODO because still have a Bug||
 |OSX / Windows|5.0.1|21|butomo1989/docker-android-arm-5.0.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own image badge on microbadger.com")|
 |OSX / Windows|5.1.1|22|butomo1989/docker-android-arm-5.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own image badge on microbadger.com")|
 |OSX / Windows|6.0|23|butomo1989/docker-android-arm-6.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own image badge on microbadger.com")|
-|OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
-|OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/version/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
+|OSX / Windows|7.0|24|TODO because still have a Bug||
+|OSX / Windows|7.1.1|25|TODO because still have a Bug||
 
 Quick Start
 -----------
@@ -50,7 +51,7 @@ Quick Start
 2. Run docker-android
 
 	```bash
-	docker run --privileged -d -p 6080:6080 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=False --name appium-container butomo1989/docker-android-x86-5.0.1
+	docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=False --name android-container butomo1989/docker-android-x86-5.0.1
 	```
 
 	**Optional arguments**
@@ -75,6 +76,7 @@ Quick Start
 
 Connect to Selenium Grid
 ------------------------
+
 This feature can be used only if you set **APPIUM=True** in environment variable.
 
 **Arguments**
@@ -107,12 +109,61 @@ Tablet | Nexus 10
 
 ![][galaxy s6] ![][nexus 5]
 
+Control android emulator outside container
+------------------------------------------
+
+```bash
+adb connect <docker-machine-ip-address>:5555
+```
+
+![][adb_connection]
+
+**Note:** You need to have Android Debug Bridge (adb) installed in your host machine.
+
+SMS Simulation
+--------------
+
+1. Using telnet
+	- Find the auth_token and copy it.
+
+	 ```bash
+	 docker exec -it android-container cat /root/.emulator_console_auth_token
+	 ```
+
+	- Access emulator using telnet and login with auth_token
+
+	 ```bash
+	 telnet <docker-machine-ip-address> 5554
+	 ```
+
+	- Login with given auth_token from 1.step
+
+	 ```bash
+	 auth <auth_token>
+	 ```
+
+	- Send the sms
+
+	 ```bash
+	 sms send <phone_number> <message>
+	 ```
+
+2. Using adb
+
+	 ```bash
+	 docker exec -it android-container adb emu sms send <phone_number> <message>
+	 ```
+
+3. You can also integrate it inside project using [adblib].
+
+![][sms]
+
 Troubleshooting
 ---------------
 All logs inside container are stored under folder **/var/log/supervisor**. you can print out log file by using **docker exec**. Example:
 
 ```bash
-docker exec -it appium-container tail -f /var/log/supervisor/docker-appium.stdout.log
+docker exec -it android-container tail -f /var/log/supervisor/docker-appium.stdout.log
 ```
 
 [noVNC]: <images/noVNC.png> "login with noVNC to see what happen inside container"
@@ -120,3 +171,6 @@ docker exec -it appium-container tail -f /var/log/supervisor/docker-appium.stdou
 [connect to grid 2]: <images/appium_with_selenium_grid_02.png>
 [galaxy s6]: <images/run_under_galaxy_s6.png>
 [nexus 5]: <images/run_under_nexus_5.png>
+[adb_connection]: <images/adb_connection.png>
+[sms]: <images/SMS.png>
+[adblib]: <https://github.com/tananaev/adblib>

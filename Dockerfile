@@ -24,6 +24,8 @@ WORKDIR /root
 #   Java
 # libqt5webkit5
 #   Web content engine (Fix issue in Android)
+# socat
+#   Port forwarder
 #------------------
 #  NoVNC Packages
 #------------------
@@ -57,6 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     supervisor \
     openjdk-8-jdk \
     libqt5webkit5 \
+    socat \
     xvfb \
     x11vnc \
     openbox \
@@ -146,11 +149,15 @@ ENV DISPLAY=:0 \
 # Expose Ports
 #---------------
 # 4723
-#   appium port
+#   Appium port
 # 6080
 #   noVNC port
+# 5554
+#   Emulator port
+# 5555
+#   ADB connection port
 #===============
-EXPOSE 4723 6080
+EXPOSE 4723 6080 5554 5555
 
 #======================
 # Add Emulator Devices
@@ -162,4 +169,5 @@ COPY devices /root/devices
 #===================
 COPY src /root/src
 COPY supervisord.conf /root/
+RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
 CMD /usr/bin/supervisord --configuration supervisord.conf
