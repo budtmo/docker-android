@@ -7,9 +7,5 @@ install: "pip install -r requirements.txt"
 
 script: bash travis.sh
 
-branches:
-  only:
-  - master
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
