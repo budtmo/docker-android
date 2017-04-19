@@ -3,6 +3,11 @@ language: python
 python:
   - "3.5"
 
+sudo: required
+
+services:
+  - docker
+
 install: "pip install -r requirements.txt"
 
 script: bash travis.sh
