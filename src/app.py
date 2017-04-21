@@ -167,7 +167,7 @@ def run():
     cmd = 'emulator -avd {name}'.format(name=avd_name)
     subprocess.Popen(cmd.split())
 
-    appium = str_to_bool(str(os.getenv('APPIUM', True)))
+    appium = str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         logger.info('Run appium server...')
         appium_run(avd_name)

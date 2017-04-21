@@ -51,7 +51,7 @@ Quick Start
 2. Run docker-android
 
 	```bash
-	docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=False --name android-container butomo1989/docker-android-x86-5.0.1
+	docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-5.0.1
 	```
 
 	**Optional arguments**

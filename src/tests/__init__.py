@@ -37,6 +37,7 @@ class TestApp(TestCase):
     @mock.patch('subprocess.Popen')
     def test_run_with_appium(self, mocked_avd, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
+            os.environ['APPIUM'] = str(True)
             app.run()
             self.assertTrue(mocked_avd.called)
             self.assertTrue(mocked_subprocess.called)
@@ -46,7 +47,6 @@ class TestApp(TestCase):
     @mock.patch('subprocess.Popen')
     def test_run_withhout_appium(self, mocked_avd, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
-            os.environ['APPIUM'] = str(False)
             app.run()
             self.assertTrue(mocked_avd.called)
             self.assertTrue(mocked_subprocess.called)
