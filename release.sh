@@ -11,7 +11,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Android version (5.0.1|5.1.1|6.0|all): " ANDROID_VERSION
+    read -p "Android version (5.0.1|5.1.1|6.0|7.0|all): " ANDROID_VERSION
 else
     ANDROID_VERSION=$2
 fi
@@ -32,6 +32,7 @@ declare -A list_of_levels=(
         [5.0.1]=21
         [5.1.1]=22
         [6.0]=23
+        [7.0]=24
 )
 
 declare -A list_of_processors=(
