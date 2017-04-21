@@ -51,7 +51,7 @@ WORKDIR /root
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     wget \
     unzip \
     curl \
@@ -79,11 +79,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #=======
 ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
     WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
-RUN  wget -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
  && unzip -x noVNC.zip \
  && rm noVNC.zip  \
  && mv noVNC-${NOVNC_SHA} noVNC \
- && wget -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && wget -nv -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
  && unzip -x websockify.zip \
  && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
  && rm websockify.zip \
@@ -97,7 +97,7 @@ ENV PATH ${PATH}:${JAVA_HOME}/bin
 
 ENV SDK_VERSION=25.2.3 \
     ANDROID_HOME=/root
-RUN wget -O android.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip \
+RUN wget -nv -O android.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip \
  && unzip android.zip && rm android.zip
 ENV PATH ${PATH}:${ANDROID_HOME}/tools
 RUN echo y | android update sdk --no-ui -a --filter platform-tools
@@ -107,7 +107,7 @@ ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools
 # Install latest nodejs, npm, appium
 #====================================
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - \
- && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/*
+ && apt-get -qqy update && apt-get -qqy install nodejs && rm -rf /var/lib/apt/lists/*
 ENV APPIUM_VERSION 1.6.3
 RUN npm install -g appium@$APPIUM_VERSION && npm cache clean
 
