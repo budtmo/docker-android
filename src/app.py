@@ -59,7 +59,7 @@ def prepare_avd(device: str, avd_name: str):
     :param device: Device name
     :param avd_name: Name of android virtual device / emulator
     """
-    cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b {sys_img}'.format(
+    cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b google_apis/{sys_img}'.format(
         name=avd_name, api=API_LEVEL, sys_img=SYS_IMG)
 
     # Link emulator skins

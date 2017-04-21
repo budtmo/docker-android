@@ -129,7 +129,7 @@ ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 
 RUN rm ${ANDROID_HOME}/tools/emulator \
  && ln -s ${ANDROID_HOME}/tools/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
-RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-android-${API_LEVEL}
+RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-google_apis-${API_LEVEL}
 
 #================================================
 # noVNC Default Configurations
