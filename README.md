@@ -56,7 +56,7 @@ Quick Start
 
 	**Optional arguments**
 
-		-v <android_project_or_apk>:/root	: You need to share volume or apk file if for example you want to build the android project inside docker container or you want to run UI test by using appium.
+		-v <android_project_or_apk>:/root/tmp	: You need to share volume or apk file if for example you want to build the android project inside docker container or you want to run UI test by using appium.
 		-e APPIUM=True: If you want to use appium as UI test framework to test mobile website or android application
 
 3. Verify the ip address of docker-machine.

@@ -11,7 +11,7 @@ class MSiteDefaultBrowserAndroidUITests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'appPackage': 'com.android.browser',
             'appActivity': 'com.android.browser.BrowserActivity',
-            'avd': 'nexus_5_5.0'
+            'avd': 'samsung_galaxy_s6_5.0.1'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
