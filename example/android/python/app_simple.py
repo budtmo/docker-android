@@ -10,7 +10,7 @@ class SimpleAndroidUITests(unittest.TestCase):
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'app': '/root/tmp/sample_apk_debug.apk',
-            'avd': 'samsung_galaxy_s6_5.0.1'
+            'avd': 'samsung_galaxy_s6_7.1.1'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
