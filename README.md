@@ -72,9 +72,17 @@ Quick Start
 
 1. Run docker-android
 
-	```bash
-	docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1
-	```
+	- For ***Linux OS***, please use image name that contains "x86"
+
+		```bash
+		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1
+		```
+
+	- For ***OSX*** and ***Windows OS***, please use image name that contains "arm"
+
+		```bash
+		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-arm-7.1.1
+		```
 
 2. Verify the ip address of docker host.
 
@@ -86,7 +94,7 @@ Quick Start
 
    - For different OS, localhost should work.
 
-3. Open ***http://docker-machine-ip-address:6080*** from web browser.
+3. Open ***http://docker-host-ip-address:6080*** from web browser.
 
 Run Appium Server
 -----------------
