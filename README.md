@@ -52,15 +52,9 @@ Type   | Device Name
 Phone  | Samsung Galaxy S6
 Phone  | Nexus 4
 Phone  | Nexus 5
-Phone  | Nexus 5x
-Phone  | Nexus 6
-Phone  | Nexus 6P
 Phone  | Nexus One
 Phone  | Nexus S
-Tablet | Pixel C
 Tablet | Nexus 7
-Tablet | Nexus 9
-Tablet | Nexus 10
 
 Requirements
 ------------
