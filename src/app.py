@@ -44,12 +44,14 @@ ANDROID_VERSION = get_or_raise('ANDROID_VERSION')
 API_LEVEL = get_or_raise('API_LEVEL')
 PROCESSOR = get_or_raise('PROCESSOR')
 SYS_IMG = get_or_raise('SYS_IMG')
+IMG_TYPE = get_or_raise('IMG_TYPE')
 
 logger.info('Android version: {version} \n'
             'API level: {level} \n'
             'Processor: {processor} \n'
-            'System image: {img}'.format(version=ANDROID_VERSION, level=API_LEVEL, processor=PROCESSOR,
-                                         img=SYS_IMG))
+            'System image: {img} \n'
+            'Image type: {img_type}'.format(version=ANDROID_VERSION, level=API_LEVEL, processor=PROCESSOR,
+                                            img=SYS_IMG, img_type=IMG_TYPE))
 
 
 def prepare_avd(device: str, avd_name: str):
@@ -59,8 +61,9 @@ def prepare_avd(device: str, avd_name: str):
     :param device: Device name
     :param avd_name: Name of android virtual device / emulator
     """
-    cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b google_apis/{sys_img}'.format(
-        name=avd_name, api=API_LEVEL, sys_img=SYS_IMG)
+    cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b {img_type}{sys_img}'.format(
+        name=avd_name, api=API_LEVEL, img_type='google_apis/' if IMG_TYPE == 'google_apis' else '',
+        sys_img=SYS_IMG)
 
     # Link emulator skins
     skin_rsc_path = os.path.join(ROOT, 'devices', 'skins')

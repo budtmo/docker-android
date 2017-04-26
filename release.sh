@@ -94,7 +94,7 @@ get_processors
 
 function test() {
     (export ANDROID_HOME=/root && export ANDROID_VERSION=5.0.1 && export API_LEVEL=21 \
-    && export PROCESSOR=x86 && export SYS_IMG=x86_64 && nosetests -v)
+    && export PROCESSOR=x86 && export SYS_IMG=x86_64 && export IMG_TYPE=google_apis && nosetests -v)
 }
 
 function build() {
@@ -104,6 +104,13 @@ function build() {
     # Build docker image(s)
     for p in "${processors[@]}"; do
         for v in "${versions[@]}"; do
+            # Find image type
+            if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
+                IMG_TYPE=android
+            else
+                IMG_TYPE=google_apis
+            fi
+            echo "[BUILD] IMAGE TYPE: $IMG_TYPE"
             level=${list_of_levels[$v]}
             echo "[BUILD] API Level: $level"
             sys_img=${list_of_processors[$p]}
@@ -112,9 +119,11 @@ function build() {
             image_latest="$IMAGE-$p-$v:latest"
             echo "[BUILD] Image name: $image_version and $image_latest"
             docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
-            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img .
+            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
+            --build-arg IMG_TYPE=$IMG_TYPE .
             docker build -t $image_latest --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
-            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img .
+            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
+            --build-arg IMG_TYPE=$IMG_TYPE .
         done
     done
 }

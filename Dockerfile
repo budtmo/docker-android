@@ -119,17 +119,19 @@ ARG BUILD_TOOL=21.1.2
 ARG API_LEVEL=21
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86_64
+ARG IMG_TYPE=google_apis
 ENV ANDROID_VERSION=$ANDROID_VERSION \
     BUILD_TOOL=$BUILD_TOOL \
     API_LEVEL=$API_LEVEL \
     PROCESSOR=$PROCESSOR \
-    SYS_IMG=$SYS_IMG
+    SYS_IMG=$SYS_IMG \
+    IMG_TYPE=$IMG_TYPE
 RUN echo y | android update sdk --no-ui -a --filter build-tools-${BUILD_TOOL}
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 
 RUN rm ${ANDROID_HOME}/tools/emulator \
  && ln -s ${ANDROID_HOME}/tools/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
-RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-google_apis-${API_LEVEL}
+RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-${IMG_TYPE}-${API_LEVEL}
 
 #================================================
 # noVNC Default Configurations
