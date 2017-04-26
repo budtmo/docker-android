@@ -184,7 +184,7 @@ Troubleshooting
 All logs inside container are stored under folder **/var/log/supervisor**. you can print out log file by using **docker exec**. Example:
 
 ```bash
-docker exec -it android-container tail -f /var/log/supervisor/docker-appium.stdout.log
+docker exec -it android-container tail -f /var/log/supervisor/docker-android.stdout.log
 ```
 
 [appium]: <https://appium.io>
