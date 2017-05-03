@@ -26,6 +26,8 @@ WORKDIR /root
 #   Web content engine (Fix issue in Android)
 # socat
 #   Port forwarder
+# libgconf-2-4
+#   Required package for chrome and chromedriver to run on Linux
 #------------------
 #  NoVNC Packages
 #------------------
@@ -60,6 +62,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     openjdk-8-jdk \
     libqt5webkit5 \
     socat \
+    libgconf-2-4 \
     xvfb \
     x11vnc \
     openbox \
