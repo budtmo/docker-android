@@ -175,4 +175,8 @@ COPY devices /root/devices
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
+
+HEALTHCHECK --interval=2s --timeout=35s --retries=1 \
+    CMD adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
+
 CMD /usr/bin/supervisord --configuration supervisord.conf
