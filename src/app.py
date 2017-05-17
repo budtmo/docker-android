@@ -100,12 +100,13 @@ def appium_run(avd_name: str):
     :param avd_name: Name of android virtual device / emulator
     """
     cmd = 'appium'
+    local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
 
     grid_connect = str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
         try:
-            appium_host = os.getenv('APPIUM_HOST', '127.0.0.1')
+            appium_host = os.getenv('APPIUM_HOST', local_ip)
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
@@ -113,8 +114,8 @@ def appium_run(avd_name: str):
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
-    titel = 'Appium Server'
-    subprocess.check_call('xterm -T "{titel}" -n "{titel}" -e \"{cmd}\"'.format(titel=titel, cmd=cmd), shell=True)
+    title = 'Appium Server'
+    subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
 
 
 def create_node_config(avd_name: str, appium_host: str, appium_port: int, selenium_host: str, selenium_port: int):
