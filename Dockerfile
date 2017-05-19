@@ -118,7 +118,7 @@ RUN npm install -g appium@$APPIUM_VERSION && npm cache clean
 # Install SDK packages
 #======================
 ARG ANDROID_VERSION=5.0.1
-ARG BUILD_TOOL=21.1.2
+ARG BUILD_TOOL=25.0.3
 ARG API_LEVEL=21
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86_64
