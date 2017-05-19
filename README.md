@@ -13,7 +13,7 @@ Samsung Device               |  Google Device
 Purpose
 -------
 
-1. Run UI tests for mobile websites with ([appium])
+1. Run UI tests for mobile websites with [appium]
 2. Build Android project and run unit tests with the latest build-tools
 3. Run UI tests for Android applications with different frameworks ([appium], [espresso], [robotium], etc.)
 4. Run monkey / stress tests
