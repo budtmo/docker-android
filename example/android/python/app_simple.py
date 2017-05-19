@@ -9,6 +9,7 @@ class SimpleAndroidUITests(unittest.TestCase):
         desired_caps = {
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
+            'automationName': 'UIAutomator2',
             'app': '/root/tmp/sample_apk_debug.apk',
             'avd': 'samsung_galaxy_s6_7.1.1'
         }
