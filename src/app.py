@@ -110,7 +110,8 @@ def appium_run(avd_name: str):
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
-            create_node_config(avd_name, appium_host, appium_port, selenium_host, selenium_port)
+            browser_name = os.getenv('BROWSER', 'Chrome')
+            create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
@@ -118,7 +119,7 @@ def appium_run(avd_name: str):
     subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
 
 
-def create_node_config(avd_name: str, appium_host: str, appium_port: int, selenium_host: str, selenium_port: int):
+def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str, selenium_port: int):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
@@ -134,7 +135,8 @@ def create_node_config(avd_name: str, appium_host: str, appium_port: int, seleni
                 'platform': 'Android',
                 'platformName': 'Android',
                 'version': ANDROID_VERSION,
-                'browserName': avd_name,
+                'browserName': browser_name,
+                'deviceName': avd_name,
                 'maxInstances': 1,
             }
         ],
