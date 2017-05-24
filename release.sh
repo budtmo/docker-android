@@ -111,11 +111,8 @@ function build() {
 
         for v in "${versions[@]}"; do
             # Find image type and default web browser
-            if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
+            if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ] || [ "$v" == "6.0" ]; then
                 IMG_TYPE=android
-                BROWSER=browser
-            elif [ "$v" == "6.0" ]; then
-                IMG_TYPE=google_apis
                 BROWSER=browser
             else
                 IMG_TYPE=google_apis

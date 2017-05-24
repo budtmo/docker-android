@@ -106,7 +106,7 @@ def appium_run(avd_name: str):
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
         try:
-            mobile_web_test = str_to_bool(str(os.getenv('MOBILE_WEB_TEST', False)))
+            mobile_web_test = convert_str_to_bool(str(os.getenv('MOBILE_WEB_TEST', False)))
             default_web_browser = os.getenv('BROWSER')
             appium_host = os.getenv('APPIUM_HOST', local_ip)
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
