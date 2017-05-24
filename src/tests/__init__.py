@@ -21,17 +21,17 @@ class TestApp(TestCase):
             app.get_or_raise('ENV_2')
 
     def test_valid_bool(self):
-        self.assertEqual(app.str_to_bool('True'), True)
-        self.assertEqual(app.str_to_bool('t'), True)
-        self.assertEqual(app.str_to_bool('1'), True)
-        self.assertEqual(app.str_to_bool('YES'), True)
+        self.assertEqual(app.convert_str_to_bool('True'), True)
+        self.assertEqual(app.convert_str_to_bool('t'), True)
+        self.assertEqual(app.convert_str_to_bool('1'), True)
+        self.assertEqual(app.convert_str_to_bool('YES'), True)
 
     def test_invalid_bool(self):
-        self.assertEqual(app.str_to_bool(''), False)
-        self.assertEqual(app.str_to_bool('test'), False)
+        self.assertEqual(app.convert_str_to_bool(''), False)
+        self.assertEqual(app.convert_str_to_bool('test'), False)
 
     def test_invalid_format(self):
-        self.assertEqual(app.str_to_bool(True), None)
+        self.assertEqual(app.convert_str_to_bool(True), None)
 
     @mock.patch('src.app.prepare_avd')
     @mock.patch('subprocess.Popen')

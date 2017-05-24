@@ -26,7 +26,7 @@ def get_or_raise(env: str) -> str:
     return env_value
 
 
-def str_to_bool(str: str) -> bool:
+def convert_str_to_bool(str: str) -> bool:
     """
     Convert string to boolean.
 
@@ -102,7 +102,7 @@ def appium_run(avd_name: str):
     cmd = 'appium'
     local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
 
-    grid_connect = str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
+    grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
         try:
@@ -175,7 +175,7 @@ def run():
     cmd = 'emulator -avd {name}'.format(name=avd_name)
     subprocess.Popen(cmd.split())
 
-    appium = str_to_bool(str(os.getenv('APPIUM', False)))
+    appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         logger.info('Run appium server...')
         appium_run(avd_name)
