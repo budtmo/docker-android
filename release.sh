@@ -110,11 +110,16 @@ function build() {
         fi
 
         for v in "${versions[@]}"; do
-            # Find image type
+            # Find image type and default web browser
             if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
                 IMG_TYPE=android
+                BROWSER=browser
+            elif [ "$v" == "6.0" ]; then
+                IMG_TYPE=google_apis
+                BROWSER=browser
             else
                 IMG_TYPE=google_apis
+                BROWSER=chrome
             fi
             echo "[BUILD] IMAGE TYPE: $IMG_TYPE"
             level=${list_of_levels[$v]}
@@ -127,10 +132,10 @@ function build() {
             echo "[BUILD] Dockerfile: $FILE_NAME"
             docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
             --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
-            --build-arg IMG_TYPE=$IMG_TYPE -f $FILE_NAME .
+            --build-arg IMG_TYPE=$IMG_TYPE --build-arg BROWSER=$BROWSER -f $FILE_NAME .
             docker build -t $image_latest --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
             --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
-            --build-arg IMG_TYPE=$IMG_TYPE -f $FILE_NAME .
+            --build-arg IMG_TYPE=$IMG_TYPE --build-arg BROWSER=$BROWSER -f $FILE_NAME .
         done
     done
 }

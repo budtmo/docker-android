@@ -106,11 +106,13 @@ def appium_run(avd_name: str):
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
         try:
+            mobile_web_test = str_to_bool(str(os.getenv('MOBILE_WEB_TEST', False)))
+            default_web_browser = os.getenv('BROWSER')
             appium_host = os.getenv('APPIUM_HOST', local_ip)
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
-            browser_name = os.getenv('BROWSER', 'Chrome')
+            browser_name = default_web_browser if mobile_web_test else 'android'
             create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
