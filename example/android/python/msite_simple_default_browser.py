@@ -13,9 +13,9 @@ class MSiteDefaultBrowserAndroidUITests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'appPackage': 'com.android.browser',
             'appActivity': 'com.android.browser.BrowserActivity',
-            'avd': 'samsung_galaxy_s6_6.0'
+            'browserName': 'browser'
         }
-        self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
 
     def test_open_url(self):
         self.driver.get('http://targeturl.com')

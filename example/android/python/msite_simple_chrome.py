@@ -13,9 +13,10 @@ class MSiteChromeAndroidUITests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
-            'avd': 'samsung_galaxy_s6_7.1.1'
+            'browserName': 'chrome',
+            'ignore-certificate-errors': True
         }
-        self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
 
     def test_open_url(self):
         self.driver.get('http://targeturl.com')

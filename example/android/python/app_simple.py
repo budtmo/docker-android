@@ -11,9 +11,10 @@ class SimpleAndroidUITests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'automationName': 'UIAutomator2',
             'app': '/root/tmp/sample_apk_debug.apk',
-            'avd': 'samsung_galaxy_s6_7.1.1'
+            'browserName': 'android',
+            'avd': 'nexus_5_7.1.1'
         }
-        self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
 
     def tearDown(self):
         self.driver.quit()
