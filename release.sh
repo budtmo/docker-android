@@ -130,9 +130,7 @@ function build() {
             docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
             --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
             --build-arg IMG_TYPE=$IMG_TYPE --build-arg BROWSER=$BROWSER -f $FILE_NAME .
-            docker build -t $image_latest --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
-            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
-            --build-arg IMG_TYPE=$IMG_TYPE --build-arg BROWSER=$BROWSER -f $FILE_NAME .
+            docker tag $image_version $image_latest
         done
     done
 }
