@@ -14,30 +14,39 @@ class TestAppium(TestCase):
         os.environ['CONNECT_TO_GRID'] = str(True)
         self.avd_name = 'test_avd'
 
+    @mock.patch('os.popen')
     @mock.patch('subprocess.check_call')
-    def test_without_selenium_grid(self, mocked_subprocess):
+    def test_without_selenium_grid(self, mocked_os, mocked_subprocess):
         os.environ['CONNECT_TO_GRID'] = str(False)
+        self.assertFalse(mocked_os.called)
         self.assertFalse(mocked_subprocess.called)
         app.appium_run(self.avd_name)
+        self.assertTrue(mocked_os.called)
         self.assertTrue(mocked_subprocess.called)
 
+    @mock.patch('os.popen')
     @mock.patch('subprocess.check_call')
-    def test_with_selenium_grid(self, mocked_subprocess):
+    def test_with_selenium_grid(self, mocked_os, mocked_subprocess):
         with mock.patch('src.app.create_node_config') as mocked_config:
             self.assertFalse(mocked_config.called)
+            self.assertFalse(mocked_os.called)
             self.assertFalse(mocked_subprocess.called)
             app.appium_run(self.avd_name)
             self.assertTrue(mocked_config.called)
+            self.assertTrue(mocked_os.called)
             self.assertTrue(mocked_subprocess.called)
 
+    @mock.patch('os.popen')
     @mock.patch('subprocess.check_call')
-    def test_invalid_integer(self, mocked_subprocess):
+    def test_invalid_integer(self, mocked_os, mocked_subprocess):
         os.environ['APPIUM_PORT'] = 'test'
         with mock.patch('src.app.create_node_config') as mocked_config:
             self.assertFalse(mocked_config.called)
+            self.assertFalse(mocked_os.called)
             self.assertFalse(mocked_subprocess.called)
             app.appium_run(self.avd_name)
             self.assertFalse(mocked_config.called)
+            self.assertTrue(mocked_os.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertRaises(ValueError)
 
