@@ -2,7 +2,7 @@
 # Bash version should >= 4 to be able to run this script.
 
 IMAGE="butomo1989/docker-android"
-LATEST_BUILD_TOOL=25.0.2
+LATEST_BUILD_TOOL=25.0.3
 
 if [ -z "$1" ]; then
     read -p "Task (test|build|push|all) : " TASK
