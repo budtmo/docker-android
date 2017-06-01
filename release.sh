@@ -93,8 +93,55 @@ get_android_versions
 get_processors
 
 function test() {
-    (export ANDROID_HOME=/root && export ANDROID_VERSION=5.0.1 && export API_LEVEL=21 \
-    && export PROCESSOR=x86 && export SYS_IMG=x86_64 && export IMG_TYPE=google_apis && nosetests -v)
+    # Prepare needed parameter to run tests
+    test_android_version=7.1.1
+    test_api_level=25
+    test_processor=x86
+    test_sys_img=x86_64
+    test_img_type=google_apis
+    test_image=test_img
+    test_container=test_con
+
+    # Run unit test
+    echo "----UNIT TEST----"
+    (export ANDROID_HOME=/root && export ANDROID_VERSION=$test_android_version && export API_LEVEL=$test_api_level \
+    && export PROCESSOR=$test_processor && export SYS_IMG=$test_sys_img && export IMG_TYPE=$test_img_type \
+    && nosetests src/tests/unit -v)
+
+    # Run integration test
+    # Integration test must be run only for linux OS / x86 image to reduce duration of test execution
+    if [ "$(uname -s)" == 'Linux' ]; then
+        echo "----BUILD TEST IMAGE----"
+        docker build -t $test_image --build-arg ANDROID_VERSION=$test_android_version \
+        --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL --build-arg API_LEVEL=$test_api_level \
+        --build-arg PROCESSOR=$test_processor --build-arg SYS_IMG=$test_sys_img \
+        --build-arg IMG_TYPE=$test_img_type -f docker/Emulator_x86 .
+
+        echo "----RUN E2E TEST----"
+        docker run --privileged -d -p 4723:4723 -p 6080:6080 -e APPIUM=True --name $test_container $test_image
+        attempt=0
+        while [ ${attempt} -le 10 ]; do
+            attempt=$(($attempt + 1))
+            output=$(docker ps | grep healthy | grep test_con | wc -l)
+            if [[ "$output" == 1 ]]; then
+                echo "Emulator is ready."
+                break
+            else
+                echo "Waiting 10 seconds for emulator to be ready (attempt: $attempt)"
+                sleep 10
+            fi
+
+            if [[ $attempt == 10 ]]; then
+                echo "Failed!"
+                exit 1
+            fi
+        done
+
+        nosetests src/tests/e2e -v
+
+        echo "----REMOVE TEST CONTAINER----"
+        docker kill $test_container && docker rm $test_container
+    fi
 }
 
 function build() {
