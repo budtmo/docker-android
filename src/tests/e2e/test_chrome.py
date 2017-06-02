@@ -11,7 +11,8 @@ class TestE2EChrome(TestCase):
             'platformName': 'Android',
             'deviceName': 'Android Emulator',
             'appPackage': 'com.android.chrome',
-            'appActivity': 'com.google.android.apps.chrome.Main'
+            'appActivity': 'com.google.android.apps.chrome.Main',
+            'browserName': 'chrome'
         }
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 

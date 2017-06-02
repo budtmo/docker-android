@@ -17,7 +17,7 @@ class MSiteChromeAndroidUITests(unittest.TestCase):
             'appActivity': 'com.google.android.apps.chrome.Main',
             'browserName': 'chrome'
         }
-        self.driver = webdriver.Remote('http://10.161.128.186:4444/wd/hub', desired_caps)
+        self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
 
     def test_open_url(self):
         self.driver.get('http://google.com')
