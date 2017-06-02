@@ -121,7 +121,8 @@ def appium_run(avd_name: str):
     subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
 
 
-def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str, selenium_port: int):
+def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
+                       selenium_port: int):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 

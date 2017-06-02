@@ -4,7 +4,7 @@ from unittest import TestCase
 from appium import webdriver
 
 
-class TestE2EApp(TestCase):
+class TestE2EAndroidApk(TestCase):
 
     def setUp(self):
         desired_caps = {
