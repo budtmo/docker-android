@@ -1,3 +1,4 @@
+selenium==3.3.1
 Appium-Python-Client==0.24
 coverage==4.2
 mock==2.0.0
