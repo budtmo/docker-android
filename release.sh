@@ -102,23 +102,21 @@ function test() {
     test_image=test_img
     test_container=test_con
 
-    # Run unit test
-    echo "----UNIT TEST----"
-    (export ANDROID_HOME=/root && export ANDROID_VERSION=$test_android_version && export API_LEVEL=$test_api_level \
-    && export PROCESSOR=$test_processor && export SYS_IMG=$test_sys_img && export IMG_TYPE=$test_img_type \
-    && nosetests src/tests/unit -v)
-
-    # Run integration test
-    # Integration test must be run only for linux OS / x86 image to reduce duration of test execution
-    if [ "$(uname -s)" == 'Linux' ]; then
+    # Run e2e tests
+    # E2E tests must be run only for linux OS / x86 image to reduce duration of test execution
+    if [ "$(uname -s)" == 'Linux' ] && [ "$E2E" = true ]; then
         echo "----BUILD TEST IMAGE----"
         docker build -t $test_image --build-arg ANDROID_VERSION=$test_android_version \
         --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL --build-arg API_LEVEL=$test_api_level \
         --build-arg PROCESSOR=$test_processor --build-arg SYS_IMG=$test_sys_img \
         --build-arg IMG_TYPE=$test_img_type -f docker/Emulator_x86 .
 
-        echo "----RUN E2E TEST----"
-        docker run --privileged -d -p 4723:4723 -p 6080:6080 -e APPIUM=True --name $test_container $test_image
+        echo "----REMOVE OLD TEST CONTAINER----"
+        docker kill $test_container && docker rm $test_container
+
+        echo "----PREPARE CONTAINER----"
+        docker run --privileged -d -p 4723:4723 -p 6080:6080 -e APPIUM=True -e DEVICE="Samsung Galaxy S6" --name $test_container $test_image
+        docker cp example/sample_apk $test_container:/root/tmp
         attempt=0
         while [ ${attempt} -le 10 ]; do
             attempt=$(($attempt + 1))
@@ -137,11 +135,18 @@ function test() {
             fi
         done
 
+        echo "----RUN E2E TESTS----"
         nosetests src/tests/e2e -v
 
         echo "----REMOVE TEST CONTAINER----"
         docker kill $test_container && docker rm $test_container
     fi
+
+    # Run unit tests (After e2e test to get coverage result)
+    echo "----UNIT TESTS----"
+    (export ANDROID_HOME=/root && export ANDROID_VERSION=$test_android_version && export API_LEVEL=$test_api_level \
+    && export PROCESSOR=$test_processor && export SYS_IMG=$test_sys_img && export IMG_TYPE=$test_img_type \
+    && nosetests src/tests/unit -v)
 }
 
 function build() {
