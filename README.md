@@ -99,6 +99,10 @@ Appium is automation test framework to test mobile website and mobile applicatio
 ```bash
 docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=True --name android-container butomo1989/docker-android-x86-7.1.1
 ```
+It is possible to start appium with custom chromedriver executable by mounting directory with chromedriver inside container and passing an environment variable ***CHROMEDRIVER_EXECUTABLE=path_to_chromedriver***
+```bash
+docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -v /path/to/chromedriver:/root/chromedriver  -e CHROMEDRIVER_EXECUTABLE=/root/chromedriver/chromedriver -e DEVICE="Samsung Galaxy S6" -e APPIUM=True --name android-container butomo1989/docker-android-x86-7.1.1
+```
 
 ### Connect to Selenium Grid
 
