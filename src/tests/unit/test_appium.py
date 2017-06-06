@@ -12,7 +12,19 @@ class TestAppium(TestCase):
 
     def setUp(self):
         os.environ['CONNECT_TO_GRID'] = str(True)
+        os.environ['CHROMEDRIVER_EXECUTABLE'] = str(False)
         self.avd_name = 'test_avd'
+
+    @mock.patch('os.popen')
+    @mock.patch('subprocess.check_call')
+    def test_with_chromedriver_executable(self, mocked_os, mocked_subprocess):
+        os.environ['CONNECT_TO_GRID'] = str(False)
+        os.environ['CHROMEDRIVER_EXECUTABLE'] = '/root/chromedriver'
+        self.assertFalse(mocked_os.called)
+        self.assertFalse(mocked_subprocess.called)
+        app.appium_run(self.avd_name)
+        self.assertTrue(mocked_os.called)
+        self.assertTrue(mocked_subprocess.called)
 
     @mock.patch('os.popen')
     @mock.patch('subprocess.check_call')
