@@ -163,8 +163,12 @@ function build() {
 
         for v in "${versions[@]}"; do
             # Find image type and default web browser
-            if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ] || [ "$v" == "6.0" ]; then
+            if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
                 IMG_TYPE=android
+                BROWSER=browser
+            elif [ "$v" == "6.0" ]; then
+                # It is because there is no ARM EABI v7a System Image for 6.0
+                IMG_TYPE=google_apis
                 BROWSER=browser
             else
                 IMG_TYPE=google_apis
