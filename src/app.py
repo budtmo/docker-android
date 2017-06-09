@@ -102,6 +102,10 @@ def appium_run(avd_name: str):
     cmd = 'appium'
     local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
 
+    chromedriver_executable = os.getenv('CHROMEDRIVER_EXECUTABLE', False)
+    if chromedriver_executable:
+        cmd += ' --chromedriver-executable {executable}'.format(executable=chromedriver_executable)
+
     grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
