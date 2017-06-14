@@ -2,7 +2,6 @@
 # Bash version should >= 4 to be able to run this script.
 
 IMAGE="butomo1989/docker-android"
-LATEST_BUILD_TOOL=25.0.3
 
 if [ -z "$1" ]; then
     read -p "Task (test|build|push|all) : " TASK
@@ -99,6 +98,7 @@ function test() {
     test_processor=x86
     test_sys_img=x86_64
     test_img_type=google_apis
+    test_browser=chrome
     test_image=test_img
     test_container=test_con
 
@@ -107,9 +107,8 @@ function test() {
     if [ "$(uname -s)" == 'Linux' ] && [ "$E2E" = true ]; then
         echo "----BUILD TEST IMAGE----"
         docker build -t $test_image --build-arg ANDROID_VERSION=$test_android_version \
-        --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL --build-arg API_LEVEL=$test_api_level \
-        --build-arg PROCESSOR=$test_processor --build-arg SYS_IMG=$test_sys_img \
-        --build-arg IMG_TYPE=$test_img_type -f docker/Emulator_x86 .
+        --build-arg API_LEVEL=$test_api_level --build-arg PROCESSOR=$test_processor --build-arg SYS_IMG=$test_sys_img \
+        --build-arg IMG_TYPE=$test_img_type --build-arg BROWSER=$test_browser -f docker/Emulator_x86 .
 
         echo "----REMOVE OLD TEST CONTAINER----"
         docker kill $test_container && docker rm $test_container
@@ -183,9 +182,9 @@ function build() {
             image_latest="$IMAGE-$p-$v:latest"
             echo "[BUILD] Image name: $image_version and $image_latest"
             echo "[BUILD] Dockerfile: $FILE_NAME"
-            docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg BUILD_TOOL=$LATEST_BUILD_TOOL \
-            --build-arg API_LEVEL=$level --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img \
-            --build-arg IMG_TYPE=$IMG_TYPE --build-arg BROWSER=$BROWSER -f $FILE_NAME .
+            docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
+            --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
+            --build-arg BROWSER=$BROWSER -f $FILE_NAME .
             docker tag $image_version $image_latest
         done
     done

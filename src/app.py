@@ -5,7 +5,7 @@ import logging
 import os
 import subprocess
 
-from src import CONFIG_FILE, ROOT
+from src import CONFIG_FILE, ROOT, CHROME_DRIVER
 from src import log
 
 log.init()
@@ -100,18 +100,17 @@ def appium_run(avd_name: str):
     :param avd_name: Name of android virtual device / emulator
     """
     cmd = 'appium'
-    local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
 
-    chromedriver_executable = os.getenv('CHROMEDRIVER_EXECUTABLE', False)
-    if chromedriver_executable:
-        cmd += ' --chromedriver-executable {executable}'.format(executable=chromedriver_executable)
+    default_web_browser = os.getenv('BROWSER')
+    if default_web_browser == 'chrome':
+        cmd += ' --chromedriver-executable {driver}'.format(driver=CHROME_DRIVER)
 
     grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
     if grid_connect:
+        local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
         try:
             mobile_web_test = convert_str_to_bool(str(os.getenv('MOBILE_WEB_TEST', False)))
-            default_web_browser = os.getenv('BROWSER')
             appium_host = os.getenv('APPIUM_HOST', local_ip)
             appium_port = int(os.getenv('APPIUM_PORT', 4723))
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
