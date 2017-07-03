@@ -1,1 +1,107 @@
-# TODO
+FROM appium/appium:1.6.6-beta-p0
+
+LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
+
+#=============
+# Set WORKDIR
+#=============
+WORKDIR /root
+
+#==================
+# General Packages
+#------------------
+# xterm
+#   Terminal emulator
+# supervisor
+#   Process manager
+# socat
+#   Port forwarder
+#------------------
+#  NoVNC Packages
+#------------------
+# x11vnc
+#   VNC server for X display
+# openbox
+#   Windows manager
+# menu
+#   Debian menu
+# python-numpy
+#   Numpy, For faster performance: https://github.com/novnc/websockify/issues/77
+# net-tools
+#   Netstat
+#==================
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    xterm \
+    supervisor \
+    socat \
+    x11vnc \
+    openbox \
+    menu \
+    python-numpy \
+    net-tools \
+ && rm -rf /var/lib/apt/lists/*
+
+#=======
+# noVNC
+# Use same commit id that docker-selenium uses
+# https://github.com/elgalu/docker-selenium/blob/236b861177bd2917d864e52291114b1f5e4540d7/Dockerfile#L412-L413
+#=======
+ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
+    WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
+RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+ && unzip -x noVNC.zip \
+ && rm noVNC.zip  \
+ && mv noVNC-${NOVNC_SHA} noVNC \
+ && wget -nv -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && unzip -x websockify.zip \
+ && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
+ && rm websockify.zip \
+ && ln noVNC/vnc_auto.html noVNC/index.html
+
+#==============================================
+# Download Adb remote screen
+#==============================================
+RUN wget -nv -O asm.zip "http://adakoda.github.io/android-screen-monitor/download/3.0.0/ASM_3_00.zip" \
+ && unzip asm.zip \
+ && rm asm.zip
+
+#================================================
+# noVNC Default Configurations
+# These Configurations can be changed through -e
+#================================================
+ENV DISPLAY=:0 \
+    SCREEN=0 \
+    SCREEN_WIDTH=1600 \
+    SCREEN_HEIGHT=900 \
+    SCREEN_DEPTH=16 \
+    LOCAL_PORT=5900 \
+    TARGET_PORT=6080 \
+    TIMEOUT=1 \
+    LOG_PATH=/var/log/supervisor
+
+#=========================
+# Set default variables
+#=========================
+ENV REAL_DEVICE=True
+ENV BROWSER=android
+
+#===============
+# Expose Ports
+#---------------
+# 4723
+#   Appium port
+# 6080
+#   noVNC port
+# 5555
+#   ADB connection port
+#===============
+EXPOSE 4723 6080 5555
+
+#===================
+# Run docker-appium
+#===================
+COPY src /root/src
+COPY supervisord.conf /root/
+RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
+
+CMD /usr/bin/supervisord --configuration supervisord.conf
