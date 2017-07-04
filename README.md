@@ -32,18 +32,22 @@ Advantages compare with other docker-android projects
 List of Docker images
 ---------------------
 
-|Supported OS   |Android version   |API level   |Image name   |Image status   |
-|:---|:---|:---|:---|:---:|
-|Linux|5.0.1|21|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
-|Linux|5.1.1|22|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
-|Linux|6.0|23|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
-|Linux|7.0|24|butomo1989/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
-|Linux|7.1.1|25|butomo1989/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
-|OSX / Windows|5.0.1|21|butomo1989/docker-android-arm-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own image badge on microbadger.com")|
-|OSX / Windows|5.1.1|22|butomo1989/docker-android-arm-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own image badge on microbadger.com")|
-|OSX / Windows|6.0|23|butomo1989/docker-android-arm-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own image badge on microbadger.com")|
-|OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
-|OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
+|Supported OS   |Android version   |API level   |Image Type   |Image name   |Image status   |Interactive Web Interface   |
+|:---|:---|:---|:---|:---|:---|:---:|
+|Linux|5.0.1|21|Google Api x86|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|Yes|
+|Linux|5.1.1|22|Google Api x86|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|Yes|
+|Linux|6.0|23|Google Api x86|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|Yes|
+|Linux|6.0|23|Atom x86|alanbueno8/docker-android-atom-x86-6.0|[![](https://images.microbadger.com/badges/image/alanbueno8/docker-android-atom-x86-6.0.svg)](https://microbadger.com/images/alanbueno8/docker-android-atom-x86-6.0 "Get your own image badge on microbadger.com")|Yes|
+|Linux|6.0|23|Atom x86|alanbueno8/docker-android-atom-x86-6.0_non-interactive|[![](https://images.microbadger.com/badges/image/alanbueno8/docker-android-atom-x86-6.0_non-interactive.svg)](https://microbadger.com/images/alanbueno8/docker-android-atom-x86-6.0_non-interactive "Get your own image badge on microbadger.com")|No|
+|Linux|6.0|23|Atom x64|alanbueno8/docker-android-atom-x86_64-6.0|[![](https://images.microbadger.com/badges/image/alanbueno8/docker-android-atom-x86_64-6.0.svg)](https://microbadger.com/images/alanbueno8/docker-android-atom-x86_64-6.0 "Get your own image badge on microbadger.com")|Yes|
+|Linux|6.0|23|Atom x64|alanbueno8/docker-android-atom-x86_64-6.0_non-interactive|[![](https://images.microbadger.com/badges/image/alanbueno8/docker-android-atom-x86_64-6.0_non-interactive.svg)](https://microbadger.com/images/alanbueno8/docker-android-atom-x86_64-6.0_non-interactive "Get your own image badge on microbadger.com")|No|
+|Linux|7.0|24|Google Api x86|butomo1989/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|Yes|
+|Linux|7.1.1|25|Google Api x86|butomo1989/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|Yes|
+|OSX / Windows|5.0.1|21|Arm|butomo1989/docker-android-arm-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.0.1 "Get your own image badge on microbadger.com")|Yes|
+|OSX / Windows|5.1.1|22|Arm|butomo1989/docker-android-arm-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-5.1.1 "Get your own image badge on microbadger.com")|Yes|
+|OSX / Windows|6.0|23|Arm|butomo1989/docker-android-arm-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own image badge on microbadger.com")|Yes|
+|OSX / Windows|7.0|24|Arm|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|Yes|
+|OSX / Windows|7.1.1|25|Arm|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|Yes|
 
 List of Devices
 ---------------

@@ -12,6 +12,8 @@ WORKDIR /root
 #------------------
 # xterm
 #   Terminal emulator
+# nano
+#   Text editor
 # supervisor
 #   Process manager
 # socat
@@ -41,6 +43,7 @@ WORKDIR /root
 #==================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
+    nano \
     supervisor \
     socat \
     x11vnc \
@@ -70,15 +73,31 @@ RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}
  && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
  && rm websockify.zip \
  && ln noVNC/vnc_auto.html noVNC/index.html
+#=======
+## noVNC - Non Interactive Interface
+#ENV NOVNC_SHA="9223e8f2d1c207fb74cb4b8cc243e59d84f9e2f6" \
+#    WEBSOCKIFY_SHA="cb1508fa495bea4b333173705772c1997559ae4b"
+#RUN  wget -nv -O noVNC.zip \
+#       "https://github.com/elgalu/noVNC/archive/${NOVNC_SHA}.zip" \
+#  && unzip -x noVNC.zip \
+#  && mv noVNC-${NOVNC_SHA} noVNC \
+#  && rm noVNC.zip \
+#  && wget -nv -O websockify.zip \
+#      "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+#  && unzip -x websockify.zip \
+#  && rm websockify.zip \
+#&& mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify
 
 #======================
 # Install SDK packages
 #======================
-ARG ANDROID_VERSION=5.0.1
-ARG API_LEVEL=21
+ARG ANDROID_VERSION=6.0
+ARG API_LEVEL=23
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86_64
+#ARG SYS_IMG=x86
 ARG IMG_TYPE=google_apis
+#ARG IMG_TYPE=android
 ARG BROWSER=android
 ENV ANDROID_VERSION=$ANDROID_VERSION \
     API_LEVEL=$API_LEVEL \
