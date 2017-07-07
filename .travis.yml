@@ -11,12 +11,12 @@ services:
 install: "pip install -r requirements.txt"
 
 env:
-  matrix:
-    - ANDROID_VERSION=5.0.1
-    - ANDROID_VERSION=5.1.1
-    - ANDROID_VERSION=6.0
-    - ANDROID_VERSION=7.0
-    - ANDROID_VERSION=7.1.1
+  - ANDROID_VERSION=5.0.1
+  - ANDROID_VERSION=5.1.1
+  - ANDROID_VERSION=6.0
+  - ANDROID_VERSION=7.0
+  - ANDROID_VERSION=7.1.1
+  - REAL_DEVICE=True
 
 script: bash travis.sh
 
