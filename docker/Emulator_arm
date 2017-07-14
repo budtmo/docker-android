@@ -29,6 +29,11 @@ WORKDIR /root
 #   Numpy, For faster performance: https://github.com/novnc/websockify/issues/77
 # net-tools
 #   Netstat
+#------------------
+#  Video Recording
+#------------------
+# ffmpeg
+#   Video recorder
 #==================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
@@ -39,6 +44,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     menu \
     python-numpy \
     net-tools \
+    ffmpeg \
  && rm -rf /var/lib/apt/lists/*
 
 #=======
@@ -100,6 +106,7 @@ ENV DISPLAY=:0 \
     LOCAL_PORT=5900 \
     TARGET_PORT=6080 \
     TIMEOUT=1 \
+    VIDEO_PATH=/tmp/video \
     LOG_PATH=/var/log/supervisor
 
 #===============

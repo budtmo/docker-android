@@ -21,11 +21,14 @@ services:
     scale: 1
     ports:
       - 6080
+    volumes:
+      - ./video-nexus_7.1.1:/tmp/video
     environment:
       - DEVICE=Nexus 5
       - CONNECT_TO_GRID=True
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
+      - AUTO_RECORD=True
 
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
@@ -36,12 +39,15 @@ services:
     scale: 1
     ports:
       - 6080
+    volumes:
+      - ./video-samsung_7.1.1:/tmp/video
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=True
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=True
+      - AUTO_RECORD=True
 
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
@@ -52,9 +58,12 @@ services:
     scale: 1
     ports:
       - 6080
+    volumes:
+      - ./video-samsung_5.1.1:/tmp/video
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=True
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=True
+      - AUTO_RECORD=True

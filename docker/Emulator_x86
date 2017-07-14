@@ -30,6 +30,11 @@ WORKDIR /root
 # net-tools
 #   Netstat
 #------------------
+#  Video Recording
+#------------------
+# ffmpeg
+#   Video recorder
+#------------------
 #    KVM Package
 # for emulator x86
 # https://help.ubuntu.com/community/KVM/Installation
@@ -48,6 +53,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     menu \
     python-numpy \
     net-tools \
+    ffmpeg \
     qemu-kvm \
     libvirt-bin \
     ubuntu-vm-builder \
@@ -113,6 +119,7 @@ ENV DISPLAY=:0 \
     LOCAL_PORT=5900 \
     TARGET_PORT=6080 \
     TIMEOUT=1 \
+    VIDEO_PATH=/tmp/video \
     LOG_PATH=/var/log/supervisor
 
 #===============
