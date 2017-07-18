@@ -1,4 +1,4 @@
-FROM appium/appium:1.6.6-beta-p0
+FROM appium/appium:1.6.6-beta-p1
 
 LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
 
@@ -93,10 +93,8 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
     IMG_TYPE=$IMG_TYPE \
     BROWSER=$BROWSER
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
-
-RUN rm ${ANDROID_HOME}/tools/emulator \
- && ln -s ${ANDROID_HOME}/tools/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
-RUN echo y | android update sdk --no-ui -a -t android-${API_LEVEL},sys-img-${SYS_IMG}-${IMG_TYPE}-${API_LEVEL}
+RUN sdkmanager "platforms;android-${API_LEVEL}"
+RUN sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}"
 
 #==============================================
 #       Download chrome driver v2.26
