@@ -95,6 +95,11 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 RUN sdkmanager "platforms;android-${API_LEVEL}"
 RUN sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}"
+RUN sdkmanager "emulator"
+RUN rm ${ANDROID_HOME}/tools/emulator \
+ && ln -s ${ANDROID_HOME}/emulator/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
+ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
+
 
 #==============================================
 #       Download chrome driver v2.26
