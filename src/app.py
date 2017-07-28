@@ -11,6 +11,15 @@ from src import log
 log.init()
 logger = logging.getLogger('app')
 
+def symlink_force(target, link_name):
+    try:
+        os.symlink(target, link_name)
+    except OSError, e:
+        if e.errno == errno.EEXIST:
+            os.remove(link_name)
+            os.symlink(target, link_name)
+        else:
+            raise e
 
 def get_or_raise(env: str) -> str:
     """
@@ -71,7 +80,7 @@ def prepare_avd(device: str, avd_name: str):
     skin_dst_path = os.path.join(ANDROID_HOME, 'platforms', 'android-{api}'.format(api=API_LEVEL), 'skins')
     logger.info('Skin destination path: {dst}'.format(dst=skin_dst_path))
     for s in os.listdir(skin_rsc_path):
-        os.symlink(os.path.join(skin_rsc_path, s), os.path.join(skin_dst_path, s))
+        symlink_force(os.path.join(skin_rsc_path, s), os.path.join(skin_dst_path, s))
 
     # Hardware and its skin
     device_name_bash = device.replace(' ', '\ ')
@@ -85,7 +94,7 @@ def prepare_avd(device: str, avd_name: str):
         profile_src_path = os.path.join(ROOT, 'devices', 'profiles', '{profile}.xml'.format(profile=skin_name))
         logger.info('Hardware profile resource path: {rsc}'.format(rsc=profile_src_path))
         logger.info('Hardware profile destination path: {dst}'.format(dst=profile_dst_path))
-        os.symlink(profile_src_path, profile_dst_path)
+        symlink_force(profile_src_path, profile_dst_path)
 
     # Append command
     cmd += ' -d {device} -s {skin}'.format(device=device_name_bash, skin=skin_name)
