@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import subprocess
+import errno
 
 from src import CONFIG_FILE, ROOT, CHROME_DRIVER
 from src import log
@@ -14,7 +15,7 @@ logger = logging.getLogger('app')
 def symlink_force(target, link_name):
     try:
         os.symlink(target, link_name)
-    except OSError, e:
+    except OSError as e:
         if e.errno == errno.EEXIST:
             os.remove(link_name)
             os.symlink(target, link_name)
