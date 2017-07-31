@@ -25,11 +25,6 @@ class TestApp(TestCase):
         os.remove(os.path.join("./","testFile2.txt"))
         os.remove(os.path.join("./","link_testFile2.txt"))
     
-    """test if other exception pop"""
-    def test_symlink_other_except(self):
-        with self.assertRaises(Exception):
-            app.symlink_force(os.path.join("./","testFile3.txt"),os.path.join("./","link_testFile3.txt"))
-
     def test_valid_env(self):
         key = 'ENV_1'
         os.environ[key] = 'test'
