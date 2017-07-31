@@ -19,8 +19,6 @@ def symlink_force(target, link_name):
         if e.errno == errno.EEXIST:
             os.remove(link_name)
             os.symlink(target, link_name)
-        else:
-            raise e
 
 def get_or_raise(env: str) -> str:
     """
