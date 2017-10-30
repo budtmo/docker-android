@@ -14,14 +14,13 @@ services:
   nexus_7.1.1:
     image: butomo1989/docker-android-x86-7.1.1
     privileged: true
-    # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
-    volumes:
-      - $PWD/example/sample_apk:/root/tmp
     # Increase scale number if needed
     scale: 1
     ports:
       - 6080
+    # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
     volumes:
+      - $PWD/example/sample_apk:/root/tmp
       - ./video-nexus_7.1.1:/tmp/video
     environment:
       - DEVICE=Nexus 5
