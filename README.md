@@ -45,6 +45,7 @@ List of Docker images
 |OSX / Windows|6.0|23|butomo1989/docker-android-arm-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-6.0 "Get your own image badge on microbadger.com")|
 |OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
 |OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
+|Real Device|-|-|butomo1989/docker-android-real-device|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-real-device.svg)](https://microbadger.com/images/butomo1989/docker-android-real-device "Get your own image badge on microbadger.com")|
 
 List of Devices
 ---------------
@@ -127,6 +128,10 @@ If you want to use appium to test UI of your android application, you need to sh
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=True -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
+### Share Volume
+
+You can deactivate auto_record by changing the value to "False" in docker-compose file. e.g. change value to "False" in this [line].
+
 ### Docker-Compose
 
 ![][compose]
@@ -202,6 +207,7 @@ docker exec -it android-container tail -f /var/log/supervisor/docker-android.std
 [docker android nexus]: <images/docker_android_nexus.png>
 [compose]: <images/compose.png>
 [connected_devices]: <images/connected_devices.png>
+[line]: <https://github.com/butomo1989/docker-android/blob/master/docker-compose.yml#L30>
 [example of compose file]: <docker-compose.yml>
 [docker-compose]: <https://docs.docker.com/compose/install/>
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
