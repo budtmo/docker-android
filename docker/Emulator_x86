@@ -34,6 +34,8 @@ WORKDIR /root
 #------------------
 # ffmpeg
 #   Video recorder
+# jq
+#   Sed for JSON data
 #------------------
 #    KVM Package
 # for emulator x86
@@ -54,6 +56,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     python-numpy \
     net-tools \
     ffmpeg \
+    jq \
     qemu-kvm \
     libvirt-bin \
     ubuntu-vm-builder \

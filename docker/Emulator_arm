@@ -34,6 +34,8 @@ WORKDIR /root
 #------------------
 # ffmpeg
 #   Video recorder
+# jq
+#   Sed for JSON data
 #==================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
@@ -45,6 +47,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     python-numpy \
     net-tools \
     ffmpeg \
+    jq \
  && rm -rf /var/lib/apt/lists/*
 
 #=======
