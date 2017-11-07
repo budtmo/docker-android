@@ -1,4 +1,4 @@
-FROM appium/appium:1.6.6-beta-p1
+FROM appium/appium:1.7.1-p0
 
 LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
 
@@ -96,9 +96,9 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
     IMG_TYPE=$IMG_TYPE \
     BROWSER=$BROWSER
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
-RUN sdkmanager "platforms;android-${API_LEVEL}"
-RUN sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}"
-RUN sdkmanager "emulator"
+RUN echo y | sdkmanager "platforms;android-${API_LEVEL}" && \
+    echo y | sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" && \
+    echo y | sdkmanager "emulator"
 RUN rm ${ANDROID_HOME}/tools/emulator \
  && ln -s ${ANDROID_HOME}/emulator/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
