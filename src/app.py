@@ -4,21 +4,23 @@ import json
 import logging
 import os
 import subprocess
-import errno
 
-from src import CONFIG_FILE, ROOT, CHROME_DRIVER
+from src import CHROME_DRIVER, CONFIG_FILE, ROOT
 from src import log
 
 log.init()
 logger = logging.getLogger('app')
 
+
 def symlink_force(target, link_name):
     try:
         os.symlink(target, link_name)
     except OSError as e:
+        import errno
         if e.errno == errno.EEXIST:
             os.remove(link_name)
             os.symlink(target, link_name)
+
 
 def get_or_raise(env: str) -> str:
     """
@@ -69,22 +71,9 @@ def prepare_avd(device: str, avd_name: str):
     :param device: Device name
     :param avd_name: Name of android virtual device / emulator
     """
-    cmd = 'echo no | android create avd -f -n {name} -t android-{api} -b {img_type}{sys_img}'.format(
-        name=avd_name, api=API_LEVEL, img_type='google_apis/' if IMG_TYPE == 'google_apis' else '',
-        sys_img=SYS_IMG)
 
-    # Link emulator skins
-    skin_rsc_path = os.path.join(ROOT, 'devices', 'skins')
-    logger.info('Skin ressource path: {rsc}'.format(rsc=skin_rsc_path))
-    skin_dst_path = os.path.join(ANDROID_HOME, 'platforms', 'android-{api}'.format(api=API_LEVEL), 'skins')
-    logger.info('Skin destination path: {dst}'.format(dst=skin_dst_path))
-    for s in os.listdir(skin_rsc_path):
-        symlink_force(os.path.join(skin_rsc_path, s), os.path.join(skin_dst_path, s))
-
-    # Hardware and its skin
     device_name_bash = device.replace(' ', '\ ')
     skin_name = device.replace(' ', '_').lower()
-    logger.info('Device name in bash: {db}, Skin name: {skin}'.format(db=device_name_bash, skin=skin_name))
 
     # For custom hardware profile
     profile_dst_path = os.path.join(ROOT, '.android', 'devices.xml')
@@ -95,10 +84,19 @@ def prepare_avd(device: str, avd_name: str):
         logger.info('Hardware profile destination path: {dst}'.format(dst=profile_dst_path))
         symlink_force(profile_src_path, profile_dst_path)
 
-    # Append command
-    cmd += ' -d {device} -s {skin}'.format(device=device_name_bash, skin=skin_name)
-    logger.info('AVD creation command: {cmd}'.format(cmd=cmd))
-    subprocess.check_call(cmd, shell=True)
+    avd_path = '/'.join([ANDROID_HOME, 'android_emulator'])
+    creation_cmd = 'avdmanager create avd -f -n {name} -b {img_type}/{sys_img} -k "system-images;android-{api_lvl};' \
+        '{img_type};{sys_img}" -d {device} -p {path}'.format(name=avd_name, img_type=IMG_TYPE, sys_img=SYS_IMG,
+                                                             api_lvl=API_LEVEL, device=device_name_bash,
+                                                             path=avd_path)
+    logger.info('Command to create avd: {command}'.format(command=creation_cmd))
+    subprocess.check_call(creation_cmd, shell=True)
+
+    skin_path = '/'.join([ANDROID_HOME, 'devices', 'skins', skin_name])
+    config_path = '/'.join([avd_path, 'config.ini'])
+    with open(config_path, 'a') as file:
+        file.write('skin.path={sp}'.format(sp=skin_path))
+    logger.info('Skin was added in config.ini')
 
 
 def appium_run(avd_name: str):
@@ -184,8 +182,9 @@ def run():
 
     logger.info('Preparing emulator...')
     prepare_avd(device, avd_name)
+
     logger.info('Run emulator...')
-    cmd = 'emulator -avd {name}'.format(name=avd_name)
+    cmd = 'emulator -avd {name} -gpu off'.format(name=avd_name)
     subprocess.Popen(cmd.split())
 
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
