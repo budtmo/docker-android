@@ -130,7 +130,7 @@ If you want to use appium to test UI of your android application, you need to sh
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=True -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
-### Share Volume
+### Video Recording
 
 You can deactivate auto_record by changing the value to "False" in docker-compose file. e.g. change value to "False" in this [line].
 
