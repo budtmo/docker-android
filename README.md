@@ -1,8 +1,10 @@
-Docker-Android
-==============
+<p align="center">
+  <img id="header" src="./images/logo_dockerandroid_small.png" />
+</p>
 
 [![Join the chat at https://gitter.im/butomo1989/docker-android](https://badges.gitter.im/butomo1989/docker-android.svg)](https://gitter.im/butomo1989/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/butomo1989/docker-android.svg?branch=master)](https://travis-ci.org/butomo1989/docker-android)
+[![Docker Pulls](https://img.shields.io/docker/pulls/butomo1989/docker-android-x86-7.1.1.svg?style=flat-square&style=plastic)](https://hub.docker.com/r/butomo1989/docker-android-x86-7.1.1/)
 [![codecov](https://codecov.io/gh/butomo1989/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 
@@ -202,6 +204,10 @@ All logs inside container are stored under folder **/var/log/supervisor**. you c
 docker exec -it android-container tail -f /var/log/supervisor/docker-android.stdout.log
 ```
 
+Special Thanks
+--------------
+- [Gian Christanto] for creating a great logo!
+
 [appium]: <https://appium.io>
 [espresso]: <https://google.github.io/android-testing-support-library/docs/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
@@ -215,3 +221,4 @@ docker exec -it android-container tail -f /var/log/supervisor/docker-android.std
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
+[gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
