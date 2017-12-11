@@ -1,10 +1,12 @@
 #!/bin/bash
 
 function start() {
-    mkdir -p $VIDEO_PATH
-    name="$(date '+%d_%m_%Y_%H_%M_%S').mp4"
+    # BUILD and TESTNAME must be set by user in test desired_caps
+    BUILD="$(curl -s localhost:4723/wd/hub/sessions | jq -r '.value[0].capabilities.BUILD')"
+    TESTNAME="$(curl -s localhost:4723/wd/hub/sessions | jq -r '.value[0].capabilities.TESTNAME').mp4"
+    mkdir -p $VIDEO_PATH/$BUILD
     echo "Start video recording"
-    ffmpeg -video_size 1599x899 -framerate 15 -f x11grab -i $DISPLAY $VIDEO_PATH/$name -y
+    ffmpeg -video_size 1599x899 -framerate 15 -f x11grab -i $DISPLAY $VIDEO_PATH/$BUILD/$TESTNAME -y
 }
 
 function stop() {

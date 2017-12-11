@@ -12,6 +12,8 @@ class SimpleAndroidUITests(unittest.TestCase):
             'automationName': 'UIAutomator2',
             'app': '/root/tmp/sample_apk_debug.apk',
             'browserName': 'android',
+            'TESTNAME': 'simple test',
+            'BUILD': 'v0.1',
             'avd': 'nexus_5_7.1.1'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
