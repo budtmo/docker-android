@@ -135,6 +135,7 @@ docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -
 ### Video Recording
 
 You can deactivate auto_record by changing the value to "False" in docker-compose file. e.g. change value to "False" in this [line].
+Send BUILD and TESTNAME as desired_caps   :   'BUILD': 'your build name', 'TESTNAME': 'your test name'
 
 ### Docker-Compose
 
