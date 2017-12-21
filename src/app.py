@@ -133,7 +133,7 @@ def appium_run(avd_name: str):
 
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
-                       selenium_port: int, application_name: str):
+                       selenium_port: int, application_name: str=''):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
