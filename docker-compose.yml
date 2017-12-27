@@ -28,6 +28,7 @@ services:
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - AUTO_RECORD=True
+      - APPLICATION_NAME=nexus_711
 
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
@@ -47,6 +48,7 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=True
       - AUTO_RECORD=True
+      - APPLICATION_NAME=samsung_711
 
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
@@ -66,3 +68,4 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=True
       - AUTO_RECORD=True
+      - APPLICATION_NAME=samsung_511
