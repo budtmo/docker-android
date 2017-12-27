@@ -3,6 +3,7 @@ import os
 from unittest import TestCase
 
 import mock
+import uuid
 
 from src import app
 
@@ -60,6 +61,15 @@ class TestAppium(TestCase):
         self.assertFalse(os.path.exists(CONFIG_FILE))
         app.create_node_config('test', 'android', '127.0.0.1', 4723, '127.0.0.1', 4444)
         self.assertTrue(os.path.exists(CONFIG_FILE))
+        os.remove(CONFIG_FILE)
+
+    def test_config_contains_device_id(self):
+        from src import CONFIG_FILE
+        self.assertFalse(os.path.exists(CONFIG_FILE))
+        device_id = 'UniqueDeviceId_{random_id}'.format(random_id=uuid.uuid4())
+        app.create_node_config('test', 'android', '127.0.0.1', 4723, '127.0.0.1', 4444, '%s' % device_id)
+        self.assertTrue(os.path.exists(CONFIG_FILE))
+        self.assertTrue(device_id in open(os.path.exists(CONFIG_FILE)).read())
         os.remove(CONFIG_FILE)
 
     def tearDown(self):
