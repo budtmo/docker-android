@@ -6,7 +6,7 @@ version: "2.2"
 services:
   # Selenium hub
   selenium_hub:
-    image: selenium/hub:3.4.0
+    image: selenium/hub:3.7.1
     ports:
       - "4444:4444"
 
