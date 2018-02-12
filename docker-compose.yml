@@ -27,6 +27,7 @@ services:
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - AUTO_RECORD=True
+      - BROWSER_NAME=chrome
 
   # Docker-Android for Android application testing
   nexus_7.1.1:

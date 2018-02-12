@@ -10,9 +10,9 @@
 
 Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
 
-Samsung Device               |  Google Device
-:---------------------------:|:---------------------------:
-![][docker android samsung]  |  ![][docker android nexus]
+Emulator - Samsung Device    | Emulator - Nexus Device     | Real Device  
+:---------------------------:|:---------------------------:|:---------------------------:
+![][emulator samsung]        |![][emulator nexus]          |![][real device]   
 
 Purpose
 -------
@@ -143,7 +143,6 @@ You can deactivate auto_record by changing the value to "False" in docker-compos
 ### Docker-Compose
 
 ![][compose]
-![][connected_devices]
 
 There is [example of compose file] to run complete selenium grid and docker-android container as nodes. [docker-compose] version [1.13.0] or higher is required to be able to execute that compose file.
 
@@ -215,10 +214,10 @@ Special Thanks
 [appium]: <https://appium.io>
 [espresso]: <https://google.github.io/android-testing-support-library/docs/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
-[docker android samsung]: <images/docker_android_samsung.png>
-[docker android nexus]: <images/docker_android_nexus.png>
+[emulator samsung]: <images/emulator_samsung_galaxy_s6.png>
+[emulator nexus]: <images/emulator_nexus_5.png>
+[real device]: <images/real_device.png>
 [compose]: <images/compose.png>
-[connected_devices]: <images/connected_devices.png>
 [line]: <https://github.com/butomo1989/docker-android/blob/master/docker-compose.yml#L30>
 [example of compose file]: <docker-compose.yml>
 [docker-compose]: <https://docs.docker.com/compose/install/>
