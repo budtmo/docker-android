@@ -10,12 +10,33 @@ services:
     ports:
       - "4444:4444"
 
+  # Real devices
+  real_device:
+    image: butomo1989/docker-android-real-device
+    privileged: true
+    depends_on:
+      - selenium_hub
+    ports:
+      - 6080:6080
+    volumes:
+      - ./video-real-device:/tmp/video
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+    environment:
+      - CONNECT_TO_GRID=True
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - AUTO_RECORD=True
+
   # Docker-Android for Android application testing
   nexus_7.1.1:
     image: butomo1989/docker-android-x86-7.1.1
     privileged: true
     # Increase scale number if needed
     scale: 1
+    depends_on:
+      - selenium_hub
+      - real_device
     ports:
       - 6080
     # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
@@ -36,6 +57,9 @@ services:
     privileged: true
     # Increase scale number if needed
     scale: 1
+    depends_on: 
+      - selenium_hub
+      - real_device
     ports:
       - 6080
     volumes:
@@ -55,6 +79,9 @@ services:
     privileged: true
     # Increase scale number if needed
     scale: 1
+    depends_on:
+      - selenium_hub
+      - real_device
     ports:
       - 6080
     volumes:
