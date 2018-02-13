@@ -218,7 +218,7 @@ Special Thanks
 [emulator nexus]: <images/emulator_nexus_5.png>
 [real device]: <images/real_device.png>
 [compose]: <images/compose.png>
-[line]: <https://github.com/butomo1989/docker-android/blob/master/docker-compose.yml#L30>
+[line]: <https://github.com/butomo1989/docker-android/blob/master/docker-compose.yml#L29>
 [example of compose file]: <docker-compose.yml>
 [docker-compose]: <https://docs.docker.com/compose/install/>
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
