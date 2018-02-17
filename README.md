@@ -150,6 +150,23 @@ There is [example of compose file] to run complete selenium grid and docker-andr
 docker-compose up -d
 ```
 
+Build Android project
+---------------------
+
+docker-android can be used for building Android project and executing its unit test. This following steps will illustrate how to build Android project:
+
+1. Clone [this sample test project](https://github.com/googlesamples/android-testing).
+
+	```bash
+	git clone git@github.com:googlesamples/android-testing.git
+	```
+
+2. Build the project
+
+	```bash
+	docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-7.1.1 tmp/gradlew build
+	```
+
 Control android emulator outside container
 ------------------------------------------
 
