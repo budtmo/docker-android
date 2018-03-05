@@ -244,7 +244,11 @@ Shutdown the vm by running the command below in the boot2docker vm before you se
 
 If you use VMWare Fusion, go to menu bar > Vitual Machine > Settings > Processors and Memory, expand Advanced options, and select `Enable hypervisor applications in this virtual machine`.
 
+[![Enable nested virtualization for VMWare Fusion](images/vmwarefusion_enable_nested_virtualization.png)]
+
 If you use Parallels Desktop, open settings screen of that vm and go to `CPU & Memory` under `hardware` tab, expand Advanced settings and select `Enable nested virtualization`.
+
+[![Enable nested virtualization for Parallels Desktop](images/parallels_enable_nested_virtualization.png)]
 
 4. Enable kvm inside virtual machine
 Run as an account other than root to install kvm packages using tce-load.
@@ -278,7 +282,7 @@ Let's run a docker image for an emulator with x86 processor.
 docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
-When the services inside this docker container are running, connect to http://10.211.55.3:6080/vnc.html and login. The emulator with x86 processor should be running on screen.
+When the services inside this docker container are running, connect to http://10.211.55.3:6080/vnc.html (the IP we got when the docker machine was created) and login. The emulator with x86 processor should be running on screen.
 
 Troubleshooting
 ---------------
