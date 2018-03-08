@@ -85,7 +85,8 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 RUN echo y | sdkmanager "platforms;android-${API_LEVEL}" && \
     echo y | sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" && \
-    echo y | sdkmanager "emulator"
+    echo y | sdkmanager "emulator" && \
+    echo y | sdkmanager --update
 RUN rm ${ANDROID_HOME}/tools/emulator \
  && ln -s ${ANDROID_HOME}/emulator/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
 ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
