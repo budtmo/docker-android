@@ -10,7 +10,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Android version (5.0.1|5.1.1|6.0|7.0|7.1.1|all): " ANDROID_VERSION
+    read -p "Android version (5.0.1|5.1.1|6.0|7.0|7.1.1|8.0|8.1|all): " ANDROID_VERSION
 else
     ANDROID_VERSION=$2
 fi
@@ -33,11 +33,13 @@ declare -A list_of_levels=(
         [6.0]=23
         [7.0]=24
         [7.1.1]=25
+	[8.0]=26
+	[8.1]=27
 )
 
 declare -A list_of_processors=(
         [arm]=armeabi-v7a
-        [x86]=x86_64
+        [x86]=x86
 )
 
 function get_android_versions() {
@@ -57,7 +59,7 @@ function get_android_versions() {
 
     # If version cannot be found in the list
     if [ -z "$versions" ]; then
-        echo "Android version \"$ANDROID_VERSION\" is not found in the list or not supported! Support only version 5.0.1, 5.1.1, 6.0, 7.0, 7.1.1"
+        echo "Android version \"$ANDROID_VERSION\" is not found in the list or not supported! Support only version 5.0.1, 5.1.1, 6.0, 7.0, 7.1.1, 8.0, 8.1"
         exit 1
     fi
 
@@ -169,6 +171,9 @@ function build() {
                 # It is because there is no ARM EABI v7a System Image for 6.0
                 IMG_TYPE=google_apis
                 BROWSER=browser
+            elif [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                IMG_TYPE=google_apis_playstore
+                BROWSER=chrome
             else
                 IMG_TYPE=google_apis
                 BROWSER=chrome
@@ -180,12 +185,21 @@ function build() {
             echo "[BUILD] System Image: $sys_img"
             image_version="$IMAGE-$p-$v:$RELEASE"
             image_latest="$IMAGE-$p-$v:latest"
-            echo "[BUILD] Image name: $image_version and $image_latest"
-            echo "[BUILD] Dockerfile: $FILE_NAME"
-            docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
-            --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
-            --build-arg BROWSER=$BROWSER -f $FILE_NAME .
-            docker tag $image_version $image_latest
+            if [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                image_version="$IMAGE-$p-$v-playstore:$RELEASE"
+                image_latest="$IMAGE-$p-$v-playstore:latest"
+            fi
+            if [[ "${list_of_levels[$v]}" -ge "26" && "$p" == "arm" ]]; then
+                echo "System image $p for $v not supported"
+                echo "Skip building!"
+            else
+                echo "[BUILD] Image name: $image_version and $image_latest"
+                echo "[BUILD] Dockerfile: $FILE_NAME"
+                docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
+                --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
+                --build-arg BROWSER=$BROWSER -f $FILE_NAME .
+                docker tag $image_version $image_latest
+            fi
         done
     done
 }
@@ -196,9 +210,18 @@ function push() {
         for v in "${versions[@]}"; do
             image_version="$IMAGE-$p-$v:$RELEASE"
             image_latest="$IMAGE-$p-$v:latest"
-            echo "[PUSH] Image name: $image_version and $image_latest"
-            docker push $image_version
-            docker push $image_latest
+            if [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                image_version="$IMAGE-$p-$v-playstore:$RELEASE"
+                image_latest="$IMAGE-$p-$v-playstore:latest"
+            fi
+            if [[ "${list_of_levels[$v]}" -ge "26" && "$p" == "arm" ]]; then
+                echo "docker image $image_version and $image_latest not existed"
+                echo "Skip pushing!"
+            else
+                echo "[PUSH] Image name: $image_version and $image_latest"
+                docker push $image_version
+                docker push $image_latest
+            fi
         done
     done
 }
