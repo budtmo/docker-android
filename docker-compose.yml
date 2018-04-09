@@ -6,28 +6,46 @@ version: "2.2"
 services:
   # Selenium hub
   selenium_hub:
-    image: selenium/hub:3.7.1
+    image: selenium/hub:3.11.0-bismuth
     ports:
       - "4444:4444"
 
+  # There is a bug for using appium. Issue: https://github.com/butomo1989/docker-android/issues/73
   # Real devices
+  #real_device:
+  #  image: butomo1989/docker-android-real-device
+  #  privileged: true
+  #  depends_on:
+  #    - selenium_hub
+  #  ports:
+  #    - 6080:6080
+  #  volumes:
+  #    - ./video-real-device:/tmp/video
+  #    - /dev/bus/usb:/dev/bus/usb
+  #    - ~/.android:/root/.android
+  #  environment:
+  #    - CONNECT_TO_GRID=True
+  #    - APPIUM=true
+  #    - SELENIUM_HOST=selenium_hub
+  #    - AUTO_RECORD=True
+  #    - BROWSER_NAME=chrome
+
+  # Using Appium Docker Android  
   real_device:
-    image: butomo1989/docker-android-real-device
-    privileged: true
+    image: appium/appium
     depends_on:
       - selenium_hub
-    ports:
-      - 6080:6080
+    network_mode: "service:selenium_hub"
+    privileged: true
     volumes:
-      - ./video-real-device:/tmp/video
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
+      - $PWD/example/sample_apk:/root/tmp
     environment:
       - CONNECT_TO_GRID=True
-      - APPIUM=true
       - SELENIUM_HOST=selenium_hub
-      - AUTO_RECORD=True
-      - BROWSER_NAME=chrome
+      # Enable it for msite testing
+      #- BROWSER_NAME=chrome
 
   # Docker-Android for Android application testing
   nexus_7.1.1:
