@@ -8,11 +8,11 @@
 [![codecov](https://codecov.io/gh/butomo1989/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 
+Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
+
 <p align="center">
    <a href="https://youtu.be/pQdpjuYwvp8"><img src="./images/appiumconf2018.png" alt="Appium Conference 2018" width="600"></a>
-</p>   
-
-Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
+</p> 
 
 Emulator - Samsung Device    | Emulator - Nexus Device     | Real Device  
 :---------------------------:|:---------------------------:|:---------------------------:
