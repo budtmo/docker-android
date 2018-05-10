@@ -105,7 +105,8 @@ def appium_run(avd_name: str):
 
     :param avd_name: Name of android virtual device / emulator
     """
-    cmd = 'appium'
+    DEFAULT_LOG_PATH = '/var/log/supervisor/appium.log'
+    cmd = 'appium --log {log}'.format(log=os.getenv('APPIUM_LOG', DEFAULT_LOG_PATH))
 
     default_web_browser = os.getenv('BROWSER')
     if default_web_browser == 'chrome':
