@@ -1,4 +1,4 @@
-FROM appium/appium:1.8.0-p0
+FROM appium/appium:1.8.0-p1
 
 LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
 
