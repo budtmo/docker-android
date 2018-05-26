@@ -167,6 +167,15 @@ docker-android can be used for building Android project and executing its unit t
 	docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-7.1.1 tmp/gradlew build
 	```
 
+Proxy
+-----
+
+You can enable proxy inside container by passing following environment variables:
+
+- HTTP_PROXY="\<docker\_bridge\_ip\_address>"
+- HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
+- NO_PROXY="localhost"
+
 Control android emulator outside container
 ------------------------------------------
 
