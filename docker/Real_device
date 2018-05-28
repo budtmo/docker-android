@@ -1,4 +1,4 @@
-FROM appium/appium:1.8.0-p1
+FROM appium/appium:1.8.1-p0
 
 LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
 
@@ -85,7 +85,8 @@ ENV DISPLAY=:0 \
 #=========================
 # Set default variables
 #=========================
-ENV REAL_DEVICE=True
+ENV APPIUM_LOG=$LOG_PATH/appium.log
+ENV REAL_DEVICE=true
 ENV BROWSER=android
 
 #===============
