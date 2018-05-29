@@ -115,5 +115,7 @@ EXPOSE 4723 6080 5555
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
+COPY genymotion/geny_start.sh /root
+RUN chmod +x /root/geny_start.sh
 
-CMD /usr/bin/supervisord --configuration supervisord.conf
+CMD ["./geny_start.sh"]
