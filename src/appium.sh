@@ -1,12 +1,7 @@
 #!/bin/bash
 
 if [ -z "$GENY_TEMPLATE" ]; then
-  GENY_TEMPLATE="/root/tmp/devices.json"
-fi
-
-if [ ! -f "$GENY_TEMPLATE" ]; then
-    echo "File not found! Nothing to do!"
-    exit 1
+  	GENY_TEMPLATE="/root/tmp/devices.json"
 fi
 
 contents=$(cat $GENY_TEMPLATE)
