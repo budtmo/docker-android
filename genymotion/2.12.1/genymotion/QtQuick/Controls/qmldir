@@ -1,0 +1,6 @@
+module QtQuick.Controls
+plugin qtquickcontrolsplugin
+classname QtQuickControlsPlugin
+typeinfo plugins.qmltypes
+designersupported
+depends QtQuick.Window 2.2
