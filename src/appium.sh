@@ -20,14 +20,8 @@ function prepare_geny_cloud() {
 
 	    template=$(get_value '.template')
 	    device=$(get_value '.device')
-
-	    if [[ $template ]] && [[ $template != null ]]; then
-	    	echo "Starting \"$device\" with template name \"$template\"..."
-			gmtool --cloud admin startdisposable "${template}" "${device}"
-	    else
-	    	echo "Starting \"$device\"..."
-	    	gmtool --cloud admin start "${device}"
-	    fi
+    	echo "Starting \"$device\" with template name \"$template\"..."
+		gmtool --cloud admin startdisposable "${template}" "${device}"
 	done
 }
 
