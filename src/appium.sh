@@ -38,10 +38,13 @@ function run_appium() {
 }
 
 if [[ $REAL_DEVICE = true ]]; then
+	echo "Using real device"
 	run_appium
 elif [[ $GENYMOTION = true ]]; then
+	echo "Using Genymotion"
 	prepare_geny_cloud
 	run_appium
 else
+	echo "Using Emulator"
 	python3 -m src.app
 fi

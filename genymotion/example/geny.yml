@@ -15,17 +15,16 @@ services:
     image: butomo1989/docker-android-genymotion
     depends_on:
       - selenium_hub
-    privileged: true
     ports:
       - 6080:6080
       - 4723:4723
     volumes:
-      - $PWD/example/sample_apk:/opt
-      - $PWD/genymotion/sample:/root/tmp
+      - $PWD/sample_apk:/opt
+      - $PWD/sample_devices:/root/tmp
     environment:
       - GENY_TEMPLATE=/root/tmp/devices.json
       - USER=xxx
-      - PASS=xxx      
+      - PASS=xxx
       - LICENSE=xxx
       - CONNECT_TO_GRID=True
       - APPIUM=true
