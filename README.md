@@ -54,6 +54,7 @@ List of Docker images
 |OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
 |OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
 |All |-|-|butomo1989/docker-android-real-device|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-real-device.svg)](https://microbadger.com/images/butomo1989/docker-android-real-device "Get your own image badge on microbadger.com")|
+|All |All|All|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
 
 List of Devices
 ---------------
@@ -175,6 +176,12 @@ You can enable proxy inside container by passing following environment variables
 - HTTP_PROXY="\<docker\_bridge\_ip\_address>"
 - HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
 - NO_PROXY="localhost"
+
+Genymotion
+----------
+
+Docker-Android supports [Genymotion Cloud]. What you need is [device.json] and [this sample of docker-compose file].
+
 
 Control android emulator outside container
 ------------------------------------------
@@ -320,6 +327,9 @@ Special Thanks
 [example of compose file]: <docker-compose.yml>
 [docker-compose]: <https://docs.docker.com/compose/install/>
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
+[Genymotion Cloud]: <https://cloud.geny.io/signin>
+[device.json]: <genymotion/example/sample_devices/devices.json>
+[this sample of docker-compose file]: <genymotion/example/geny.yml>
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
