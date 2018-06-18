@@ -54,7 +54,7 @@ List of Docker images
 |OSX / Windows|7.0|24|butomo1989/docker-android-arm-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.0 "Get your own image badge on microbadger.com")|
 |OSX / Windows|7.1.1|25|butomo1989/docker-android-arm-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-arm-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-arm-7.1.1 "Get your own image badge on microbadger.com")|
 |All |-|-|butomo1989/docker-android-real-device|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-real-device.svg)](https://microbadger.com/images/butomo1989/docker-android-real-device "Get your own image badge on microbadger.com")|
-|All |All|All|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
+|Linux|All|All|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
 
 List of Devices
 ---------------
