@@ -180,6 +180,8 @@ You can enable proxy inside container by passing following environment variables
 Genymotion
 ----------
 
+![Genymotion](images/logo_genymotion.png)
+
 Docker-Android supports [Genymotion Cloud]. What you need is [device.json] and [this sample of docker-compose file].
 
 
