@@ -24,10 +24,10 @@ services:
   #    - /dev/bus/usb:/dev/bus/usb
   #    - ~/.android:/root/.android
   #  environment:
-  #    - CONNECT_TO_GRID=True
+  #    - CONNECT_TO_GRID=true
   #    - APPIUM=true
   #    - SELENIUM_HOST=selenium_hub
-  #    - AUTO_RECORD=True
+  #    - AUTO_RECORD=true
   #    - BROWSER_NAME=chrome
 
   # Using Appium Docker Android  
@@ -42,7 +42,7 @@ services:
       - ~/.android:/root/.android
       - $PWD/example/sample_apk:/root/tmp
     environment:
-      - CONNECT_TO_GRID=True
+      - CONNECT_TO_GRID=true
       - SELENIUM_HOST=selenium_hub
       # Enable it for msite testing
       #- BROWSER_NAME=chrome
@@ -64,10 +64,10 @@ services:
       - ./video-nexus_7.1.1:/tmp/video
     environment:
       - DEVICE=Nexus 5
-      - CONNECT_TO_GRID=True
+      - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
-      - AUTO_RECORD=True
+      - AUTO_RECORD=true
 
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
@@ -85,11 +85,11 @@ services:
       - ./video-samsung_7.1.1:/tmp/video
     environment:
       - DEVICE=Samsung Galaxy S6
-      - CONNECT_TO_GRID=True
+      - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
-      - MOBILE_WEB_TEST=True
-      - AUTO_RECORD=True
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
 
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
@@ -107,8 +107,8 @@ services:
       - ./video-samsung_5.1.1:/tmp/video
     environment:
       - DEVICE=Samsung Galaxy S6
-      - CONNECT_TO_GRID=True
+      - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
-      - MOBILE_WEB_TEST=True
-      - AUTO_RECORD=True
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
