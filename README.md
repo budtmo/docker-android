@@ -105,17 +105,17 @@ Quick Start
 Run Appium Server
 -----------------
 
-Appium is automation test framework to test mobile website and mobile application, including android. To be able to use appium, you need to run appium-server. You run appium server inside docker-android container by ***opening port 4723*** and ***passing an environment variable APPIUM=TRUE***.
+Appium is automation test framework to test mobile website and mobile application, including android. To be able to use appium, you need to run appium-server. You run appium server inside docker-android container by ***opening port 4723*** and ***passing an environment variable APPIUM=true***.
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=True --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
 ### Connect to Selenium Grid
 
 It is also possible to connect appium server that run inside docker-android with selenium grid by passing following environment variables:
 
-- CONNECT\_TO\_GRID=True
+- CONNECT\_TO\_GRID=true
 - APPIUM_HOST="\<host\_ip\_address>"
 - APPIUM_PORT=\<port\_number>
 - SELENIUM_HOST="\<host\_ip\_address>"
@@ -123,10 +123,10 @@ It is also possible to connect appium server that run inside docker-android with
 
 To run tests for mobile browser, following parameter can be passed:
 
-- MOBILE\_WEB\_TEST=True
+- MOBILE\_WEB\_TEST=true
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=True -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=True --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
 ### Share Volume
@@ -134,7 +134,7 @@ docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -
 If you want to use appium to test UI of your android application, you need to share volume where the APK is located to folder ***/root/tmp***.
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=True -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-7.1.1
 ```
 
 ### Video Recording
@@ -176,6 +176,11 @@ You can enable proxy inside container by passing following environment variables
 - HTTP_PROXY="\<docker\_bridge\_ip\_address>"
 - HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
 - NO_PROXY="localhost"
+
+Relaxed Security
+-----
+
+Pass environment variable RELAXED_SECURITY=true to disable additional security check to use some advanced features.
 
 Genymotion
 ----------
