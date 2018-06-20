@@ -16,7 +16,7 @@ function auto_record() {
     echo "Auto record: $AUTO_RECORD"
     sleep 6
 
-    while [ $AUTO_RECORD == "True" ]; do
+    while [ $AUTO_RECORD == true ]; do
         # Check if there is test running
         no_test=true
         while $no_test; do
