@@ -35,12 +35,17 @@ function prepare_geny_cloud() {
 function run_appium() {
 	echo "Preparing appium-server..."
 	CMD="appium --log $APPIUM_LOG"
-	if [ ! -z "$CONNECT_TO_GRID" ]; then
+	if [ "$CONNECT_TO_GRID" = true ]; then
 		NODE_CONFIG_JSON="/root/src/nodeconfig.json"
 		/root/generate_config.sh $NODE_CONFIG_JSON
 		CMD+=" --nodeconfig $NODE_CONFIG_JSON"
   	fi
-  	echo "Preparation is done"
+
+	if [ "$RELAXED_SECURITY" = true ]; then
+		CMD+=" --relaxed-security"
+	fi
+
+	echo "Preparation is done"
   	$CMD
 }
 
