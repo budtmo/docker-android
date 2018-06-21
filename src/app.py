@@ -195,7 +195,7 @@ def run():
     prepare_avd(device, avd_name)
 
     logger.info('Run emulator...')
-    cmd = 'emulator -avd {name} -gpu off'.format(name=avd_name)
+    cmd = 'emulator -avd {name} -gpu off -verbose'.format(name=avd_name)
     subprocess.Popen(cmd.split())
 
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
