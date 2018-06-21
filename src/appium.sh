@@ -4,9 +4,9 @@ if [ -z "$GENY_TEMPLATE" ]; then
   	GENY_TEMPLATE="/root/tmp/devices.json"
 fi
 
-contents=$(cat $GENY_TEMPLATE)
-
 function prepare_geny_cloud() {
+	contents=$(cat $GENY_TEMPLATE)
+
 	# Register
 	gmtool config username="${USER}" password="${PASS}"
 	gmtool license register "${LICENSE}"
@@ -49,10 +49,10 @@ function run_appium() {
   	$CMD
 }
 
-if [[ $REAL_DEVICE = true ]]; then
+if [ "$REAL_DEVICE" = true ]; then
 	echo "Using real device"
 	run_appium
-elif [[ $GENYMOTION = true ]]; then
+elif [ "$GENYMOTION" = true ]; then
 	echo "Using Genymotion"
 	prepare_geny_cloud
 	run_appium
