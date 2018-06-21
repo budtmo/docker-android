@@ -190,13 +190,17 @@ def run():
     prepare_avd(device, avd_name)
 
     logger.info('Run emulator...')
+    dp_size = os.getenv('DATAPARTITION', '550m')
+    with open("/root/android_emulator/config.ini", "a") as cfg:
+        cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
     cmd = 'emulator -avd {name} -gpu off -verbose'.format(name=avd_name)
-    subprocess.Popen(cmd.split())
-
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
+        subprocess.Popen(cmd.split())
         logger.info('Run appium server...')
         appium_run(avd_name)
+    else:
+        result = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()
 
 if __name__ == '__main__':
     run()

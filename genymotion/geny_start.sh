@@ -10,17 +10,19 @@ if [ ! -f "$GENY_TEMPLATE" ]; then
     exit 1
 fi
 
-contents=$(cat $GENY_TEMPLATE)
 getAbort() {
-    echo "ABORT SIGNAL detected! Stopping all created emulators..."
-    for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
-		get_value() {
-			echo ${row} | base64 --decode | jq -r ${1}
-    	}
-    	
-    	gmtool --cloud admin stopdisposable $(get_value '.device')
-    done
-    echo "Done"  
+    if [ "$GENYMOTION" = true ]; then
+        contents=$(cat $GENY_TEMPLATE)
+        echo "ABORT SIGNAL detected! Stopping all created emulators..."
+        for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
+            get_value() {
+                echo ${row} | base64 --decode | jq -r ${1}
+            }
+
+            gmtool --cloud admin stopdisposable $(get_value '.device')
+        done
+        echo "Done"
+    fi
 }
 trap 'getAbort; exit' EXIT
 
