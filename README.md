@@ -187,7 +187,19 @@ Genymotion
 
 ![Genymotion](images/logo_genymotion.png)
 
-Docker-Android supports [Genymotion Cloud]. What you need is [device.json] and [this sample of docker-compose file].
+Docker-Android supports [Genymotion Cloud]. What you need is [device.json] and run following command
+
+```bash
+export USER="xxx"
+export PASS="xxx"
+export LICENSE="xxx"
+
+docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root/tmp -e USER=$USER -e PASS=$PASS -e LICENSE=$LICENSE butomo1989/docker-android-genymotion
+```
+
+You can also use [this docker-compose file].
+
+![](video/demo.mp4)
 
 
 Control android emulator outside container
@@ -335,7 +347,7 @@ Special Thanks
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
 [Genymotion Cloud]: <https://cloud.geny.io/signin>
 [device.json]: <genymotion/example/sample_devices/devices.json>
-[this sample of docker-compose file]: <genymotion/example/geny.yml>
+[this docker-compose file]: <genymotion/example/geny.yml>
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
