@@ -27,4 +27,3 @@ services:
       - PASS=xxx
       - LICENSE=xxx
       - CONNECT_TO_GRID=true
-      - APPIUM=true
