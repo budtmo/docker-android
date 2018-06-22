@@ -198,8 +198,6 @@ docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root
 
 You can also use [this docker-compose file].
 
-![](video/demo.mp4)
-
 
 Control android emulator outside container
 ------------------------------------------
