@@ -187,7 +187,10 @@ Genymotion
 
 ![Genymotion](images/logo_genymotion.png)
 
-Docker-Android supports [Genymotion Cloud]. What you need is [device.json] and run following command
+Docker-Android supports [Genymotion Cloud]. 
+
+You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud. 
+Use [device.json] to define the device to start. You can specify the port on which the device will start so you don't need to change the device name in your tests every time you need to run those tests. Then run following command
 
 ```bash
 export USER="xxx"
@@ -343,7 +346,7 @@ Special Thanks
 [example of compose file]: <docker-compose.yml>
 [docker-compose]: <https://docs.docker.com/compose/install/>
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
-[Genymotion Cloud]: <https://cloud.geny.io/signin>
+[Genymotion Cloud]: <https://www.genymotion.com/cloud/>
 [device.json]: <genymotion/example/sample_devices/devices.json>
 [this docker-compose file]: <genymotion/example/geny.yml>
 [adb_connection]: <images/adb_connection.png>
