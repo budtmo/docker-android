@@ -201,6 +201,10 @@ docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root
 
 You can also use [this docker-compose file].
 
+<p align="center">
+   <a href="https://youtu.be/jXhUEyaVeMY"><img src="./images/Genymotion_cloud.png" alt="Docker-Android supports Genymotion Cloud" width="600"></a>
+</p>
+
 
 Control android emulator outside container
 ------------------------------------------
