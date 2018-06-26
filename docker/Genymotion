@@ -121,4 +121,5 @@ EXPOSE 4723 6080 5555
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf /root/geny_start.sh
+RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
 CMD ["./geny_start.sh"]
