@@ -60,7 +60,7 @@ services:
       - 6080
     # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
     volumes:
-      - $PWD/example/sample_apk:/opt
+      - $PWD/example/sample_apk:/root/tmp/sample_apk
       - ./video-nexus_7.1.1:/tmp/video
     environment:
       - DEVICE=Nexus 5
