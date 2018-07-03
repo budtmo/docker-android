@@ -83,8 +83,8 @@ RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}
 #======================
 # Install SDK packages
 #======================
-ARG ANDROID_VERSION=5.0.1
-ARG API_LEVEL=21
+ARG ANDROID_VERSION=8.0
+ARG API_LEVEL=26
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86_64
 ARG IMG_TYPE=google_apis
@@ -99,10 +99,6 @@ ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 RUN echo y | sdkmanager "platforms;android-${API_LEVEL}" && \
     echo y | sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" && \
     echo y | sdkmanager "emulator"
-RUN rm ${ANDROID_HOME}/tools/emulator \
- && ln -s ${ANDROID_HOME}/emulator/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
-ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
-
 
 #==============================================
 #       Download chrome driver v2.26
