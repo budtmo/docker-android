@@ -16,6 +16,8 @@ env:
   - ANDROID_VERSION=6.0
   - ANDROID_VERSION=7.0
   - ANDROID_VERSION=7.1.1
+  - ANDROID_VERSION=8.0
+  - ANDROID_VERSION=8.1
   - REAL_DEVICE=True
 
 script: bash travis.sh
