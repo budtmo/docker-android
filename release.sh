@@ -56,7 +56,7 @@ function get_android_versions() {
 }
 
 get_android_versions
-processors=x86
+processor=x86
 chrome_driver=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
 
 function test() {
@@ -139,14 +139,14 @@ function build() {
         echo "[BUILD] IMAGE TYPE: $IMG_TYPE"
         level=${list_of_levels[$v]}
         echo "[BUILD] API Level: $level"
-        sys_img=$processors
+        sys_img=$processor
         echo "[BUILD] System Image: $sys_img"
-        image_version="$IMAGE-$p-$v:$RELEASE"
-        image_latest="$IMAGE-$p-$v:latest"
+        image_version="$IMAGE-$processor-$v:$RELEASE"
+        image_latest="$IMAGE-$processor-$v:latest"
         echo "[BUILD] Image name: $image_version and $image_latest"
         echo "[BUILD] Dockerfile: $FILE_NAME"
         docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
-        --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
+        --build-arg PROCESSOR=$processor --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
         --build-arg BROWSER=$BROWSER --build-arg CHROME_DRIVER=$chrome_driver -f $FILE_NAME .
         docker tag $image_version $image_latest
     done
@@ -155,8 +155,8 @@ function build() {
 function push() {
     # Push docker image(s)
     for v in "${versions[@]}"; do
-        image_version="$IMAGE-$p-$v:$RELEASE"
-        image_latest="$IMAGE-$p-$v:latest"
+        image_version="$IMAGE-$processor-$v:$RELEASE"
+        image_latest="$IMAGE-$processor-$v:latest"
         echo "[PUSH] Image name: $image_version and $image_latest"
         docker push $image_version
         docker push $image_latest
