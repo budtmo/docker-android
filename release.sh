@@ -57,6 +57,7 @@ function get_android_versions() {
 
 get_android_versions
 processors=x86
+chrome_driver=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
 
 function test() {
     # Prepare needed parameter to run tests
@@ -146,7 +147,7 @@ function build() {
         echo "[BUILD] Dockerfile: $FILE_NAME"
         docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
         --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
-        --build-arg BROWSER=$BROWSER -f $FILE_NAME .
+        --build-arg BROWSER=$BROWSER --build-arg CHROME_DRIVER=$chrome_driver -f $FILE_NAME .
         docker tag $image_version $image_latest
     done
 }
