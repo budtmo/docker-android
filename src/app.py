@@ -86,9 +86,9 @@ def prepare_avd(device: str, avd_name: str):
 
     avd_path = '/'.join([ANDROID_HOME, 'android_emulator'])
     creation_cmd = 'avdmanager create avd -f -n {name} -b {img_type}/{sys_img} -k "system-images;android-{api_lvl};' \
-        '{img_type};{sys_img}" -d {device} -p {path}'.format(name=avd_name, img_type=IMG_TYPE, sys_img=SYS_IMG,
-                                                             api_lvl=API_LEVEL, device=device_name_bash,
-                                                             path=avd_path)
+                   '{img_type};{sys_img}" -d {device} -p {path}'.format(name=avd_name, img_type=IMG_TYPE,
+                                                                        sys_img=SYS_IMG, api_lvl=API_LEVEL,
+                                                                        device=device_name_bash, path=avd_path)
     logger.info('Command to create avd: {command}'.format(command=creation_cmd))
     subprocess.check_call(creation_cmd, shell=True)
 
@@ -128,7 +128,9 @@ def appium_run(avd_name: str):
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
             browser_name = default_web_browser if mobile_web_test else 'android'
-            create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port)
+            application_name = os.getenv('APPLICATION_NAME', '')
+            create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port,
+                               application_name)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
@@ -137,15 +139,17 @@ def appium_run(avd_name: str):
 
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
-                       selenium_port: int):
+                       selenium_port: int, application_name: str=''):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
+    :param browser_name: Browser name. def: android
     :param avd_name: Name of android virtual device / emulator
     :param appium_host: Host where appium server is running
     :param appium_port: Port number where where appium server is running
     :param selenium_host: Host where selenium server is running
     :param selenium_port: Port number where selenium server is running
+    :param application_name: Name, to determine exact node
     """
     config = {
         'capabilities': [
@@ -156,6 +160,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
                 'browserName': browser_name,
                 'deviceName': avd_name,
                 'maxInstances': 1,
+                'applicationName': application_name,
             }
         ],
         'configuration': {
@@ -201,6 +206,7 @@ def run():
         appium_run(avd_name)
     else:
         result = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()
+
 
 if __name__ == '__main__':
     run()
