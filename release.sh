@@ -57,7 +57,9 @@ function get_android_versions() {
 
 get_android_versions
 processor=x86
-chrome_driver=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+#chrome_driver=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+#Reason: https://sites.google.com/a/chromium.org/chromedriver/downloads
+chrome_driver=2.33
 
 function test() {
     # Prepare needed parameter to run tests
