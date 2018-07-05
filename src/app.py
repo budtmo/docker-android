@@ -193,7 +193,7 @@ def run():
     dp_size = os.getenv('DATAPARTITION', '550m')
     with open("/root/android_emulator/config.ini", "a") as cfg:
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
-    cmd = 'emulator -avd {name} -gpu off -verbose'.format(name=avd_name)
+    cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
