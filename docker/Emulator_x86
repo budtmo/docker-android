@@ -105,11 +105,11 @@ ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt
 
 
 #==============================================
-#       Download chrome driver
-# to be able to use chrome browser in emulator
-# Issue: https://github.com/butomo1989/docker-android/commit/6406504f944dae73d0a0c5d8e71a17a47dff9b33
+# Download latest version of chromedriver
+# to be able to use Chrome browser in emulator
 #==============================================
-RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip" \
+RUN LATEST_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
+ && wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/$LATEST_VERSION/chromedriver_linux64.zip" \
  && unzip -x chrome.zip \
  && rm chrome.zip
 
