@@ -72,7 +72,7 @@ services:
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
   samsung_galaxy_web_7.1.1:
-    image: butomo1989/docker-android-x86-7.1.1
+    image: butomo1989/docker-android-x86-8.1
     privileged: true
     # Increase scale number if needed
     scale: 1

@@ -76,7 +76,7 @@ Quick Start
 	- For ***Linux OS***, please use image name that contains "x86"
 
 		```bash
-		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1
+		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-8.1
 		```
 
 	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization
@@ -100,7 +100,7 @@ Run Appium Server
 Appium is automation test framework to test mobile website and mobile application, including android. To be able to use appium, you need to run appium-server. You run appium server inside docker-android container by ***opening port 4723*** and ***passing an environment variable APPIUM=true***.
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true --name android-container butomo1989/docker-android-x86-8.1
 ```
 
 ### Connect to Selenium Grid
@@ -118,7 +118,7 @@ To run tests for mobile browser, following parameter can be passed:
 - MOBILE\_WEB\_TEST=true
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-8.1
 ```
 
 ### Share Volume
@@ -126,7 +126,7 @@ docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -
 If you want to use appium to test UI of your android application, you need to share volume where the APK is located to folder ***/root/tmp***.
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-7.1.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-8.1
 ```
 
 ### Video Recording
@@ -157,7 +157,7 @@ docker-android can be used for building Android project and executing its unit t
 2. Build the project
 
 	```bash
-	docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-7.1.1 tmp/gradlew build
+	docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-8.1 tmp/gradlew build
 	```
 
 Proxy
@@ -314,7 +314,7 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
 5. You may now run a docker container
     5.1. Let's run a docker image for an emulator with x86 processor.
     ```bash
-    docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-7.1.1
+    docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-8.1
     ```
 
     When the services inside this docker container are running, connect to http://10.211.55.3:6080/vnc.html (the IP we got when the docker machine was created) and login. The emulator with x86 processor should be running on screen.
