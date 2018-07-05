@@ -171,6 +171,9 @@ function build() {
                 # It is because there is no ARM EABI v7a System Image for 6.0
                 IMG_TYPE=google_apis
                 BROWSER=browser
+            elif [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                IMG_TYPE=google_apis_playstore
+                BROWSER=chrome
             else
                 IMG_TYPE=google_apis
                 BROWSER=chrome
@@ -182,12 +185,21 @@ function build() {
             echo "[BUILD] System Image: $sys_img"
             image_version="$IMAGE-$p-$v:$RELEASE"
             image_latest="$IMAGE-$p-$v:latest"
-            echo "[BUILD] Image name: $image_version and $image_latest"
-            echo "[BUILD] Dockerfile: $FILE_NAME"
-            docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
-            --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
-            --build-arg BROWSER=$BROWSER -f $FILE_NAME .
-            docker tag $image_version $image_latest
+            if [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                image_version="$IMAGE-$p-$v-playstore:$RELEASE"
+                image_latest="$IMAGE-$p-$v-playstore:latest"
+            fi
+            if [[ "${list_of_levels[$v]}" -ge "26" && "$p" == "arm" ]]; then
+                echo "System image $p for $v not supported"
+                echo "Skip building!"
+            else
+                echo "[BUILD] Image name: $image_version and $image_latest"
+                echo "[BUILD] Dockerfile: $FILE_NAME"
+                docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
+                --build-arg PROCESSOR=$p --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
+                --build-arg BROWSER=$BROWSER -f $FILE_NAME .
+                docker tag $image_version $image_latest
+            fi
         done
     done
 }
@@ -198,9 +210,18 @@ function push() {
         for v in "${versions[@]}"; do
             image_version="$IMAGE-$p-$v:$RELEASE"
             image_latest="$IMAGE-$p-$v:latest"
-            echo "[PUSH] Image name: $image_version and $image_latest"
-            docker push $image_version
-            docker push $image_latest
+            if [[ "${list_of_levels[$v]}" -ge "24" && "$p" == "x86" ]]; then
+                image_version="$IMAGE-$p-$v-playstore:$RELEASE"
+                image_latest="$IMAGE-$p-$v-playstore:latest"
+            fi
+            if [[ "${list_of_levels[$v]}" -ge "26" && "$p" == "arm" ]]; then
+                echo "docker image $image_version and $image_latest not existed"
+                echo "Skip pushing!"
+            else
+                echo "[PUSH] Image name: $image_version and $image_latest"
+                docker push $image_version
+                docker push $image_latest
+            fi
         done
     done
 }
