@@ -33,8 +33,8 @@ declare -A list_of_levels=(
         [6.0]=23
         [7.0]=24
         [7.1.1]=25
-	[8.0]=26
-	[8.1]=27
+        [8.0]=26
+        [8.1]=27
 )
 
 declare -A list_of_processors=(

@@ -16,12 +16,12 @@ function auto_record() {
     echo "Auto record: $AUTO_RECORD"
     sleep 6
 
-    while [ $AUTO_RECORD == "True" ]; do
+    while [ "$AUTO_RECORD" = true ]; do
         # Check if there is test running
         no_test=true
         while $no_test; do
             task=$(curl -s localhost:4723/wd/hub/sessions | jq -r '.value')
-            if [ "$task" == "" ] || [ "$task" == "[]" ]; then
+            if [ "$task" = "" ] || [ "$task" = "[]" ]; then
                 sleep .5
             else
                 start &
@@ -30,9 +30,9 @@ function auto_record() {
         done
 
         # Check if test is finished
-        while [ $no_test == false ]; do
+        while [ $no_test = false ]; do
             task=$(curl -s localhost:4723/wd/hub/sessions | jq -r '.value')
-            if [ "$task" == "" ] || [ "$task" == "[]" ]; then
+            if [ "$task" = "" ] || [ "$task" = "[]" ]; then
                 stop
                 no_test=true
             else

@@ -1,4 +1,4 @@
-FROM appium/appium:1.7.2-p1
+FROM appium/appium:1.8.1-p2
 
 LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
 
@@ -86,7 +86,7 @@ RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}
 ARG ANDROID_VERSION=5.0.1
 ARG API_LEVEL=21
 ARG PROCESSOR=x86
-ARG SYS_IMG=x86_64
+ARG SYS_IMG=x86
 ARG IMG_TYPE=google_apis
 ARG BROWSER=android
 ENV ANDROID_VERSION=$ANDROID_VERSION \
@@ -96,20 +96,15 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
     IMG_TYPE=$IMG_TYPE \
     BROWSER=$BROWSER
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
-RUN echo y | sdkmanager "platforms;android-${API_LEVEL}" && \
-    echo y | sdkmanager "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" && \
-    echo y | sdkmanager "emulator"
-RUN rm ${ANDROID_HOME}/tools/emulator \
- && ln -s ${ANDROID_HOME}/emulator/emulator64-${PROCESSOR} ${ANDROID_HOME}/tools/emulator
-ENV LD_LIBRARY_PATH=$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib
-
+RUN yes | sdkmanager --licenses && \
+    sdkmanager "platforms;android-${API_LEVEL}" "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" "emulator"
 
 #==============================================
-#       Download chrome driver v2.26
-# to be able to use chrome browser in emulator
-# Issue: https://github.com/butomo1989/docker-android/commit/6406504f944dae73d0a0c5d8e71a17a47dff9b33
+# Download latest version of chromedriver
+# to be able to use Chrome browser in emulator
 #==============================================
-RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/2.26/chromedriver_linux64.zip" \
+RUN LATEST_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
+ && wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/$LATEST_VERSION/chromedriver_linux64.zip" \
  && unzip -x chrome.zip \
  && rm chrome.zip
 

@@ -105,7 +105,13 @@ def appium_run(avd_name: str):
 
     :param avd_name: Name of android virtual device / emulator
     """
-    cmd = 'appium'
+    DEFAULT_LOG_PATH = '/var/log/supervisor/appium.log'
+    cmd = 'appium --log {log}'.format(log=os.getenv('APPIUM_LOG', DEFAULT_LOG_PATH))
+
+    relaxed_security = convert_str_to_bool(str(os.getenv('RELAXED_SECURITY', False)))
+    logger.info('Relaxed security? {rs}'.format(rs=relaxed_security))
+    if relaxed_security:
+        cmd += ' --relaxed-security'
 
     default_web_browser = os.getenv('BROWSER')
     if default_web_browser == 'chrome':
@@ -184,13 +190,17 @@ def run():
     prepare_avd(device, avd_name)
 
     logger.info('Run emulator...')
-    cmd = 'emulator -avd {name} -gpu off'.format(name=avd_name)
-    subprocess.Popen(cmd.split())
-
+    dp_size = os.getenv('DATAPARTITION', '550m')
+    with open("/root/android_emulator/config.ini", "a") as cfg:
+        cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
+    cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
+        subprocess.Popen(cmd.split())
         logger.info('Run appium server...')
         appium_run(avd_name)
+    else:
+        result = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()
 
 if __name__ == '__main__':
     run()

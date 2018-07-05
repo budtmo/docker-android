@@ -1,0 +1,29 @@
+# Note: It requires docker-compose 1.13.0
+#
+# Usage: docker-compose up -d
+version: "2.2"
+
+services:
+  # Selenium hub
+  selenium_hub:
+    image: selenium/hub:3.12.0-americium
+    ports:
+      - 4444:4444
+
+  # Please stop this container by using docker stop instead of docker-compose stop
+  genymotion:
+    image: butomo1989/docker-android-genymotion
+    depends_on:
+      - selenium_hub
+    ports:
+      - 6080:6080
+      - 4723:4723
+    volumes:
+      - $PWD/sample_apk:/root/tmp/sample_apk
+      - $PWD/sample_devices:/root/tmp
+    environment:
+      - GENY_TEMPLATE=/root/tmp/devices.json
+      - USER=xxx
+      - PASS=xxx
+      - LICENSE=xxx
+      - CONNECT_TO_GRID=true

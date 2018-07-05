@@ -53,21 +53,25 @@ class TestApp(TestCase):
         self.assertEqual(app.convert_str_to_bool(True), None)
 
     @mock.patch('src.app.prepare_avd')
+    @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
-    def test_run_with_appium(self, mocked_avd, mocked_subprocess):
+    def test_run_with_appium(self, mocked_avd, mocked_open, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
             os.environ['APPIUM'] = str(True)
             app.run()
             self.assertTrue(mocked_avd.called)
+            self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertTrue(mocked_appium.called)
 
     @mock.patch('src.app.prepare_avd')
+    @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
-    def test_run_withhout_appium(self, mocked_avd, mocked_subprocess):
+    def test_run_withhout_appium(self, mocked_avd, mocked_open, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
             os.environ['APPIUM'] = str(False)
             app.run()
             self.assertTrue(mocked_avd.called)
+            self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertFalse(mocked_appium.called)
