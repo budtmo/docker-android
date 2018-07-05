@@ -9,7 +9,7 @@ else
       echo "Log in to docker hub"
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       echo "[Version: $ANDROID_VERSION] RUN UNIT TEST, BUILD DOCKER IMAGES AND PUSH THOSE TO DOCKER HUB"
-      bash release.sh all $ANDROID_VERSION all $TRAVIS_TAG
+      bash release.sh all $ANDROID_VERSION $TRAVIS_TAG
     elif [ ! -z "$REAL_DEVICE" ]; then
       echo "[SUPPORT FOR REAL DEVICE: BUILD DOCKER IMAGES AND PUSH THOSE TO DOCKER HUB ]"
       bash release_real.sh all $TRAVIS_TAG
