@@ -81,7 +81,7 @@ Quick Start
 		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-8.1
 		```
 
-	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization
+	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization with Ubuntu OS
 
 
 2. Verify the ip address of docker host.
