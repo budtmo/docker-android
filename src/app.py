@@ -49,12 +49,22 @@ def convert_str_to_bool(str: str) -> bool:
         logger.error(err)
 
 
+def is_initialized() -> bool:
+    return os.path.exists(INIT_FILE)
+
+
+def finish_initialization():
+    file = open(INIT_FILE, 'w+')
+    file.close()
+
+
 ANDROID_HOME = get_or_raise('ANDROID_HOME')
 ANDROID_VERSION = get_or_raise('ANDROID_VERSION')
 API_LEVEL = get_or_raise('API_LEVEL')
 PROCESSOR = get_or_raise('PROCESSOR')
 SYS_IMG = get_or_raise('SYS_IMG')
 IMG_TYPE = get_or_raise('IMG_TYPE')
+INIT_FILE = os.getenv('INIT_FILE', "/root/init")
 
 logger.info('Android version: {version} \n'
             'API level: {level} \n'
@@ -86,9 +96,10 @@ def prepare_avd(device: str, avd_name: str):
 
     avd_path = '/'.join([ANDROID_HOME, 'android_emulator'])
     creation_cmd = 'avdmanager create avd -f -n {name} -b {img_type}/{sys_img} -k "system-images;android-{api_lvl};' \
-        '{img_type};{sys_img}" -d {device} -p {path}'.format(name=avd_name, img_type=IMG_TYPE, sys_img=SYS_IMG,
-                                                             api_lvl=API_LEVEL, device=device_name_bash,
-                                                             path=avd_path)
+                   '{img_type};{sys_img}" -d {device} -p {path}'.format(name=avd_name, img_type=IMG_TYPE,
+                                                                        sys_img=SYS_IMG,
+                                                                        api_lvl=API_LEVEL, device=device_name_bash,
+                                                                        path=avd_path)
     logger.info('Command to create avd: {command}'.format(command=creation_cmd))
     subprocess.check_call(creation_cmd, shell=True)
 
@@ -186,14 +197,20 @@ def run():
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
 
-    logger.info('Preparing emulator...')
-    prepare_avd(device, avd_name)
+    if not is_initialized():
+        logger.info('Preparing emulator...')
+        prepare_avd(device, avd_name)
+        finish_initialization()
 
     logger.info('Run emulator...')
     dp_size = os.getenv('DATAPARTITION', '550m')
     with open("/root/android_emulator/config.ini", "a") as cfg:
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
-    cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
+
+    if not is_initialized():
+        cmd = 'emulator/emulator @{name} -gpu off -verbose -wipe-data'.format(name=avd_name)
+    else:
+        cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
@@ -201,6 +218,7 @@ def run():
         appium_run(avd_name)
     else:
         result = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE).communicate()
+
 
 if __name__ == '__main__':
     run()
