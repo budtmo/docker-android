@@ -1,5 +1,6 @@
 """Unit test to test app."""
 import os
+import time
 from unittest import TestCase
 
 import mock
@@ -67,7 +68,7 @@ class TestApp(TestCase):
     @mock.patch('src.app.prepare_avd')
     @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
-    def test_run_withhout_appium(self, mocked_avd, mocked_open, mocked_subprocess):
+    def test_run_without_appium(self, mocked_avd, mocked_open, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
             os.environ['APPIUM'] = str(False)
             app.run()
@@ -75,3 +76,21 @@ class TestApp(TestCase):
             self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertFalse(mocked_appium.called)
+
+    @mock.patch('builtins.open')
+    @mock.patch('subprocess.Popen')
+    @mock.patch('os.path.exists', mock.MagicMock(return_value=False))
+    def test_run_first_run(self, mocked_open, mocked_subprocess):
+        with mock.patch('src.app.prepare_avd') as mocked_prepare_avd:
+            app.run()
+            self.assertFalse(app.is_initialized())
+            self.assertTrue(mocked_prepare_avd.called)
+
+    @mock.patch('builtins.open')
+    @mock.patch('subprocess.Popen')
+    @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
+    def test_run_next_run(self, mocked_open, mocked_subprocess):
+        with mock.patch('src.app.prepare_avd') as mocked_prepare_avd:
+            app.run()
+            self.assertTrue(app.is_initialized())
+            self.assertFalse(mocked_prepare_avd.called)
