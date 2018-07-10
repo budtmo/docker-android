@@ -1,6 +1,5 @@
 """Unit test to test app."""
 import os
-import time
 from unittest import TestCase
 
 import mock
