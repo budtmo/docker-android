@@ -210,6 +210,8 @@ adb connect <docker-machine-ip-address>:5555
 
 ![][adb_connection]
 
+**Note:** You need to have Android Debug Bridge (adb) installed in your host machine.
+
 Get rid of unauthorized device popup while connecting to the emulator outside the container
 ------------------------------------------
 
@@ -218,8 +220,6 @@ In order to connect to the emulator using already generated adbkey on your machi
 ```
 docker run -v <local Android key directory>:/root/.android/ ...
 ```
-
-**Note:** You need to have Android Debug Bridge (adb) installed in your host machine.
 
 SMS Simulation
 --------------
