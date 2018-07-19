@@ -215,7 +215,7 @@ adb connect <docker-machine-ip-address>:5555
 Get rid of unauthorized device popup while connecting to the emulator outside the container
 ------------------------------------------
 
-In order to connect to the emulator using already generated adbkey on your machine you will need to mount your `.android` folder to the container:
+In order to connect to the emulator using already generated adbkey on your machine you will need to mount your `.android` folder to the container (this is needed only when you work with emulator based on playstore image):
 
 ```
 docker run -v <local Android key directory>:/root/.android/ ...
