@@ -196,8 +196,9 @@ def run():
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
+    is_first_run = not is_initialized()
 
-    if not is_initialized():
+    if is_first_run:
         logger.info('Preparing emulator...')
         prepare_avd(device, avd_name)
         finish_initialization()
@@ -207,7 +208,7 @@ def run():
     with open("/root/android_emulator/config.ini", "a") as cfg:
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
 
-    if not is_initialized():
+    if is_first_run:
         cmd = 'emulator/emulator @{name} -gpu off -verbose -wipe-data'.format(name=avd_name)
     else:
         cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
