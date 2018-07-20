@@ -50,7 +50,7 @@ def convert_str_to_bool(str: str) -> bool:
 
 
 def is_initialized() -> bool:
-    return not os.path.exists(INIT_FILE)
+    return os.path.exists(INIT_FILE)
 
 
 def finish_initialization():
@@ -196,7 +196,7 @@ def run():
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
-    is_first_run = is_initialized()
+    is_first_run = not is_initialized()
 
     if is_first_run:
         logger.info('Preparing emulator...')
