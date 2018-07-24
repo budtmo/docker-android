@@ -89,20 +89,19 @@ ARG PROCESSOR=x86
 ARG SYS_IMG=x86
 ARG IMG_TYPE=google_apis
 ARG BROWSER=android
-ARG CHROME_DRIVER=24
 ENV ANDROID_VERSION=$ANDROID_VERSION \
     API_LEVEL=$API_LEVEL \
     PROCESSOR=$PROCESSOR \
     SYS_IMG=$SYS_IMG \
     IMG_TYPE=$IMG_TYPE \
     BROWSER=$BROWSER \
-    CHROME_DRIVER=2.40
+    CHROME_DRIVER=$CHROME_DRIVER
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 RUN yes | sdkmanager --licenses && \
     sdkmanager "platforms;android-${API_LEVEL}" "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" "emulator"
 
 #==============================================
-# Download latest version of chromedriver
+# Download proper version of chromedriver
 # to be able to use Chrome browser in emulator
 #==============================================
 RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER}/chromedriver_linux64.zip" \

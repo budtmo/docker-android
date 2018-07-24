@@ -125,8 +125,7 @@ def appium_run(avd_name: str):
         cmd += ' --relaxed-security'
 
     default_web_browser = os.getenv('BROWSER')
-    if default_web_browser == 'chrome':
-        cmd += ' --chromedriver-executable {driver}'.format(driver=CHROME_DRIVER)
+    cmd += ' --chromedriver-executable {driver}'.format(driver=CHROME_DRIVER)
 
     grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
