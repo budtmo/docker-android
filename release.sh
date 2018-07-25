@@ -31,6 +31,18 @@ declare -A list_of_levels=(
         [8.1]=27
 )
 
+# The version of the Chrome browser installed on the Android emulator needs to be known beforehand
+# in order to chose the proper version of chromedriver (see http://chromedriver.chromium.org/downloads)
+declare -A chromedriver_versions=(
+        [5.0.1]="2.12"
+        [5.1.1]="2.13"
+        [6.0]="2.18"
+        [7.0]="2.23"
+        [7.1.1]="2.28"
+        [8.0]="2.31"
+        [8.1]="2.33"
+)
+
 function get_android_versions() {
     versions=()
 
@@ -57,9 +69,6 @@ function get_android_versions() {
 
 get_android_versions
 processor=x86
-#chrome_driver=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-#Reason: https://sites.google.com/a/chromium.org/chromedriver/downloads
-chrome_driver=2.33
 
 function test() {
     # Prepare needed parameter to run tests
@@ -143,6 +152,8 @@ function build() {
         echo "[BUILD] API Level: $level"
         sys_img=$processor
         echo "[BUILD] System Image: $sys_img"
+        chrome_driver="${chromedriver_versions[$v]}"
+        echo "[BUILD] chromedriver version: $chrome_driver"
         image_version="$IMAGE-$processor-$v:$RELEASE"
         image_latest="$IMAGE-$processor-$v:latest"
         echo "[BUILD] Image name: $image_version and $image_latest"
