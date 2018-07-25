@@ -42,7 +42,7 @@ List of Docker images
 ---------------------
 
 |OS   |Android version   |API   |Browser   |Browser version   |Chromedriver version   |Image   |Size   |
-|:---|:---|:---|:---|:---:|:---|:---|:---|
+|:---|:---|:---|:---|:---|:---|:---|:---|
 |Linux|5.0.1|21|browser|37.0|2.12|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
 |Linux|5.1.1|22|browser|39.0|2.13|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
 |Linux|6.0|23|browser|44.0|2.18|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
@@ -51,7 +51,7 @@ List of Docker images
 |Linux|8.0|26|chrome|58.0|2.31|butomo1989/docker-android-x86-8.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-8.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-8.0 "Get your own image badge on microbadger.com")|
 |Linux|8.1|27|chrome|61.0|2.33|butomo1989/docker-android-x86-8.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-8.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-8.1 "Get your own image badge on microbadger.com")|
 |All |-|-|-|-|-|butomo1989/docker-android-real-device|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-real-device.svg)](https://microbadger.com/images/butomo1989/docker-android-real-device "Get your own image badge on microbadger.com")|
-|Linux|All|All|-|-|-|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
+|Linux|All|All|All|All|All|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
 
 List of Devices
 ---------------
