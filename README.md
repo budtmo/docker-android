@@ -41,7 +41,7 @@ Advantages compare with other docker-android projects
 List of Docker images
 ---------------------
 
-|Supported OS   |Android version   |API level   |Browser name   |Browser version   |chromedriver version   |Image name   |Image status   |
+|OS   |Android version   |API   |Browser   |Browser version   |Chromedriver version   |Image   |Size   |
 |:---|:---|:---|:---|:---:|:---|:---|:---|
 |Linux|5.0.1|21|browser|37.0|2.12|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
 |Linux|5.1.1|22|browser|39.0|2.13|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
