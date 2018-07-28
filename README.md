@@ -12,7 +12,7 @@ Docker-Android is a docker image built to be used for everything related to mobi
 
 <p align="center">
    <a href="https://youtu.be/pQdpjuYwvp8"><img src="./images/appiumconf2018.png" alt="Appium Conference 2018" width="600"></a>
-</p> 
+</p>
 
 Emulator - Samsung Device    | Emulator - Nexus Device     | Real Device  
 :---------------------------:|:---------------------------:|:---------------------------:
@@ -181,9 +181,9 @@ Genymotion
 
 ![Genymotion](images/logo_genymotion.png)
 
-Docker-Android supports [Genymotion Cloud]. 
+Docker-Android supports [Genymotion Cloud].
 
-You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud. 
+You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud.
 Use [device.json] to define the device to start. You can specify the port on which the device will start so you don't need to change the device name in your tests every time you need to run those tests. Then run following command
 
 ```bash
@@ -279,7 +279,7 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
     ```bash
     $ docker-machine create --driver=parallels prl-dev
     ```
-    
+
     This utility `docker-machine-parallels` will fetch boot2docker.iso to create a vm of VMWare fusion or Parallels Desktop. When the vm is created, you'll see it's booted with VMWare fusion or Parallels Desktop where the network of vm is set to NAT and one IP is assigned. You'll be able to connect to vnc service inside the docker image through that IP. Say it's `10.211.55.3` and we'll use it later.
 
 3. Setup the virtual machine for nested virtualization support
@@ -290,11 +290,11 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
     ```
 
     If you use VMWare Fusion, go to menu bar > Vitual Machine > Settings > Processors and Memory, expand Advanced options, and select `Enable hypervisor applications in this virtual machine`.
-    
+
     ![Enable nested virtualization for VMWare Fusion](images/vmwarefusion_enable_nested_virtualization.png)
-    
+
     If you use Parallels Desktop, open settings screen of that vm and go to `CPU & Memory` under `hardware` tab, expand Advanced settings and select `Enable nested virtualization`.
-    
+
     ![Enable nested virtualization for Parallels Desktop](images/parallels_enable_nested_virtualization.png)
 
 4. Enable kvm inside virtual machine
