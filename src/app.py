@@ -192,8 +192,11 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
 def run():
     """Run app."""
     device = os.getenv('DEVICE', 'Nexus 5')
-    device_id = os.getenv('DEVICE_ID', str(uuid.uuid4()))
     logger.info('Device: {device}'.format(device=device))
+    
+    device_id = os.getenv('DEVICE_ID', str(uuid.uuid4()))
+    logger.info('Device Id: {device_id}'.format(device_id=device_id))
+
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
