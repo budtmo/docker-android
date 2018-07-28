@@ -15,8 +15,6 @@ class MSiteChromeAndroidUITests(unittest.TestCase):
             'deviceName': 'Android Emulator',
             'appPackage': 'com.android.chrome',
             'appActivity': 'com.google.android.apps.chrome.Main',
-            'TESTNAME': 'simple test',
-            'BUILD': 'v0.1',
             'browserName': 'chrome'
         }
         self.driver = webdriver.Remote('http://127.0.0.1:4444/wd/hub', desired_caps)
