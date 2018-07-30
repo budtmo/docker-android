@@ -145,12 +145,15 @@ There is [example of compose file] to run complete selenium grid and docker-andr
 docker-compose up -d
 ```
 ### Google Play Services
-The Google play services (v12.8.74) will be downloaded from [apklinker](https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_12.8.74-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk)  in src/utils.sh file when emulator booted . you can edit utils.sh as you need any adb stuffs and mount it as follow in docker-compose file :
-    volumes:
-      - $PWD//videos:/tmp/video
+
+The Google play services (v12.8.74) will be downloaded from [apklinker](https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_12.8.74-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk)  in [utils bash file] file when emulator booted . you can edit [utils bash file] as you need any adb stuffs and mount it as follow in docker-compose file :
+
+     volumes:
+      - $PWD/videos:/tmp/video
       - $PWD/src/utils.sh:/root/src/utils.sh
 
 or when run directly
+```bash
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/src/utils.sh:/root/src/utils.sh -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-8.1      
 
 Build Android project
@@ -359,6 +362,7 @@ Special Thanks
 [compose]: <images/compose.png>
 [line]: <https://github.com/butomo1989/docker-android/blob/master/docker-compose.yml#L70>
 [example of compose file]: <docker-compose.yml>
+[utils bash file]: <src/utils.sh>
 [docker-compose]: <https://docs.docker.com/compose/install/>
 [1.13.0]: <https://github.com/docker/compose/releases/tag/1.13.0>
 [Genymotion Cloud]: <https://www.genymotion.com/cloud/>
