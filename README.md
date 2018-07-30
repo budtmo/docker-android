@@ -146,7 +146,13 @@ docker-compose up -d
 ```
 ### Google Play Services
 
-The Google play services (v12.8.74) will be downloaded from [apklinker](https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_12.8.74-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk)  in [utils bash file] file when emulator booted . you can edit [utils bash file] as you need any adb stuffs and mount it as follow in docker-compose file :
+The Google play services (v12.8.74) will be downloaded from [apklinker](https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_12.8.74-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk)  in [utils bash file] file when emulator booted . you can edit [utils bash file] as you need any adb stuffs as the following to disable emulators animation to increase performance:
+
+      adb shell "settings put global window_animation_scale 0.0"
+      adb shell "settings put global transition_animation_scale 0.0"
+      adb shell "settings put global animator_duration_scale 0.0"
+
+ mount it as follow in docker-compose file :
 
      volumes:
       - $PWD/videos:/tmp/video
