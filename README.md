@@ -155,6 +155,7 @@ The Google play services (v12.8.74) will be downloaded from [apklinker](https://
 or when run directly
 ```bash
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/src/utils.sh:/root/src/utils.sh -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-8.1      
+```
 
 Build Android project
 ---------------------
