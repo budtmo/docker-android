@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import subprocess
+import uuid
 
 from src import CHROME_DRIVER, CONFIG_FILE, ROOT
 from src import log
@@ -192,6 +193,8 @@ def run():
     """Run app."""
     device = os.getenv('DEVICE', 'Nexus 5')
     logger.info('Device: {device}'.format(device=device))
+    device_id = os.getenv('DEVICE_ID', str(uuid.uuid4()))
+    logger.info('Device Id: {device_id}'.format(device_id=device_id))
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
@@ -208,9 +211,9 @@ def run():
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
 
     if is_first_run:
-        cmd = 'emulator/emulator @{name} -gpu off -verbose -wipe-data'.format(name=avd_name)
+        cmd = 'emulator/emulator @{name} -gpu off -prop emu.uuid={uuid} -verbose -wipe-data'.format(name=avd_name, uuid=device_id)
     else:
-        cmd = 'emulator/emulator @{name} -gpu off -verbose'.format(name=avd_name)
+        cmd = 'emulator/emulator @{name} -gpu off -prop emu.uuid={uuid} -verbose'.format(name=avd_name, uuid=device_id)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
