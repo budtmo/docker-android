@@ -115,7 +115,7 @@ RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/${CHROME
 #=================================================
 # Download Google Play Service APK from apklinker
 #=================================================
-Run wget -nv -O google_play_service.apk ""https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk"
+Run wget -nv -O google_play_service.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk"
 
 #================================================
 # noVNC Default Configurations
