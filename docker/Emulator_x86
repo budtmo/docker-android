@@ -91,6 +91,7 @@ ARG IMG_TYPE=google_apis
 ARG BROWSER=android
 ARG CHROME_DRIVER=2.40
 ARG GOOGLE_PLAY_SERVICE=12.8.74
+ARG GOOGLE_PLAY_STORE=11.0.50
 ENV ANDROID_VERSION=$ANDROID_VERSION \
     API_LEVEL=$API_LEVEL \
     PROCESSOR=$PROCESSOR \
@@ -98,7 +99,8 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
     IMG_TYPE=$IMG_TYPE \
     BROWSER=$BROWSER \
     CHROME_DRIVER=$CHROME_DRIVER \
-    GOOGLE_PLAY_SERVICE=$GOOGLE_PLAY_SERVICE
+    GOOGLE_PLAY_SERVICE=$GOOGLE_PLAY_SERVICE \
+    GOOGLE_PLAY_STORE=$GOOGLE_PLAY_STORE
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 
 RUN yes | sdkmanager --licenses && \
@@ -112,10 +114,11 @@ RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/${CHROME
  && unzip -x chrome.zip \
  && rm chrome.zip
 
-#=================================================
-# Download Google Play Service APK from apklinker
-#=================================================
-Run wget -nv -O google_play_service.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk"
+#================================================================
+# Download Google Play Services APK and Play Store from apklinker
+#================================================================
+Run wget -nv -O google_play_services.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b5155e5ef4f8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-020700-204998136_12874013_MinAPI21_(x86)(nodpi)_apklinker.com.apk"
+Run wget -nv -O google_play_store.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b632b1164e31/com.android.vending_${GOOGLE_PLAY_STORE}-all-0-PR-206665793_81105000_MinAPI16_(armeabi,armeabi-v7a,mips,mips64,x86,x86_64)(240,320,480dpi)_apklinker.com.apk"
 
 #================================================
 # noVNC Default Configurations
