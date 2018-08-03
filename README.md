@@ -41,7 +41,7 @@ Advantages compare with other docker-android projects
 List of Docker images
 ---------------------
 
-|OS   |Android version   |API   |Browser   |Browser version   |Chromedriver version   |Image   |Size   |
+|OS   |Android   |API   |Browser   |Browser version   |Chromedriver   |Image   |Size   |
 |:---|:---|:---|:---|:---|:---|:---|:---|
 |Linux|5.0.1|21|browser|37.0|2.12|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
 |Linux|5.1.1|22|browser|39.0|2.13|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
@@ -135,6 +135,13 @@ docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -
 
 You can deactivate auto_record by changing the value to "False" in docker-compose file. e.g. change value to "False" in this [line].
 
+### Language
+
+You can change the language setting of Android Emulator on the fly by passing following environment variable:
+
+- LANGUAGE="\<language>"
+- COUNTRY="\<country>"
+
 ### Docker-Compose
 
 ![][compose]
@@ -144,24 +151,10 @@ There is [example of compose file] to run complete selenium grid and docker-andr
 ```bash
 docker-compose up -d
 ```
-### Google Play Services
 
-The Google play services (v12.8.74) will be downloaded from [apklinker](https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b51570a214a8/com.google.android.gms_12.8.74-040700-204998136_12874026_MinAPI23_(x86)(nodpi)_apklinker.com.apk)  in [utils bash file] file when emulator booted . you can edit [utils bash file] as you need any adb stuffs as the following to disable emulators animation to increase performance:
+### Google Play Services and Google Play Store
 
-      adb shell "settings put global window_animation_scale 0.0"
-      adb shell "settings put global transition_animation_scale 0.0"
-      adb shell "settings put global animator_duration_scale 0.0"
-
- mount it as follow in docker-compose file :
-
-     volumes:
-      - $PWD/videos:/tmp/video
-      - $PWD/src/utils.sh:/root/src/utils.sh
-
-or when run directly
-```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v $PWD/src/utils.sh:/root/src/utils.sh -v $PWD/example/sample_apk:/root/tmp -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-8.1      
-```
+The Docker "Android Emulator" images contain Google Play Service (v12.8.74) and Google Play Store (v11.0.50). Both applications are downloaded from [apklinker](https://www.apklinker.com/), so please be aware of it in case you use private/company account to that applications.
 
 Build Android project
 ---------------------
@@ -185,7 +178,7 @@ Proxy
 
 You can enable proxy inside container by passing following environment variables:
 
-- HTTP_PROXY="\<docker\_bridge\_ip\_address>"
+- HTTP_PROXY="\<language>docker\_bridge\_ip\_address>"
 - HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
 - NO_PROXY="localhost"
 
