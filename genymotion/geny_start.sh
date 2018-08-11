@@ -1,18 +1,44 @@
 #!/bin/bash
 # This script is needed because of https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
-if [ -z "$GENY_TEMPLATE" ]; then
-  	GENY_TEMPLATE="/root/tmp/devices.json"
+types=(genycloud aws)
+
+if [ -z "$TYPE" ]; then
+    echo "Please specify one of following types: ${types[@]}"
+    exit 1
+fi
+TYPE=$(echo "$TYPE" | tr '[:upper:]' '[:lower:]')
+
+if [ -z "$TEMPLATE" ]; then
+    case $TYPE in
+    "${types[0]}" )
+        TEMPLATE="/root/tmp/devices.json"
+        ;;
+    "${types[1]}" )
+        TEMPLATE="/root/tmp/aws.json"
+        ;;
+    *)
+        "Type $TYPE is not supported! Valid types: ${types[@]}"
+        exit 1
+        ;;
+    esac
 fi
 
-if [ ! -f "$GENY_TEMPLATE" ]; then
+if [ ! -f "$TEMPLATE" ]; then
     echo "File not found! Nothing to do!"
     exit 1
 fi
 
+echo "[geny_start] Available types: ${types[@]}"
+echo "[geny_start] Selected type of deployment: $TYPE, Template file: $TEMPLATE"
+export TYPE=$TYPE
+export TEMPLATE=$TEMPLATE
+export TYPES=${types[@]}
+
 getAbort() {
-    if [ "$GENYMOTION" = true ]; then
-        contents=$(cat $GENY_TEMPLATE)
+    case $TYPE in
+    "${types[0]}" )
+        contents=$(cat $TEMPLATE)
         echo "ABORT SIGNAL detected! Stopping all created emulators..."
         for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
             get_value() {
@@ -22,7 +48,13 @@ getAbort() {
             gmtool --cloud admin stopdisposable $(get_value '.device')
         done
         echo "Done"
-    fi
+        ;;
+    "${types[1]}" )
+        contents=$(cat $TEMPLATE)
+        echo "ABORT SIGNAL detected! Detroy all EC2 instance(s)..."
+        ./terraform destroy -auto-approve
+        ;;
+    esac
 }
 trap 'getAbort; exit' EXIT
 

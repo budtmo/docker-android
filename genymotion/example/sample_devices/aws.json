@@ -1,0 +1,12 @@
+[
+	{
+		"region": "eu-west-1",
+		"ami": "ami-861125ff",
+		"instance": "t2.small"
+	},
+	{
+		"region": "eu-west-1",
+		"ami": "ami-861125ff",
+		"instance": "t2.small"
+	}
+]

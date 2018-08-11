@@ -103,6 +103,16 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && rm genymotion.bin
 COPY genymotion/generate_config.sh genymotion/geny_start.sh /root/
 
+#===================
+# Install Terraform
+#===================
+ARG TERRAFORM_VERSION=0.11.7
+
+ENV TERRAFORM_VERSION=$TERRAFORM_VERSION
+RUN wget -nv -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" \
+ && unzip -x terraform.zip \
+ && rm terraform.zip
+
 #===============
 # Expose Ports
 #---------------

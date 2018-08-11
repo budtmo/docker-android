@@ -11,10 +11,11 @@ services:
       - 4444:4444
 
   # Please stop this container by using docker stop instead of docker-compose stop
-  genymotion:
+  cloud:
     image: butomo1989/docker-android-genymotion
     depends_on:
       - selenium_hub
+    privileged: true
     ports:
       - 6080:6080
       - 4723:4723
@@ -22,8 +23,28 @@ services:
       - $PWD/sample_apk:/root/tmp/sample_apk
       - $PWD/sample_devices:/root/tmp
     environment:
-      - GENY_TEMPLATE=/root/tmp/devices.json
-      - USER=xxx
-      - PASS=xxx
-      - LICENSE=xxx
+      - TYPE=genycloud
+      - TEMPLATE=/root/tmp/devices.json
+      - USER=$USER
+      - PASS=$PASS
+      - LICENSE=$LICENSE
       - CONNECT_TO_GRID=true
+
+  # Please stop this container by using docker stop instead of docker-compose stop
+  # The implementation still in progress
+  aws:
+    image: butomo1989/docker-android-genymotion
+    depends_on:
+      - selenium_hub
+    privileged: true
+    ports:
+      - 6080:6080
+      - 4723:4723
+    volumes:
+      - ~/.aws:/root/.aws
+      - $PWD/sample_apk:/root/tmp/sample_apk
+      - $PWD/sample_devices:/root/tmp
+    environment:
+      - TYPE=aws
+      - TEMPLATE=/root/tmp/aws.json
+      #TODO - CONNECT_TO_GRID=true
