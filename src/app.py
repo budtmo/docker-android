@@ -51,13 +51,7 @@ def convert_str_to_bool(str: str) -> bool:
 
 
 def is_initialized() -> bool:
-    return os.path.exists(INIT_FILE)
-
-
-def finish_initialization():
-    file = open(INIT_FILE, 'w+')
-    file.close()
-
+    return os.path.exists(os.path.join(ROOT, '.android', 'devices.xml'))
 
 ANDROID_HOME = get_or_raise('ANDROID_HOME')
 ANDROID_VERSION = get_or_raise('ANDROID_VERSION')
@@ -65,7 +59,6 @@ API_LEVEL = get_or_raise('API_LEVEL')
 PROCESSOR = get_or_raise('PROCESSOR')
 SYS_IMG = get_or_raise('SYS_IMG')
 IMG_TYPE = get_or_raise('IMG_TYPE')
-INIT_FILE = os.getenv('INIT_FILE', "/root/init")
 
 logger.info('Android version: {version} \n'
             'API level: {level} \n'
@@ -203,7 +196,6 @@ def run():
     if is_first_run:
         logger.info('Preparing emulator...')
         prepare_avd(device, avd_name)
-        finish_initialization()
 
     logger.info('Run emulator...')
     dp_size = os.getenv('DATAPARTITION', '550m')
