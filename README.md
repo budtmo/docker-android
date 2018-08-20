@@ -123,6 +123,20 @@ To run tests for mobile browser, following parameter can be passed:
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-8.1
 ```
 
+### Back & Restore
+If you want to backup/reuse the avds created with furture upgrades or for replication, run the container with two extra mounts
+
+- -v local_backup/.android:/root/.android
+- -v local_backup/android_emulator:/root/android_emulator
+
+```bash
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v local_backup/.android:/root/.android -v local_backup/android_emulator:local_backup/android_emulator -e DEVICE="Nexus 5" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 --name android-container butomo1989/docker-android-x86-8.1
+```
+For the first run, this will create a new avd and all the changes will be accessible in the `local_backup` directory. 
+
+Now for all future runs, it will reuse the avds. Even this should work with new releases of `docker-android`
+
+
 ### Share Volume
 
 If you want to use appium to test UI of your android application, you need to share volume where the APK is located to folder ***/root/tmp***.
