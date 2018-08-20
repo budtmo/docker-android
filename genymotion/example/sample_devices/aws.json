@@ -1,12 +1,12 @@
 [
 	{
 		"region": "eu-west-1",
-		"ami": "ami-861125ff",
+		"android_version": "6.0",
 		"instance": "t2.small"
 	},
 	{
 		"region": "eu-west-1",
-		"ami": "ami-861125ff",
+		"android_version": "8.0",
 		"instance": "t2.small"
 	}
 ]

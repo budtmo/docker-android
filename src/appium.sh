@@ -45,12 +45,12 @@ function prepare_geny_aws() {
 		}
 
 	    region=$(get_value '.region')
-	    ami=$(get_value '.ami')
+	    android_version=$(get_value '.android_version')
 	    instance=$(get_value '.instance')
 
 
 	    echo $region
-	    echo $ami
+	    echo $android_version
 	    echo $instance
 
 	    aws_tf_content=$(cat <<_EOF
@@ -59,9 +59,9 @@ variable "aws_region_$index" {
 	default = "$region"
 }
 
-variable "ami_id_$index" {
-	type    = "string"
-	default = "$ami"
+variable "android_version_$index" {
+    type    = "string"
+    default = "$android_version"
 }
 
 variable "instance_type_$index" {
@@ -79,24 +79,42 @@ resource "aws_security_group" "geny_sg_$index" {
 	name          = "geny_sg_$index"
 	description   = "Security group for EC2 instance of Genymotion"
 	ingress {
-		from_port = 0
-		to_port = 65535
-		protocol = "tcp"
-		cidr_blocks = ["0.0.0.0/0"]
+		from_port		= 0
+		to_port			= 65535
+		protocol		= "tcp"
+		cidr_blocks		= ["0.0.0.0/0"]
 	}
+	egress {
+		from_port		= 0
+		to_port			= 65535
+		protocol		= "udp"
+		cidr_blocks		= ["0.0.0.0/0"]
+    }
+}
+
+data "aws_ami" "geny_aws_$index" {
+    provider    = "aws.provider_$index"
+    most_recent = true
+
+    filter {
+        name   = "name"
+        values = ["genymotion-ami-\${var.android_version_$index}-*"]
+    }
 }
 
 resource "aws_instance" "geny_aws_$index" {
 	provider      = "aws.provider_$index"
-	ami           = "\${var.ami_id_$index}"
+	ami           = "\${data.aws_ami.geny_aws_$index.id}"
 	instance_type = "\${var.instance_type_$index}"
-
 	vpc_security_group_ids = ["\${aws_security_group.geny_sg_$index.name}"]
-
 	tags {
-		Name = "EK-\${var.ami_id_$index}"
+		Name = "EK-\${data.aws_ami.geny_aws_$index.id}"
 	}
 	count = 1
+}
+
+output "image_id_$index" {
+    value = "\${data.aws_ami.geny_aws_$index.id}"
 }
 
 output "instance_id_$index" {
