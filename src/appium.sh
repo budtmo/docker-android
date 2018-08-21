@@ -76,8 +76,6 @@ provider "aws" {
 
 resource "aws_security_group" "geny_sg_$index" {
 	provider      = "aws.provider_$index"
-	name          = "geny_sg_$index"
-	description   = "Security group for EC2 instance of Genymotion"
 	ingress {
 		from_port		= 0
 		to_port			= 65535
@@ -100,6 +98,8 @@ data "aws_ami" "geny_aws_$index" {
         name   = "name"
         values = ["genymotion-ami-\${var.android_version_$index}-*"]
     }
+
+	owners = ["679593333241"] #Genymotion
 }
 
 resource "aws_instance" "geny_aws_$index" {
