@@ -186,8 +186,8 @@ def run():
     """Run app."""
     device = os.getenv('DEVICE', 'Nexus 5')
     logger.info('Device: {device}'.format(device=device))
-    device_id = os.getenv('DEVICE_ID', str(uuid.uuid4()))
-    logger.info('Device Id: {device_id}'.format(device_id=device_id))
+    custom_args=os.getenv('EMULATOR_ARGS', '')
+    logger.info('Custom Args: {custom_args}'.format(custom_args=custom_args))
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
@@ -203,9 +203,9 @@ def run():
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
 
     if is_first_run:
-        cmd = 'emulator/emulator @{name} -gpu off -prop emu.uuid={uuid} -verbose -wipe-data'.format(name=avd_name, uuid=device_id)
+        cmd = 'emulator/emulator @{name} -gpu off -verbose -wipe-data {custom_args}'.format(name=avd_name, custom_args=custom_args)
     else:
-        cmd = 'emulator/emulator @{name} -gpu off -prop emu.uuid={uuid} -verbose'.format(name=avd_name, uuid=device_id)
+        cmd = 'emulator/emulator @{name} -gpu off -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
