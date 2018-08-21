@@ -122,6 +122,13 @@ To run tests for mobile browser, following parameter can be passed:
 ```bash
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-8.1
 ```
+### Custom Emulator Arguments
+
+If you want to add more arguments for running emulator, you can ***pass an evnironemnt variable EMULATOR_ARGS*** while running docker command.
+
+```bash
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e EMULATOR_ARGS="-no-snapshot-load -partition-size 512" -e APPIUM=true -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -e MOBILE_WEB_TEST=true --name android-container butomo1989/docker-android-x86-8.1
+```
 
 ### Back & Restore
 If you want to backup/reuse the avds created with furture upgrades or for replication, run the container with two extra mounts
