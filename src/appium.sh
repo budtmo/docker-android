@@ -102,11 +102,17 @@ data "aws_ami" "geny_aws_$index" {
 	owners = ["679593333241"] #Genymotion
 }
 
+resource "aws_key_pair" "geny_key_$index" {
+	provider 	  = "aws.provider_$index"
+	public_key	  = "${file("~/.ssh/id_rsa.pub")}"
+}
+
 resource "aws_instance" "geny_aws_$index" {
 	provider      = "aws.provider_$index"
 	ami           = "\${data.aws_ami.geny_aws_$index.id}"
 	instance_type = "\${var.instance_type_$index}"
 	vpc_security_group_ids = ["\${aws_security_group.geny_sg_$index.name}"]
+	key_name      = "\${aws_key_pair.geny_key_$index.key_name}"
 	tags {
 		Name = "EK-\${data.aws_ami.geny_aws_$index.id}"
 	}
@@ -138,6 +144,8 @@ _EOF
 
 	# Connect with adb
 	# TODO
+	# ssh -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no $(./terraform output public_dns_$index.id) 'setprop persist.sys.usb.config adb && exit'
+
 }
 
 function run_appium() {

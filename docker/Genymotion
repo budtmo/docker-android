@@ -16,6 +16,8 @@ WORKDIR /root
 #   Process manager
 # socat
 #   Port forwarder
+# keychain
+#   ssh-key creator
 #------------------
 # Genymotion spec
 #------------------
@@ -46,6 +48,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
     supervisor \
     socat \
+    keychain \
     bzip2 \
     x11vnc \
     openbox \
@@ -91,8 +94,8 @@ ENV DISPLAY=:0 \
 #====================
 # Install genymotion
 #====================
+RUN echo | ssh-keygen
 ARG GENYMOTION_VERSION=2.12.1
-
 ENV GENYMOTION=true \
     GENYMOTION_VERSION=$GENYMOTION_VERSION \
     PATH="${PATH}:/opt/genymobile/genymotion/" \
