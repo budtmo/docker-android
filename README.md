@@ -370,6 +370,11 @@ All logs inside container are stored under folder **/var/log/supervisor**. you c
 docker exec -it android-container tail -f /var/log/supervisor/docker-android.stdout.log
 ```
 
+Running on Azure
+----------------
+Make sure that the nodes, pods, containers for your emulators are generated within a **VM** of series **Dv3** or **Ev3**.
+Reference: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nested-virtualization
+
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
