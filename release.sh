@@ -34,7 +34,7 @@ declare -A list_of_levels=(
 # The version of the Chrome browser installed on the Android emulator needs to be known beforehand
 # in order to chose the proper version of chromedriver (see http://chromedriver.chromium.org/downloads)
 declare -A chromedriver_versions=(
-        [5.0.1]="2.12"
+        [5.0.1]="2.21"
         [5.1.1]="2.13"
         [6.0]="2.18"
         [7.0]="2.23"

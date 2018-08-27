@@ -141,16 +141,7 @@ _EOF
 	./terraform init
 	./terraform plan 
 	./terraform apply -auto-approve
-
-	sleep(10)
-	# Connect with adb
-	echo "Enable adb for all instances"
-	for ((i=index;i>=1;i--)); do
-		dns=$(./terraform output public_dns_$index)
-		echo $dns
-    	ssh -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no $dns 'setprop persist.sys.usb.config adb && exit'
-		echo "Adb is enabled"
-	done
+	
 	#TODO
 
 }
