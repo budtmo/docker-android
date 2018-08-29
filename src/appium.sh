@@ -117,6 +117,16 @@ resource "aws_instance" "geny_aws_$index" {
 		Name = "EK-\${data.aws_ami.geny_aws_$index.id}"
 	}
 	count = 1
+
+	provisioner "remote-exec" {
+		connection {
+			type = "ssh"
+			user = "shell"
+			private_key = "\${file("~/.ssh/id_rsa")}"
+		}
+
+		script = "/root/enable_adb.sh"
+    }
 }
 
 output "image_id_$index" {

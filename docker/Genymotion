@@ -104,7 +104,7 @@ RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${
  && chmod +x ./genymotion.bin \
  && yes | ./genymotion.bin \
  && rm genymotion.bin
-COPY genymotion/generate_config.sh genymotion/geny_start.sh /root/
+COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
 
 #===================
 # Install Terraform
