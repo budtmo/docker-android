@@ -39,6 +39,7 @@ function prepare_geny_aws() {
 	# Creating aws tf file(s)
 	echo "Creating tf file(s)"
 	index=1
+	port=5555
 	for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
 		get_value() {
 			echo ${row} | base64 --decode | jq -r ${1}
@@ -129,21 +130,14 @@ resource "aws_instance" "geny_aws_$index" {
     }
 }
 
-output "image_id_$index" {
-    value = "\${data.aws_ami.geny_aws_$index.id}"
-}
-
-output "instance_id_$index" {
-	value = "\${aws_instance.geny_aws_$index.*.id}"
-}
-
 output "public_dns_$index" {
-	value = "\${aws_instance.geny_aws_$index.*.public_dns}"
+    value = "\${aws_instance.geny_aws_1.public_dns}"
 }
 _EOF
 )
 		echo "$aws_tf_content" > /root/aws_tf_$index.tf
 	    ((index++))
+	    ((port++))
 	done
 
 	# Deploy EC2 instance(s)
@@ -151,9 +145,21 @@ _EOF
 	./terraform init
 	./terraform plan 
 	./terraform apply -auto-approve
-	
-	#TODO
 
+	# Workaround to connect adb remotely because there is a issue by using local-exec
+	time_sleep=5
+	interval_sleep=1
+	echo "Connect to adb remotely"
+	for ((i=index;i>=1;i--)); do	
+		dns=$(./terraform output public_dns_$i)	
+		((sleep ${interval_sleep} && adb connect localhost:${port}) > /dev/null & ssh -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no -q -NL ${port}:localhost:5555 shell@${dns}) &
+		((port--))
+		time_sleep=$((time_sleep+interval_sleep))
+	done
+	echo "It will wait for ${time_sleep} until all device(s) to be connected"
+	sleep ${time_sleep}
+	adb devices
+	echo "Process is completed"
 }
 
 function run_appium() {
@@ -188,7 +194,7 @@ elif [ "$GENYMOTION" = true ]; then
     "${types[1]}" )
         echo "Using Genymotion-AWS"
         prepare_geny_aws
-        # TODO: please activate this: run_appium
+        run_appium
         ;;
     esac
 else

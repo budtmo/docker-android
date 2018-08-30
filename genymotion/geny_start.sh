@@ -52,7 +52,7 @@ getAbort() {
     "${types[1]}" )
         contents=$(cat $TEMPLATE)
         echo "ABORT SIGNAL detected! Detroy all EC2 instance(s)..."
-        ./terraform destroy -auto-approve
+        ./terraform destroy -auto-approve -lock=false
         ;;
     esac
 }

@@ -47,4 +47,4 @@ services:
     environment:
       - TYPE=aws
       - TEMPLATE=/root/tmp/aws.json
-      #TODO - CONNECT_TO_GRID=true
+      - CONNECT_TO_GRID=true
