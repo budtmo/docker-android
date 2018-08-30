@@ -131,7 +131,7 @@ resource "aws_instance" "geny_aws_$index" {
 }
 
 output "public_dns_$index" {
-    value = "\${aws_instance.geny_aws_1.public_dns}"
+    value = "\${aws_instance.geny_aws_$index.public_dns}"
 }
 _EOF
 )
