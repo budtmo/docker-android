@@ -16,9 +16,6 @@ services:
     depends_on:
       - selenium_hub
     privileged: true
-    ports:
-      - 6080:6080
-      - 4723:4723
     volumes:
       - $PWD/sample_apk:/root/tmp/sample_apk
       - $PWD/sample_devices:/root/tmp
@@ -37,9 +34,6 @@ services:
     depends_on:
       - selenium_hub
     privileged: true
-    ports:
-      - 6080:6080
-      - 4723:4723
     volumes:
       - ~/.aws:/root/.aws
       - $PWD/sample_apk:/root/tmp/sample_apk
