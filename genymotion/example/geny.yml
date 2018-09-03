@@ -6,7 +6,7 @@ version: "2.2"
 services:
   # Selenium hub
   selenium_hub:
-    image: selenium/hub:3.12.0-americium
+    image: selenium/hub:3.14.0-curium
     ports:
       - 4444:4444
 
