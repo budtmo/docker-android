@@ -4,7 +4,6 @@
 
 [![Join the chat at https://gitter.im/butomo1989/docker-android](https://badges.gitter.im/butomo1989/docker-android.svg)](https://gitter.im/butomo1989/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/butomo1989/docker-android.svg?branch=master)](https://travis-ci.org/butomo1989/docker-android)
-[![Docker Pulls](https://img.shields.io/docker/pulls/butomo1989/docker-android-x86-7.1.1.svg?style=flat-square&style=plastic)](https://hub.docker.com/r/butomo1989/docker-android-x86-7.1.1/)
 [![codecov](https://codecov.io/gh/butomo1989/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 
