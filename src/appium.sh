@@ -76,7 +76,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "geny_sg_$index" {
-	provider      = "aws.provider_$index"
+	provider 			= "aws.provider_$index"
 	ingress {
 		from_port		= 0
 		to_port			= 65535
@@ -186,17 +186,17 @@ elif [ "$GENYMOTION" = true ]; then
 	echo "Using Genymotion"
 	echo "${types[@]}"
 	case $TYPE in
-    "${types[0]}" )
-        echo "Using Genymotion-Cloud"
+	"${types[0]}" )
+		echo "Using Genymotion-Cloud"
 		prepare_geny_cloud
 		run_appium
-        ;;
-    "${types[1]}" )
-        echo "Using Genymotion-AWS"
-        prepare_geny_aws
-        run_appium
-        ;;
-    esac
+		;;
+	"${types[1]}" )
+		echo "Using Genymotion-AWS"
+		prepare_geny_aws
+		run_appium
+		;;
+	esac
 else
 	echo "Using Emulator"
 	python3 -m src.app

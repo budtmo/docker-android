@@ -28,7 +28,6 @@ services:
       - CONNECT_TO_GRID=true
 
   # Please stop this container by using docker stop instead of docker-compose stop
-  # The implementation still in progress
   aws:
     image: butomo1989/docker-android-genymotion
     depends_on:
