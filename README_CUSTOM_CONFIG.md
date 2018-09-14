@@ -15,6 +15,13 @@ You can change the language setting of Android Emulator on the fly by passing fo
 - LANGUAGE="\<language>"
 - COUNTRY="\<country>"
 
+Camera
+------
+
+Passing following environment variable to be able to connect laptop / pc camera to Android emulator:
+
+- EMULATOR_ARGS="-camera-back webcam0"
+
 Custom Emulator Arguments
 -------------------------
 
