@@ -207,7 +207,7 @@ Special Thanks
 - [Gian Christanto] for creating a great logo!
 
 [appium]: <https://appium.io>
-[espresso]: <https://google.github.io/android-testing-support-library/docs/espresso/>
+[espresso]: <https://developer.android.com/training/testing/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
 [emulator samsung]: <images/emulator_samsung_galaxy_s6.png>
 [emulator nexus]: <images/emulator_nexus_5.png>
