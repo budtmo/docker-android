@@ -115,7 +115,7 @@ resource "aws_instance" "geny_aws_$index" {
 	vpc_security_group_ids = ["\${aws_security_group.geny_sg_$index.name}"]
 	key_name      = "\${aws_key_pair.geny_key_$index.key_name}"
 	tags {
-		Name = "EK-\${data.aws_ami.geny_aws_$index.id}"
+		Name = "DockerAndroid-\${data.aws_ami.geny_aws_$index.id}"
 	}
 	count = 1
 
