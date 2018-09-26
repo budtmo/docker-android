@@ -22,6 +22,7 @@ function prepare_geny_cloud() {
 	    template=$(get_value '.template')
 	    device=$(get_value '.device')
 	    port=$(get_value '.port')
+	    
 
 	    if [[ $port != null ]]; then
 	    	echo "Starting \"$device\" with template name \"$template\" on port \"$port\"..."
@@ -49,7 +50,6 @@ function prepare_geny_aws() {
 	    android_version=$(get_value '.android_version')
 	    instance=$(get_value '.instance')
 
-
 	    echo $region
 	    echo $android_version
 	    echo $instance
@@ -76,19 +76,40 @@ provider "aws" {
 }
 
 resource "aws_security_group" "geny_sg_$index" {
-	provider 			= "aws.provider_$index"
+	provider = "aws.provider_$index"
 	ingress {
-		from_port		= 0
-		to_port			= 65535
-		protocol		= "tcp"
-		cidr_blocks		= ["0.0.0.0/0"]
+		from_port       = 22
+		to_port         = 22
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+		description     = "SSH access"
 	}
-	egress {
-		from_port		= 0
-		to_port			= 65535
-		protocol		= "udp"
-		cidr_blocks		= ["0.0.0.0/0"]
-    }
+	ingress {
+		from_port       = 80
+		to_port         = 80
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+		description     = "HTTP access"
+	}
+	ingress {
+		from_port       = 443
+		to_port         = 443
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+		description     = "HTTPS access"
+	}
+	ingress {
+		from_port       = 51000
+		to_port         = 51100
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	ingress {
+		from_port       = 51000
+		to_port         = 51100
+		protocol        = "udp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
 }
 
 data "aws_ami" "geny_aws_$index" {
