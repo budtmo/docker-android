@@ -11,7 +11,7 @@ resource "docker_image" "docker_android_img" {
 }
 
 resource "docker_network" "private_network" {
-    name 	= "private_network"
+	name 	= "private_network"
 }
 
 resource "docker_container" "selenium_hub_con" {
@@ -38,7 +38,7 @@ resource "docker_container" "samsung_s6_con" {
 		"DEVICE=Samsung Galaxy S6", 
 		"CONNECT_TO_GRID=true",
 		"APPIUM=true",
-      	"MOBILE_WEB_TEST=true",
-      	"AUTO_RECORD=true"
-    ]
+		"MOBILE_WEB_TEST=true",
+		"AUTO_RECORD=true"
+	]
 }
