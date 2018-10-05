@@ -8,3 +8,8 @@ AWS
 -----
 Make sure that containers for your emulators are generated within a EC2 Bare Metal Instance(i3.metal)
 Reference: https://aws.amazon.com/jp/blogs/aws/new-amazon-ec2-bare-metal-instances-with-direct-access-to-hardware/
+
+Google Cloud (GCE)
+------------------
+Make sure your instances for your emulators have Nested Virtualization enabled
+Reference: https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances#enablenestedvirt
