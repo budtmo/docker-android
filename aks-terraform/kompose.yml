@@ -1,0 +1,114 @@
+# Note: It requires docker-compose 1.13.0
+#
+# Usage: docker-compose up -d
+version: "3"
+
+services:
+  # Selenium hub
+  selenium_hub:
+    image: selenium/hub:3.14.0-curium
+    ports:
+      - 4444:4444
+
+  # There is a bug for using appium. Issue: https://github.com/butomo1989/docker-android/issues/73
+  # Real devices
+  #real_device:
+  #  image: butomo1989/docker-android-real-device
+  #  privileged: true
+  #  depends_on:
+  #    - selenium_hub
+  #  ports:
+  #    - 6080:6080
+  #  volumes:
+  #    - ./video-real-device:/tmp/video
+  #    - /dev/bus/usb:/dev/bus/usb
+  #    - ~/.android:/root/.android
+  #  environment:
+  #    - CONNECT_TO_GRID=true
+  #    - APPIUM=true
+  #    - SELENIUM_HOST=selenium_hub
+  #    - AUTO_RECORD=true
+  #    - BROWSER_NAME=chrome
+
+  # Using Appium Docker Android  
+  real_device:
+    image: appium/appium
+    depends_on:
+      - selenium_hub
+    network_mode: "service:selenium_hub"
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+      - ../example/sample_apk:/root/tmp
+    environment:
+      - CONNECT_TO_GRID=true
+      - SELENIUM_HOST=selenium_hub
+      # Enable it for msite testing
+      #- BROWSER_NAME=chrome
+
+  # Docker-Android for Android application testing
+  nexus_7.1.1:
+    image: butomo1989/docker-android-x86-7.1.1
+    privileged: true
+    # Increase scale number if needed
+    #scale: 1
+    depends_on:
+      - selenium_hub
+      - real_device
+    ports:
+      - 6080
+    # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
+    volumes:
+      - ../example/sample_apk:/root/tmp/sample_apk
+      - ../video-nexus_7.1.1:/tmp/video
+    environment:
+      - DEVICE=Nexus 5
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - AUTO_RECORD=true
+
+  # Docker-Android for mobile website testing with chrome browser
+  # Chrome browser exists only for version 7.0 and 7.1.1
+  samsung_galaxy_web_7.1.1:
+    image: butomo1989/docker-android-x86-8.1
+    privileged: true
+    # Increase scale number if needed
+    #scale: 1
+    depends_on: 
+      - selenium_hub
+      - real_device
+    ports:
+      - 6080
+    volumes:
+      - ../video-samsung_7.1.1:/tmp/video
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
+
+  # Docker-Android for mobile website testing with default browser
+  # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
+  samsung_galaxy_web_5.1.1:
+    image: butomo1989/docker-android-x86-5.1.1
+    privileged: true
+    # Increase scale number if needed
+    #scale: 1
+    depends_on:
+      - selenium_hub
+      - real_device
+    ports:
+      - 6080
+    volumes:
+      - ../video-samsung_5.1.1:/tmp/video
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium_hub
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true

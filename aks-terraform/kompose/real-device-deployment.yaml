@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../kompose.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: real-device
+  name: real-device
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: real-device
+    spec:
+      containers:
+      - env:
+        - name: CONNECT_TO_GRID
+          value: "true"
+        - name: SELENIUM_HOST
+          value: selenium_hub
+        image: appium/appium
+        name: real-device
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /dev/bus/usb
+          name: real-device-claim0
+        - mountPath: /root/.android
+          name: real-device-claim1
+        - mountPath: /root/tmp
+          name: real-device-claim2
+      restartPolicy: Always
+      volumes:
+      - name: real-device-claim0
+        persistentVolumeClaim:
+          claimName: real-device-claim0
+      - name: real-device-claim1
+        persistentVolumeClaim:
+          claimName: real-device-claim1
+      - name: real-device-claim2
+        persistentVolumeClaim:
+          claimName: real-device-claim2
+status: {}
