@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../kompose.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: selenium-hub
+  name: selenium-hub
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: selenium-hub
+    spec:
+      containers:
+      - image: selenium/hub:3.14.0-curium
+        name: selenium-hub
+        ports:
+        - containerPort: 4444
+        resources: {}
+      restartPolicy: Always
+status: {}

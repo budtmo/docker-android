@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../kompose.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: samsung-galaxy-web-7.1.1
+  name: samsung-galaxy-web-7.1.1
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: samsung-galaxy-web-7.1.1
+    spec:
+      containers:
+      - env:
+        - name: APPIUM
+          value: "true"
+        - name: AUTO_RECORD
+          value: "true"
+        - name: CONNECT_TO_GRID
+          value: "true"
+        - name: DEVICE
+          value: Samsung Galaxy S6
+        - name: MOBILE_WEB_TEST
+          value: "true"
+        - name: SELENIUM_HOST
+          value: selenium_hub
+        image: butomo1989/docker-android-x86-8.1
+        name: samsung-galaxy-web-7.1.1
+        ports:
+        - containerPort: 6080
+        resources: {}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /tmp/video
+          name: samsung-galaxy-web-7.1.1-claim0
+      restartPolicy: Always
+      volumes:
+      - name: samsung-galaxy-web-7.1.1-claim0
+        persistentVolumeClaim:
+          claimName: samsung-galaxy-web-7.1.1-claim0
+status: {}
