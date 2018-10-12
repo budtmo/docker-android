@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium
+spec:
+  ports:
+  - name: "4444"
+    port: 4444
+    targetPort: 4444
+  selector:
+    app: selenium
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: selenium-deployment
+  labels:
+    app: selenium
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: selenium
+    spec:
+      containers:
+      - image: selenium/hub:3.14.0-curium
+        name: selenium-hub
+        ports:
+        - containerPort: 4444
+        resources: {}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: real-device
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: real-device
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  labels:
+    app: real-device
+  name: real-device
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: real-device
+    spec:
+      containers:
+      - env:
+        - name: CONNECT_TO_GRID
+          value: "true"
+        - name: SELENIUM_HOST
+          value: selenium_hub
+        image: appium/appium
+        name: real-device
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /dev/bus/usb
+          name: real-device-claim0
+        - mountPath: /root/.android
+          name: real-device-claim1
+        - mountPath: /root/tmp
+          name: real-device-claim2
+      restartPolicy: Always
+      volumes:
+      - name: real-device-claim0
+        persistentVolumeClaim:
+          claimName: real-device-claim0
+      - name: real-device-claim1
+        persistentVolumeClaim:
+          claimName: real-device-claim1
+      - name: real-device-claim2
+        persistentVolumeClaim:
+          claimName: real-device-claim2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-7.1.1
+spec:
+  ports:
+  - name: "6080"
+    port: 6080
+    targetPort: 6080
+  selector:
+    app: nexus-7.1.1
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: nexus-7.1.1
+  name: nexus-7.1.1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nexus-7.1.1
+    spec:
+      containers:
+      - env:
+        - name: APPIUM
+          value: "true"
+        - name: AUTO_RECORD
+          value: "true"
+        - name: CONNECT_TO_GRID
+          value: "true"
+        - name: DEVICE
+          value: Nexus 5
+        - name: SELENIUM_HOST
+          value: selenium_hub
+        image: butomo1989/docker-android-x86-7.1.1
+        name: nexus-7.1.1
+        ports:
+        - containerPort: 6080
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /root/tmp/sample_apk
+          name: nexus-7.1.1-claim0
+        - mountPath: /tmp/video
+          name: nexus-7.1.1-claim1
+      restartPolicy: Always
+      volumes:
+      - name: nexus-7.1.1-claim0
+        persistentVolumeClaim:
+          claimName: nexus-7.1.1-claim0
+      - name: nexus-7.1.1-claim1
+        persistentVolumeClaim:
+          claimName: nexus-7.1.1-claim1
