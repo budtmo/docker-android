@@ -49,6 +49,15 @@ Terraform version >= v0.11.7
  $  az aks get-credentials --resource-group docker-android --name k8s-docker-android
  ``` 
 
+## Running with custom K8s files (Recommended)
+
+ - You can use this approach or Kompose (Next 2 steps)
+
+ ```sh
+ $ kubectl create -f volumes.yaml
+ $ kubectl create -f services_deployments.yaml
+ ```
+
 ## Generate Kube files with Kompose
 
  - Install Kompose -> https://github.com/kubernetes/kompose
@@ -62,7 +71,7 @@ Terraform version >= v0.11.7
  $ kompose convert -f ../kompose.yml
  ```
 
-## Execute Kube files
+## Execute Kube files (Kompose)
 
  - First create Persistent Volume Claims, then Services; finally Deployments files. For example:
 
@@ -74,7 +83,4 @@ Terraform version >= v0.11.7
  $ kubectl create -f nexus-7.1.1-deployment.yaml 
  ```
 
-## Running with custom K8s files
-
- (To Do)
 
