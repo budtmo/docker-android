@@ -224,6 +224,7 @@ function ga(){
 	fi
 }
 
+ga
 if [ "$REAL_DEVICE" = true ]; then
 	echo "Using real device"
 	run_appium
