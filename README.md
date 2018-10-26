@@ -208,6 +208,10 @@ Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
 
+LICENSE
+--------------
+See [License](LICENSE)
+
 [appium]: <https://appium.io>
 [espresso]: <https://developer.android.com/training/testing/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
