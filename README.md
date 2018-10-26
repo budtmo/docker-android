@@ -210,7 +210,7 @@ Special Thanks
 
 LICENSE
 --------------
-See [License](LICENSE)
+See [License](LICENSE.md)
 
 [appium]: <https://appium.io>
 [espresso]: <https://developer.android.com/training/testing/espresso/>
