@@ -163,7 +163,8 @@ function build() {
         echo "[BUILD] Dockerfile: $FILE_NAME"
         docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
         --build-arg PROCESSOR=$processor --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
-        --build-arg BROWSER=$BROWSER --build-arg CHROME_DRIVER=$chrome_driver -f $FILE_NAME .
+        --build-arg BROWSER=$BROWSER --build-arg CHROME_DRIVER=$chrome_driver \
+        --build-arg APP_RELEASE_VERSION=$RELEASE -f $FILE_NAME .
         docker tag $image_version $image_latest
     done
 }

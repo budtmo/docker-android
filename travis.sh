@@ -13,6 +13,9 @@ else
     elif [ ! -z "$REAL_DEVICE" ]; then
       echo "[SUPPORT FOR REAL DEVICE: BUILD DOCKER IMAGES AND PUSH THOSE TO DOCKER HUB ]"
       bash release_real.sh all $TRAVIS_TAG
+    elif [ ! -z "$GENYMOTION" ]; then
+      echo "[SUPPORT FOR GENYMOTION: BUILD DOCKER IMAGES AND PUSH THOSE TO DOCKER HUB ]"
+      bash release_genymotion.sh all $TRAVIS_TAG
     fi
     echo "Log out of docker hub"
     docker logout

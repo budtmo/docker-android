@@ -2,6 +2,7 @@
   <img id="header" src="./images/logo_dockerandroid_small.png" />
 </p>
 
+[![Analytics](https://ga-beacon.appspot.com/UA-128205228-1/github/butomo1989/docker-android/README.md)](https://github.com/igrigorik/ga-beacon "Analytics")
 [![Join the chat at https://gitter.im/butomo1989/docker-android](https://badges.gitter.im/butomo1989/docker-android.svg)](https://gitter.im/butomo1989/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/butomo1989/docker-android.svg?branch=master)](https://travis-ci.org/butomo1989/docker-android)
 [![codecov](https://codecov.io/gh/butomo1989/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-android)

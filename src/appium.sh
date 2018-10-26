@@ -200,6 +200,30 @@ function run_appium() {
   	$CMD
 }
 
+function ga(){
+	if [ "$GA" = true ]; then
+		echo "Collecting data for improving the project"
+		description="PROCESSOR: ${SYS_IMG}; DEVICE: ${DEVICE}; APPIUM: ${APPIUM}; SELENIUM: ${CONNECT_TO_GRID}; MOBILE_TEST: ${MOBILE_WEB_TEST}"
+		random_user=$(cat /proc/version 2>&1 | sed -e 's/ /_/g' | sed -e 's/[()]//g' | sed -e 's/@.*_gcc_version/_gcc/g' | sed -e 's/__/_/g' | sed -e 's/Linux_version_//g' | sed -e 's/generic_build/genb/g')
+		random_user="${APP_RELEASE_VERSION}_${random_user}"
+		payload=(
+			--data v=${GA_API_VERSION}
+			--data aip=1
+			--data tid="${GA_TRACKING_ID}"
+			--data cid="${random_user}"
+			--data t="event"
+			--data ec="${APP_TYPE}"
+			--data ea="${random_user}"
+			--data el="${description}"
+			--data an="docker-android"
+			--data av="${APP_RELEASE_VERSION}"
+		)
+		curl ${GA_ENDPOINT} "${payload[@]}" --silent 
+	else
+		echo "Nothing to do"
+	fi
+}
+
 if [ "$REAL_DEVICE" = true ]; then
 	echo "Using real device"
 	run_appium

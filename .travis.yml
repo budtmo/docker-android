@@ -20,6 +20,7 @@ env:
   - ANDROID_VERSION=8.1
   - ANDROID_VERSION=9.0
   - REAL_DEVICE=True
+  - GENYMOTION=True
 
 script: bash travis.sh
 

@@ -13,10 +13,10 @@ else
 fi
 
 IMAGE="butomo1989/docker-android"
-FILE_NAME=docker/Real_device
+FILE_NAME=docker/Genymotion
 
-image_version="$IMAGE-real-device:$RELEASE"
-image_latest="$IMAGE-real-device:latest"
+image_version="$IMAGE-genymotion:$RELEASE"
+image_latest="$IMAGE-genymotion:latest"
 
 function build() {
   echo "[BUILD] Image name: $image_version and $image_latest"

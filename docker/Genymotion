@@ -80,6 +80,7 @@ RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}
 # noVNC Default Configurations
 # These Configurations can be changed through -e
 #================================================
+ARG APP_RELEASE_VERSION=1.5-p0
 ENV DISPLAY=:0 \
     SCREEN=0 \
     SCREEN_WIDTH=1600 \
@@ -89,7 +90,13 @@ ENV DISPLAY=:0 \
     TARGET_PORT=6080 \
     TIMEOUT=1 \
     VIDEO_PATH=/tmp/video \
-    LOG_PATH=/var/log/supervisor 
+    LOG_PATH=/var/log/supervisor \
+    GA=true \
+    GA_ENDPOINT=https://www.google-analytics.com/collect \
+    GA_TRACKING_ID=UA-128205228-1 \
+    GA_API_VERSION="1" \
+    APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
+    APP_TYPE=Genymotion
 
 #====================
 # Install genymotion
