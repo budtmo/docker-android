@@ -1,3 +1,5 @@
+## License Information
+
 Copyright 2016 budi utomo
 
 This program is subject to the terms of the Apache License, Version 2.0 AND the following amendments on forks and data processing. Thus, this is a Custom Apache 2.0 License, NOT a dual-license model you may choose from.
