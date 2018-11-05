@@ -110,6 +110,12 @@ resource "aws_security_group" "geny_sg_$index" {
 		protocol        = "udp"
 		cidr_blocks     = ["0.0.0.0/0"]
 	}
+	egress {
+		from_port       = 0
+		to_port         = 65535
+		protocol        = "udp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
 }
 
 data "aws_ami" "geny_aws_$index" {
