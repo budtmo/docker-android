@@ -203,7 +203,7 @@ function run_appium() {
 function ga(){
 	if [ "$GA" = true ]; then
 		echo "Collecting data for improving the project"
-		description="PROCESSOR: ${SYS_IMG}; DEVICE: ${DEVICE}; APPIUM: ${APPIUM}; SELENIUM: ${CONNECT_TO_GRID}; MOBILE_TEST: ${MOBILE_WEB_TEST}"
+		description="PROCESSOR: ${SYS_IMG}; VERSION: ${ANDROID_VERSION}; DEVICE: ${DEVICE}; APPIUM: ${APPIUM}; SELENIUM: ${CONNECT_TO_GRID}; MOBILE_TEST: ${MOBILE_WEB_TEST}"
 		random_user=$(cat /proc/version 2>&1 | sed -e 's/ /_/g' | sed -e 's/[()]//g' | sed -e 's/@.*_gcc_version/_gcc/g' | sed -e 's/__/_/g' | sed -e 's/Linux_version_//g' | sed -e 's/generic_build/genb/g')
 		random_user="${APP_RELEASE_VERSION}_${random_user}"
 		payload=(
