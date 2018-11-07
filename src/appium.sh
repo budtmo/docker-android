@@ -49,10 +49,12 @@ function prepare_geny_aws() {
 	    region=$(get_value '.region')
 	    android_version=$(get_value '.android_version')
 	    instance=$(get_value '.instance')
+	    ami=$(get_value '.AMI')
 
 	    echo $region
 	    echo $android_version
 	    echo $instance
+	    echo $ami
 
 	    aws_tf_content=$(cat <<_EOF
 variable "aws_region_$index" {
@@ -137,7 +139,7 @@ resource "aws_key_pair" "geny_key_$index" {
 
 resource "aws_instance" "geny_aws_$index" {
 	provider      = "aws.provider_$index"
-	ami           = "\${data.aws_ami.geny_aws_$index.id}"
+	ami="\${data.aws_ami.geny_aws_$index.id}"
 	instance_type = "\${var.instance_type_$index}"
 	vpc_security_group_ids = ["\${aws_security_group.geny_sg_$index.name}"]
 	key_name      = "\${aws_key_pair.geny_key_$index.key_name}"
@@ -163,6 +165,14 @@ output "public_dns_$index" {
 _EOF
 )
 		echo "$aws_tf_content" > /root/aws_tf_$index.tf
+
+		if [[ $ami != null ]]; then
+			echo "Custom AMI is found!"
+			sed -i "s/.*ami=.*/    ami=\"$ami\"/g" /root/aws_tf_$index.tf
+		else
+			echo "Custom AMI is not found. It will use the latest AMI!"
+		fi
+
 	    ((index++))
 	    ((port++))
 	done

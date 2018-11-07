@@ -2,7 +2,8 @@
 	{
 		"region": "eu-west-1",
 		"android_version": "6.0",
-		"instance": "t2.small"
+		"instance": "t2.small",
+		"AMI": "ami-68d78411"
 	},
 	{
 		"region": "eu-west-1",
