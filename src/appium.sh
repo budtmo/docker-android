@@ -56,6 +56,12 @@ function prepare_geny_aws() {
 	    echo $instance
 	    echo $ami
 
+	    #TODO: remove this dirty hack (this version will be ignored anyway!)
+	    if [[ $android_version == null ]]; then
+			echo "[HACK] Version cannot be empty! version will be added!"
+			android_version="6.0"
+		fi
+
 	    aws_tf_content=$(cat <<_EOF
 variable "aws_region_$index" {
 	type	= "string"
@@ -63,8 +69,8 @@ variable "aws_region_$index" {
 }
 
 variable "android_version_$index" {
-    type    = "string"
-    default = "$android_version"
+	type    = "string"
+	default = "$android_version"
 }
 
 variable "instance_type_$index" {
