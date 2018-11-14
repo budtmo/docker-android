@@ -46,20 +46,100 @@ function prepare_geny_aws() {
 			echo ${row} | base64 --decode | jq -r ${1}
 		}
 
-	    region=$(get_value '.region')
-	    android_version=$(get_value '.android_version')
-	    instance=$(get_value '.instance')
-	    ami=$(get_value '.AMI')
+		region=$(get_value '.region')
+		android_version=$(get_value '.android_version')
+		instance=$(get_value '.instance')
+		ami=$(get_value '.AMI')
+		sg=$(get_value '.SG')
 
-	    echo $region
-	    echo $android_version
-	    echo $instance
-	    echo $ami
+		echo $region
+		echo $android_version
+		echo $instance
+		echo $ami
+		echo $sg
 
 	    #TODO: remove this dirty hack (this version will be ignored anyway!)
-	    if [[ $android_version == null ]]; then
+		if [[ $android_version == null ]]; then
 			echo "[HACK] Version cannot be empty! version will be added!"
 			android_version="6.0"
+		fi
+
+		#Custom Security Group
+		if [[ $sg != null ]]; then
+			echo "Custom security group is found!"
+			security_group=""
+
+			for i in $(echo "${sg}" | jq -r '.[] | @base64'); do
+				get_value() {
+					echo ${i} | base64 --decode | jq -r ${1}
+				}
+
+				type=$(get_value '.type')
+				configs=$(get_value '.configurations')
+
+
+				for c in $(echo "${configs}" | jq -r '.[] | @base64'); do
+					get_value() {
+						echo ${c} | base64 --decode | jq -r ${1}
+					}
+
+					from_port=$(get_value '.from_port')
+					to_port=$(get_value '.to_port')
+					protocol=$(get_value '.protocol')
+					cidr_blocks=$(get_value '.cidr_blocks')
+					security_group+=$(cat <<_EOF
+
+	$type {
+		from_port	= $from_port
+		to_port		= $to_port
+		protocol	= "$protocol"
+		cidr_blocks	= ["$cidr_blocks"]
+	}
+_EOF
+)
+				done
+			done
+		else
+			echo "Custom security is not found! It will use default security group!"
+			security_group=$(cat <<_EOF
+	ingress {
+		from_port       = 22
+		to_port         = 22
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	ingress {
+		from_port       = 80
+		to_port         = 80
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	ingress {
+		from_port       = 443
+		to_port         = 443
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	ingress {
+		from_port       = 51000
+		to_port         = 51100
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	ingress {
+		from_port       = 51000
+		to_port         = 51100
+		protocol        = "udp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+	egress {
+		from_port       = 0
+		to_port         = 65535
+		protocol        = "udp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+_EOF
+)
 		fi
 
 	    aws_tf_content=$(cat <<_EOF
@@ -85,45 +165,7 @@ provider "aws" {
 
 resource "aws_security_group" "geny_sg_$index" {
 	provider = "aws.provider_$index"
-	ingress {
-		from_port       = 22
-		to_port         = 22
-		protocol        = "tcp"
-		cidr_blocks     = ["0.0.0.0/0"]
-		description     = "SSH access"
-	}
-	ingress {
-		from_port       = 80
-		to_port         = 80
-		protocol        = "tcp"
-		cidr_blocks     = ["0.0.0.0/0"]
-		description     = "HTTP access"
-	}
-	ingress {
-		from_port       = 443
-		to_port         = 443
-		protocol        = "tcp"
-		cidr_blocks     = ["0.0.0.0/0"]
-		description     = "HTTPS access"
-	}
-	ingress {
-		from_port       = 51000
-		to_port         = 51100
-		protocol        = "tcp"
-		cidr_blocks     = ["0.0.0.0/0"]
-	}
-	ingress {
-		from_port       = 51000
-		to_port         = 51100
-		protocol        = "udp"
-		cidr_blocks     = ["0.0.0.0/0"]
-	}
-	egress {
-		from_port       = 0
-		to_port         = 65535
-		protocol        = "udp"
-		cidr_blocks     = ["0.0.0.0/0"]
-	}
+	$security_group
 }
 
 data "aws_ami" "geny_aws_$index" {
@@ -178,6 +220,7 @@ _EOF
 		else
 			echo "Custom AMI is not found. It will use the latest AMI!"
 		fi
+		echo "---------------------------------------------------------"
 
 	    ((index++))
 	    ((port++))
