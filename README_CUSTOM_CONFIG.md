@@ -3,7 +3,7 @@ Proxy
 
 You can enable proxy inside container by passing following environment variables:
 
-- HTTP_PROXY="\<language>docker\_bridge\_ip\_address>"
+- HTTP_PROXY="\<docker\_bridge\_ip\_address>"
 - HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
 - NO_PROXY="localhost"
 
