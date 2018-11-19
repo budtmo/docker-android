@@ -58,7 +58,7 @@ function prepare_geny_aws() {
 		echo $ami
 		echo $sg
 
-	    #TODO: remove this dirty hack (this version will be ignored anyway!)
+	    #TODO: remove this dirty hack
 		if [[ $android_version == null ]]; then
 			echo "[HACK] Version cannot be empty! version will be added!"
 			android_version="6.0"
@@ -69,25 +69,28 @@ function prepare_geny_aws() {
 			echo "Custom security group is found!"
 			security_group=""
 
-			for i in $(echo "${sg}" | jq -r '.[] | @base64'); do
-				get_value() {
-					echo ${i} | base64 --decode | jq -r ${1}
-				}
-
-				type=$(get_value '.type')
-				configs=$(get_value '.configurations')
-
-
-				for c in $(echo "${configs}" | jq -r '.[] | @base64'); do
+			is_array=$(echo "${sg}" | jq 'if type=="array" then true else false end')
+			if [ $is_array == "true" ]; then
+				echo "New security group with given rules will be created"
+				for i in $(echo "${sg}" | jq -r '.[] | @base64'); do
 					get_value() {
-						echo ${c} | base64 --decode | jq -r ${1}
+						echo ${i} | base64 --decode | jq -r ${1}
 					}
 
-					from_port=$(get_value '.from_port')
-					to_port=$(get_value '.to_port')
-					protocol=$(get_value '.protocol')
-					cidr_blocks=$(get_value '.cidr_blocks')
-					security_group+=$(cat <<_EOF
+					type=$(get_value '.type')
+					configs=$(get_value '.configurations')
+
+
+					for c in $(echo "${configs}" | jq -r '.[] | @base64'); do
+						get_value() {
+							echo ${c} | base64 --decode | jq -r ${1}
+						}
+
+						from_port=$(get_value '.from_port')
+						to_port=$(get_value '.to_port')
+						protocol=$(get_value '.protocol')
+						cidr_blocks=$(get_value '.cidr_blocks')
+						security_group+=$(cat <<_EOF
 
 	$type {
 		from_port	= $from_port
@@ -96,9 +99,23 @@ function prepare_geny_aws() {
 		cidr_blocks	= ["$cidr_blocks"]
 	}
 _EOF
-)
+	)
+					done
 				done
-			done
+			else
+				#TODO: remove this dirty hack
+				echo "Given security group will be used!"
+				is_array="false"
+				security_group=$(cat <<_EOF
+	ingress {
+		from_port       = 22
+		to_port         = 22
+		protocol        = "tcp"
+		cidr_blocks     = ["0.0.0.0/0"]
+	}
+_EOF
+)
+			fi
 		else
 			echo "Custom security is not found! It will use default security group!"
 			security_group=$(cat <<_EOF
@@ -189,7 +206,7 @@ resource "aws_instance" "geny_aws_$index" {
 	provider      = "aws.provider_$index"
 	ami="\${data.aws_ami.geny_aws_$index.id}"
 	instance_type = "\${var.instance_type_$index}"
-	vpc_security_group_ids = ["\${aws_security_group.geny_sg_$index.name}"]
+	vpc_security_group_ids=["\${aws_security_group.geny_sg_$index.name}"]
 	key_name      = "\${aws_key_pair.geny_key_$index.key_name}"
 	tags {
 		Name = "DockerAndroid-\${data.aws_ami.geny_aws_$index.id}"
@@ -215,11 +232,17 @@ _EOF
 		echo "$aws_tf_content" > /root/aws_tf_$index.tf
 
 		if [[ $ami != null ]]; then
-			echo "Custom AMI is found!"
-			sed -i "s/.*ami=.*/    ami=\"$ami\"/g" /root/aws_tf_$index.tf
+			echo "Using given AMI!"
+			sed -i "s/.*ami=.*/        ami=\"$ami\"/g" /root/aws_tf_$index.tf
 		else
 			echo "Custom AMI is not found. It will use the latest AMI!"
 		fi
+
+		if [[ $sg != null ]] && [[ $is_array == "false" ]]; then
+			echo "Using given security group: $sg"
+			sed -i "s/.*vpc_security_group_ids=.*/        vpc_security_group_ids=[\"$sg\"]/g" /root/aws_tf_$index.tf
+		fi
+
 		echo "---------------------------------------------------------"
 
 	    ((index++))
