@@ -10,10 +10,6 @@
 
 Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
 
-<p align="center">
-   <a href="https://youtu.be/pQdpjuYwvp8"><img src="./images/appiumconf2018.png" alt="Appium Conference 2018" width="600"></a>
-</p>
-
 Emulator - Samsung Device    | Emulator - Nexus Device     | Real Device  
 :---------------------------:|:---------------------------:|:---------------------------:
 ![][emulator samsung]        |![][emulator nexus]          |![][real device]   
