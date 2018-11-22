@@ -261,7 +261,7 @@ _EOF
 	echo "Connect to adb remotely"
 	for ((i=index;i>=1;i--)); do	
 		dns=$(./terraform output public_dns_$i)	
-		((sleep ${interval_sleep} && adb connect localhost:${port}) > /dev/null & ssh -i ~/.ssh/id_rsa -oStrictHostKeyChecking=no -q -NL ${port}:localhost:5555 shell@${dns}) &
+		((sleep ${interval_sleep} && adb connect localhost:${port}) > /dev/null & ssh -i ~/.ssh/id_rsa -o ServerAliveInterval=60 -o StrictHostKeyChecking=no -q -NL ${port}:localhost:5555 shell@${dns}) &
 		((port--))
 		time_sleep=$((time_sleep+interval_sleep))
 	done
