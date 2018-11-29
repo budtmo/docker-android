@@ -32,7 +32,7 @@
 					},
 					{
 						"from_port": 51000,
-						"to_port": 51000,
+						"to_port": 51100,
 						"protocol": "tcp",
 						"cidr_blocks": "0.0.0.0/0"
 					},
