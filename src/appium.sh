@@ -321,7 +321,7 @@ elif [ "$GENYMOTION" = true ]; then
 	echo "${types[@]}"
 	case $TYPE in
 	"${types[0]}" )
-		echo "Using Genymotion-Cloud"
+		echo "Using Genymotion-Cloud (SaaS)"
 		prepare_geny_cloud
 		run_appium
 		;;

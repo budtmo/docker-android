@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script is needed because of https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
-types=(genycloud aws)
+types=(saas aws)
 
 if [ -z "$TYPE" ]; then
     echo "Please specify one of following types: ${types[@]}"

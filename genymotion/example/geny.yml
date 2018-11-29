@@ -20,7 +20,7 @@ services:
       - $PWD/sample_apk:/root/tmp/sample_apk
       - $PWD/sample_devices:/root/tmp
     environment:
-      - TYPE=genycloud
+      - TYPE=SaaS
       - TEMPLATE=/root/tmp/devices.json
       - USER=$USER
       - PASS=$PASS
