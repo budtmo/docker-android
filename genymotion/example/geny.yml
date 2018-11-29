@@ -11,7 +11,7 @@ services:
       - 4444:4444
 
   # Please stop this container by using docker stop instead of docker-compose stop
-  cloud:
+  saas:
     image: butomo1989/docker-android-genymotion
     depends_on:
       - selenium_hub
