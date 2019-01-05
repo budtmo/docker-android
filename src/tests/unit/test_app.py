@@ -67,6 +67,19 @@ class TestApp(TestCase):
     @mock.patch('src.app.prepare_avd')
     @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
+    def test_run_with_appium_and_relaxed_security(self, mocked_avd, mocked_open, mocked_subprocess):
+        with mock.patch('src.app.appium_run') as mocked_appium:
+            os.environ['APPIUM'] = str(True)
+            os.environ['RELAXED_SECURITY'] = str(True)
+            app.run()
+            self.assertTrue(mocked_avd.called)
+            self.assertTrue(mocked_open.called)
+            self.assertTrue(mocked_subprocess.called)
+            self.assertTrue(mocked_appium.called)
+
+    @mock.patch('src.app.prepare_avd')
+    @mock.patch('builtins.open')
+    @mock.patch('subprocess.Popen')
     def test_run_without_appium(self, mocked_avd, mocked_open, mocked_subprocess):
         with mock.patch('src.app.appium_run') as mocked_appium:
             os.environ['APPIUM'] = str(False)
