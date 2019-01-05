@@ -188,9 +188,11 @@ This [document](README_CLOUD.md) contains information about deploying Docker-And
 Genymotion
 ----------
 
-![Genymotion](images/logo_genymotion.png)
+<p align="center">
+  <img id="geny" src="./images/logo_genymotion_and_dockerandroid.png" />
+</p>
 
-For you who do not have ressources to maintain the simulator or to buy machines or need different device profiles, you need to give a try to [Genymotion Cloud](https://www.genymotion.com/cloud/). Docker-Android is integrated with Genymotion on different cloud services, e.g. Genymotion Cloud, AWS, GCP, Alibaba Cloud. Please follow [this document](README_GENYMOTION.md) for more detail.
+For you who do not have ressources to maintain the simulator or to buy machines or need different device profiles, you need to give a try to [Genymotion Cloud](https://www.genymotion.com/cloud/). Docker-Android is integrated with Genymotion on different cloud services, e.g. Genymotion Cloud, AWS, GCP, Alibaba Cloud. Please follow [this document](README_GENYMOTION.md) or [this blog](https://medium.com/genymobile/run-your-appium-tests-using-docker-android-genymotion-cloud-e4817132ccd8) for more detail.
 
 Troubleshooting
 ---------------

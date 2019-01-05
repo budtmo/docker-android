@@ -1,6 +1,8 @@
 Genymotion Cloud
 ----------------
 
+![Genymotion](images/logo_genymotion.png)
+
 You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud. They are available on SaaS or as virtual images on AWS, GCP or Alibaba Cloud.
 
 1. On SaaS <br />
