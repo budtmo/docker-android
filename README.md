@@ -115,6 +115,33 @@ Docker-Android can be used for building Android project and executing its unit t
     ```bash
     docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-8.1 tmp/gradlew build
     ```
+    
+Control Android connected to host (Emulator or Real Device)
+-----------------------------------------------------------
+1. Create a docker container with this command 
+
+	```
+	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-appium butomo1989/docker-android-real-device
+	```
+	
+2. Open noVNC [http://localhost:6080](http://localhost:6080)
+
+3. Open terminal by clicking right on **noVNC** window >> **Terminal emulator**
+
+4. To connect to host's adb (make sure your host have adb and connected to the device.) 
+
+	```
+	$ adb -H host.docker.internal devices
+	```
+	
+	To specify port, just add `-P port_number`
+
+	```
+	$ adb -H host.docker.internal -P 5037 devices
+	```
+	
+5. Now your container can access your host devices. But, you need to add `remoteAdbHost` and `adbPort` desired capabilities to make **Appium** can recognise those devices.  
+
 
 Appium and Selenium Grid
 ------------------------
