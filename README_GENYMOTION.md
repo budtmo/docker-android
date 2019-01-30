@@ -16,10 +16,6 @@ You can easily scale your Appium tests on Genymotion Android virtual devices in 
 	docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root/tmp -e TYPE=SaaS -e USER=$USER -e PASS=$PASS -e LICENSE=$LICENSE budtmo/docker-android-genymotion
 	```
 
-<p align="center">
-   <a href="https://youtu.be/jXhUEyaVeMY"><img src="./images/Genymotion_cloud.png" alt="Docker-Android supports Genymotion Cloud" width="600"></a>
-</p>
-
 2. On PaaS (AWS) <br />
 	Use [aws.json](genymotion/example/sample_devices/aws.json) to define configuration of EC2 instance and run following command:
 
