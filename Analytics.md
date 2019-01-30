@@ -9,7 +9,7 @@ Docker-Android's analytics record some shared information for every event:
 
 - The Google Analytics version i.e. `1` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#v)
 - The Google Analytics anonymous IP setting is enabled i.e. `1` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#aip)
-- The Docker-Android analytics tracking ID e.g. `UA-128205228-1` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#tid)
+- The Docker-Android analytics tracking ID e.g. `UA-133466903-1` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#tid)
 - The release version of machine, e.g. `Linux_version_4.4.16-boot2docker_(gcc_version_4.9.2_(Debian_4.9.2-10)_)_#1_SMP_Fri_Jul_29_00:13:24_UTC_2016` This does not allow us to track individual users but does enable us to accurately measure user counts vs. event counts (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid)
 - Docker-Android analytics hit type, e.g. `event` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#t)
 - Application type, e.g. `Emulator` (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ec)

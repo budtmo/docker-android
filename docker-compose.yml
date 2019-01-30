@@ -10,10 +10,10 @@ services:
     ports:
       - 4444:4444
 
-  # There is a bug for using appium. Issue: https://github.com/butomo1989/docker-android/issues/73
+  # There is a bug for using appium. Issue: https://github.com/budtmo/docker-android/issues/73
   # Real devices
   #real_device:
-  #  image: butomo1989/docker-android-real-device
+  #  image: budtmo/docker-android-real-device
   #  privileged: true
   #  depends_on:
   #    - selenium_hub
@@ -49,7 +49,7 @@ services:
 
   # Docker-Android for Android application testing
   nexus_7.1.1:
-    image: butomo1989/docker-android-x86-7.1.1
+    image: budtmo/docker-android-x86-7.1.1
     privileged: true
     # Increase scale number if needed
     scale: 1
@@ -72,7 +72,7 @@ services:
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
   samsung_galaxy_web_7.1.1:
-    image: butomo1989/docker-android-x86-8.1
+    image: budtmo/docker-android-x86-8.1
     privileged: true
     # Increase scale number if needed
     scale: 1
@@ -94,7 +94,7 @@ services:
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
   samsung_galaxy_web_5.1.1:
-    image: butomo1989/docker-android-x86-5.1.1
+    image: budtmo/docker-android-x86-5.1.1
     privileged: true
     # Increase scale number if needed
     scale: 1

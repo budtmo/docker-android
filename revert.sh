@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_NAME="butomo1989/docker-android"
+IMAGE_NAME="budtmo/docker-android"
 
 if [ -z "$1" ]; then
     read -p "Type : " TYPE

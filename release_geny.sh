@@ -12,7 +12,7 @@ else
     RELEASE=$2
 fi
 
-IMAGE="butomo1989/docker-android"
+IMAGE="budtmo/docker-android"
 FILE_NAME=docker/Genymotion
 
 image_version="$IMAGE-genymotion:$RELEASE"

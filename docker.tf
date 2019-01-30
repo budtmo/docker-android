@@ -7,7 +7,7 @@ resource "docker_image" "selenium_hub_img" {
 }
 
 resource "docker_image" "docker_android_img" {
-	name 	= "butomo1989/docker-android-x86-8.1:latest"
+	name 	= "budtmo/docker-android-x86-8.1:latest"
 }
 
 resource "docker_network" "private_network" {

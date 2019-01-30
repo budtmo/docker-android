@@ -2,10 +2,10 @@
   <img id="header" src="./images/logo_dockerandroid_small.png" />
 </p>
 
-[![Analytics](https://ga-beacon.appspot.com/UA-128205228-1/github/butomo1989/docker-android/README.md)](https://github.com/igrigorik/ga-beacon "Analytics")
+[![Analytics](https://ga-beacon.appspot.com/UA-133466903-1/github/budtmo/docker-android/README.md)](https://github.com/igrigorik/ga-beacon "Analytics")
 [![Join the chat at https://gitter.im/butomo1989/docker-android](https://badges.gitter.im/butomo1989/docker-android.svg)](https://gitter.im/butomo1989/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/butomo1989/docker-android.svg?branch=master)](https://travis-ci.org/butomo1989/docker-android)
-[![codecov](https://codecov.io/gh/butomo1989/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/butomo1989/docker-android)
+[![Build Status](https://travis-ci.org/budtmo/docker-android.svg?branch=master)](https://travis-ci.org/budtmo/docker-android)
+[![codecov](https://codecov.io/gh/budtmo/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/budtmo/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 
 Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
@@ -40,16 +40,16 @@ List of Docker images
 
 |OS   |Android   |API   |Browser   |Browser version   |Chromedriver   |Image   |Size   |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-|Linux|5.0.1|21|browser|37.0|2.21|butomo1989/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
-|Linux|5.1.1|22|browser|39.0|2.13|butomo1989/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
-|Linux|6.0|23|browser|44.0|2.18|butomo1989/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-6.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
-|Linux|7.0|24|chrome|51.0|2.23|butomo1989/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
-|Linux|7.1.1|25|chrome|55.0|2.28|butomo1989/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
-|Linux|8.0|26|chrome|58.0|2.31|butomo1989/docker-android-x86-8.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-8.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-8.0 "Get your own image badge on microbadger.com")|
-|Linux|8.1|27|chrome|61.0|2.33|butomo1989/docker-android-x86-8.1|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-8.1.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-8.1 "Get your own image badge on microbadger.com")|
-|Linux|9.0|28|chrome|66.0|2.40|butomo1989/docker-android-x86-9.0|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-x86-9.0.svg)](https://microbadger.com/images/butomo1989/docker-android-x86-9.0 "Get your own image badge on microbadger.com")|
-|All |-|-|-|-|-|butomo1989/docker-android-real-device|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-real-device.svg)](https://microbadger.com/images/butomo1989/docker-android-real-device "Get your own image badge on microbadger.com")|
-|Linux|All|All|All|All|All|butomo1989/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/butomo1989/docker-android-genymotion.svg)](https://microbadger.com/images/butomo1989/docker-android-genymotion "Get your own image badge on microbadger.com")|
+|Linux|5.0.1|21|browser|37.0|2.21|budtmo/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
+|Linux|5.1.1|22|browser|39.0|2.13|budtmo/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
+|Linux|6.0|23|browser|44.0|2.18|budtmo/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-6.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
+|Linux|7.0|24|chrome|51.0|2.23|budtmo/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-7.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
+|Linux|7.1.1|25|chrome|55.0|2.28|budtmo/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
+|Linux|8.0|26|chrome|58.0|2.31|budtmo/docker-android-x86-8.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-8.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-8.0 "Get your own image badge on microbadger.com")|
+|Linux|8.1|27|chrome|61.0|2.33|budtmo/docker-android-x86-8.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-8.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-8.1 "Get your own image badge on microbadger.com")|
+|Linux|9.0|28|chrome|66.0|2.40|budtmo/docker-android-x86-9.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-9.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-9.0 "Get your own image badge on microbadger.com")|
+|All |-|-|-|-|-|budtmo/docker-android-real-device|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-real-device.svg)](https://microbadger.com/images/budtmo/docker-android-real-device "Get your own image badge on microbadger.com")|
+|Linux|All|All|All|All|All|budtmo/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-genymotion.svg)](https://microbadger.com/images/budtmo/docker-android-genymotion "Get your own image badge on microbadger.com")|
 
 List of Devices
 ---------------
@@ -76,7 +76,7 @@ Quick Start
 	- For ***Linux OS***, please use image name that contains "x86"
 
 		```bash
-		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container butomo1989/docker-android-x86-8.1
+		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container budtmo/docker-android-x86-8.1
 		```
 
 	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization with Ubuntu OS
@@ -113,7 +113,7 @@ Docker-Android can be used for building Android project and executing its unit t
 2. Build the project
 
     ```bash
-    docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp butomo1989/docker-android-x86-8.1 tmp/gradlew build
+    docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp budtmo/docker-android-x86-8.1 tmp/gradlew build
     ```
     
 Control Android connected to host (Emulator or Real Device)
@@ -121,7 +121,7 @@ Control Android connected to host (Emulator or Real Device)
 1. Create a docker container with this command 
 
 	```
-	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-appium butomo1989/docker-android-real-device
+	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-appium budtmo/docker-android-real-device
 	```
 	
 2. Open noVNC [http://localhost:6080](http://localhost:6080)

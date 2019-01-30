@@ -12,7 +12,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 ## Forks
-Additionally to Apache-2.0, when you fork this repo you are required to either remove our Google Analytics tracking ID: UA-128205228-1 or stop usage gathering completely.
+Additionally to Apache-2.0, when you fork this repo you are required to either remove our Google Analytics tracking ID: UA-133466903-1 or stop usage gathering completely.
 
 ## Data processing agreement
 By using this software you agree that the following non-PII (non personally identifiable information) data will be collected, processed and used by the maintainers for the purpose of improving the docker-android project. Anonymisation with respect of the IP address means that only the first two octets of the IP address are collected.

@@ -28,7 +28,7 @@ Custom Emulator Arguments
 If you want to add more arguments for running emulator, you can ***pass an environment variable EMULATOR_ARGS*** while running docker command.
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e EMULATOR_ARGS="-no-snapshot-load -partition-size 512" --name android-container butomo1989/docker-android-x86-8.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e EMULATOR_ARGS="-no-snapshot-load -partition-size 512" --name android-container budtmo/docker-android-x86-8.1
 ```
 
 Back & Restore
@@ -40,7 +40,7 @@ If you want to backup/reuse the avds created with furture upgrades or for replic
 - -v local_backup/android_emulator:/root/android_emulator
 
 ```bash
-docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v local_backup/.android:/root/.android -v local_backup/android_emulator:local_backup/android_emulator -e DEVICE="Nexus 5" --name android-container butomo1989/docker-android-x86-8.1
+docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -v local_backup/.android:/root/.android -v local_backup/android_emulator:local_backup/android_emulator -e DEVICE="Nexus 5" --name android-container budtmo/docker-android-x86-8.1
 ```
 
 For the first run, this will create a new avd and all the changes will be accessible in the `local_backup` directory. Now for all future runs, it will reuse the avds. Even this should work with new releases of `docker-android`

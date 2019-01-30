@@ -19,7 +19,7 @@ the emulator can be brought up as follows:
 
     # Assume app.apk is in /tmp
     docker run --privileged -d -e DEVICE="Samsung Galaxy S6" --volume /tmp:/APK \
-         --name android_em butomo1989/docker-android-x86-8.1
+         --name android_em budtmo/docker-android-x86-8.1
 
     docker exec android_em adb wait-for-device 
     docker exec android_em adb install /APK/app.apk
