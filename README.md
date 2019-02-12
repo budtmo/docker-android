@@ -8,6 +8,7 @@
 [![codecov](https://codecov.io/gh/budtmo/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/budtmo/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 [![GitHub release](https://img.shields.io/github/release/budtmo/docker-android.svg)](https://github.com/budtmo/docker-android/releases)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_shield)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
@@ -248,3 +249,7 @@ See [License](LICENSE.md)
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_large)
