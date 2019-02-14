@@ -240,6 +240,8 @@ LICENSE
 --------------
 See [License](LICENSE.md)
 
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_large)
+
 [appium]: <https://appium.io>
 [espresso]: <https://developer.android.com/training/testing/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
@@ -249,7 +251,3 @@ See [License](LICENSE.md)
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
-
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_large)
