@@ -165,7 +165,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
         ],
         'configuration': {
             'cleanUpCycle': 2000,
-            'timeout': 30000,
+            'timeout': 30,
             'proxy': 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy',
             'url': 'http://{host}:{port}/wd/hub'.format(host=appium_host, port=appium_port),
             'host': appium_host,
