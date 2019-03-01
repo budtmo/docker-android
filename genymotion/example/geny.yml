@@ -12,7 +12,7 @@ services:
 
   # Please stop this container by using docker stop instead of docker-compose stop
   saas:
-    image: butomo1989/docker-android-genymotion
+    image: budtmo/docker-android-genymotion
     depends_on:
       - selenium_hub
     privileged: true
@@ -29,7 +29,7 @@ services:
 
   # Please stop this container by using docker stop instead of docker-compose stop
   aws:
-    image: butomo1989/docker-android-genymotion
+    image: budtmo/docker-android-genymotion
     depends_on:
       - selenium_hub
     privileged: true

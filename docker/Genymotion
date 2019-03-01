@@ -102,7 +102,7 @@ ENV DISPLAY=:0 \
 # Install genymotion
 #====================
 RUN echo | ssh-keygen -q
-ARG GENYMOTION_VERSION=2.12.1
+ARG GENYMOTION_VERSION=3.0.1
 ENV GENYMOTION=true \
     GENYMOTION_VERSION=$GENYMOTION_VERSION \
     PATH="${PATH}:/opt/genymobile/genymotion/" \
