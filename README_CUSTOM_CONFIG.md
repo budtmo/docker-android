@@ -31,6 +31,11 @@ If you want to add more arguments for running emulator, you can ***pass an envir
 docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" -e EMULATOR_ARGS="-no-snapshot-load -partition-size 512" --name android-container budtmo/docker-android-x86-8.1
 ```
 
+SaltStack
+---------
+
+You can enable [SaltStack](https://github.com/saltstack/salt) to control running containers by passing environment variable SALT_MASTER=<ip_address_of_salt_master>.
+
 Back & Restore
 --------------
 

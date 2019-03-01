@@ -312,7 +312,19 @@ function ga(){
 	fi
 }
 
+function saltstack(){
+	if [ ! -z "${SALT_MASTER}" ]; then
+		echo "ENV SALT_MASTER it not empty, salt-minion will be prepared"
+		echo "master: ${SALT_MASTER}" >> /etc/salt/minion
+		salt-minion &
+		echo "salt-minion is running..."
+	else
+		echo "SaltStack is disabled"
+	fi
+}
+
 ga
+saltstack
 if [ "$REAL_DEVICE" = true ]; then
 	echo "Using real device"
 	run_appium
