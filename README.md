@@ -205,6 +205,11 @@ Google Play Services and Google Play Store
 
 Docker-Android contains Google Play Service (v12.8.74) and Google Play Store (v11.0.50). Both applications are downloaded from [apklinker](https://www.apklinker.com/), so please be aware of it in case you use private/company account to that applications.
 
+Jenkins
+-------
+
+This [document](README_JENKINS.md) gives you information about custom plugin that supports Docker-Android.
+
 VMWARE
 ------
 
