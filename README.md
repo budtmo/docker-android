@@ -59,6 +59,8 @@ List of Devices
 
 Type   | Device Name
 -----  | -----
+Phone  | Samsung Galaxy S7 Edge
+Phone  | Samsung Galaxy S7
 Phone  | Samsung Galaxy S6
 Phone  | Nexus 4
 Phone  | Nexus 5
