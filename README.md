@@ -239,6 +239,10 @@ All logs inside container are stored under folder **/var/log/supervisor**. you c
 docker exec -it android-container tail -f /var/log/supervisor/docker-android.stdout.log
 ```
 
+Emulator Skins
+--------------
+The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](https://developer.samsung.com/home.do)
+
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
