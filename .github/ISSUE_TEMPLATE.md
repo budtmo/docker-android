@@ -1,4 +1,4 @@
-**Please make sure that it is an issue / a feature request. If it is a question / help wanted, please visit [our group chat](https://gitter.im/butomo1989/docker-android). Thank you!**
+**Please make sure that it is an issue / a feature request. If it is a question / help wanted, please visit [our group chat](https://gitter.im/budtmo/docker-android). Thank you!**
 
 Operating System: 
 <!-- OSX Yosemite, Ubuntu 16.04, Windows 10 etc -->
