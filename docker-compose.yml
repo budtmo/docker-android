@@ -7,8 +7,12 @@ services:
   # Selenium hub
   selenium_hub:
     image: selenium/hub:3.14.0-curium
+    volumes:
+      - ./entrypoints:/entrypoints
     ports:
       - 4444:4444
+    entrypoint: 
+      - /entrypoints/polyverse-selenium-entrypoint.sh
 
   # There is a bug for using appium. Issue: https://github.com/budtmo/docker-android/issues/73
   # Real devices
@@ -41,11 +45,14 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
       - $PWD/example/sample_apk:/root/tmp
+      - ./entrypoints:/entrypoints
     environment:
       - CONNECT_TO_GRID=true
       - SELENIUM_HOST=selenium_hub
       # Enable it for msite testing
       #- BROWSER_NAME=chrome
+    entrypoint: 
+      - /entrypoints/polyverse-real-device-entrypoint.sh
 
   # Docker-Android for Android application testing
   nexus_7.1.1:
@@ -62,12 +69,15 @@ services:
     volumes:
       - $PWD/example/sample_apk:/root/tmp/sample_apk
       - ./video-nexus_7.1.1:/tmp/video
+      - ./entrypoints:/entrypoints
     environment:
       - DEVICE=Nexus 5
       - CONNECT_TO_GRID=true
       - APPIUM=true
       - SELENIUM_HOST=selenium_hub
       - AUTO_RECORD=true
+    entrypoint: 
+      - /entrypoints/polyverse-entrypoint.sh
 
   # Docker-Android for mobile website testing with chrome browser
   # Chrome browser exists only for version 7.0 and 7.1.1
@@ -83,6 +93,7 @@ services:
       - 6080
     volumes:
       - ./video-samsung_7.1.1:/tmp/video
+      - ./entrypoints:/entrypoints
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -90,6 +101,8 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
+    entrypoint: 
+      - /entrypoints/polyverse-entrypoint.sh
 
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
@@ -105,6 +118,7 @@ services:
       - 6080
     volumes:
       - ./video-samsung_5.1.1:/tmp/video
+      - ./entrypoints:/entrypoints
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
@@ -112,3 +126,5 @@ services:
       - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
+    entrypoint: 
+      - /entrypoints/polyverse-entrypoint.sh
