@@ -1,4 +1,4 @@
-FROM appium/appium:1.12.1-p0
+FROM appium/appium:1.13.0-p0
 
 LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
@@ -62,12 +62,6 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     ubuntu-vm-builder \
     bridge-utils \
  && rm -rf /var/lib/apt/lists/*
-
-RUN curl -s https://sh.polyverse.io | sh -s install BDuyZJVZpz4xyCt8zQFn89EDk; \
-    if [ $? -eq 0 ]; then \
-      apt -y update && \
-      apt-get -y install --reinstall $(dpkg --get-selections | awk '{print $1}'); \
-    fi
 
 #=======
 # noVNC
