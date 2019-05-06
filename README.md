@@ -243,6 +243,10 @@ Emulator Skins
 --------------
 The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](https://developer.samsung.com/home.do)
 
+Security
+--------
+All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please read [this](https://polyverse.io/how-it-works/)
+
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!

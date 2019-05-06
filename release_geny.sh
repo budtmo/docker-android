@@ -21,7 +21,7 @@ image_latest="$IMAGE-genymotion:latest"
 function build() {
   echo "[BUILD] Image name: $image_version and $image_latest"
   echo "[BUILD] Dockerfile: $FILE_NAME"
-  docker build -t $image_version --build-arg APP_RELEASE_VERSION=$RELEASE -f $FILE_NAME .
+  docker build -t $image_version --build-arg TOKEN=$TOKEN --build-arg APP_RELEASE_VERSION=$RELEASE -f $FILE_NAME .
   docker tag $image_version $image_latest
 }
 

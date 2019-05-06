@@ -161,7 +161,7 @@ function build() {
         image_latest="$IMAGE-$processor-$v:latest"
         echo "[BUILD] Image name: $image_version and $image_latest"
         echo "[BUILD] Dockerfile: $FILE_NAME"
-        docker build -t $image_version --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
+        docker build -t $image_version --build-arg TOKEN=$TOKEN --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
         --build-arg PROCESSOR=$processor --build-arg SYS_IMG=$sys_img --build-arg IMG_TYPE=$IMG_TYPE \
         --build-arg BROWSER=$BROWSER --build-arg CHROME_DRIVER=$chrome_driver \
         --build-arg APP_RELEASE_VERSION=$RELEASE -f $FILE_NAME .
