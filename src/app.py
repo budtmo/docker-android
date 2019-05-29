@@ -204,9 +204,9 @@ def run():
         cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
 
     if is_first_run:
-        cmd = 'emulator/emulator @{name} -gpu off -verbose -wipe-data {custom_args}'.format(name=avd_name, custom_args=custom_args)
+        cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -wipe-data -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
     else:
-        cmd = 'emulator/emulator @{name} -gpu off -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
+        cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
