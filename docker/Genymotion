@@ -21,8 +21,12 @@ WORKDIR /root
 #------------------
 # Genymotion spec
 #------------------
-# bzip2
-#   File compression 
+# python3-setuptools
+#   PPython packaging facilitator
+# python3-wheel
+#   Python distribution
+# python3-pip
+#   Python package installer
 #------------------
 #  NoVNC Packages
 #------------------
@@ -49,7 +53,9 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     supervisor \
     socat \
     keychain \
-    bzip2 \
+    python3-setuptools \
+    python3-wheel \
+    python3-pip \
     x11vnc \
     openbox \
     menu \
@@ -110,19 +116,19 @@ ENV DISPLAY=:0 \
     APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
     APP_TYPE=Genymotion
 
+#============
+# Set Locale
+#============
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
 #====================
 # Install genymotion
 #====================
 RUN echo | ssh-keygen -q
-ARG GENYMOTION_VERSION=3.0.1
 ENV GENYMOTION=true \
-    GENYMOTION_VERSION=$GENYMOTION_VERSION \
-    PATH="${PATH}:/opt/genymobile/genymotion/" \
     APPIUM_LOG=$LOG_PATH/appium.log
-RUN wget -nv -O genymotion.bin "https://dl.genymotion.com/releases/genymotion-${GENYMOTION_VERSION}/genymotion-${GENYMOTION_VERSION}-linux_x64.bin" \
- && chmod +x ./genymotion.bin \
- && yes | ./genymotion.bin \
- && rm genymotion.bin
+RUN pip3 install gmsaas
 COPY genymotion/generate_config.sh genymotion/geny_start.sh genymotion/enable_adb.sh /root/
 
 #===================
@@ -153,5 +159,5 @@ EXPOSE 4723 6080 5555
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf /root/geny_start.sh
-RUN gmtool --cloud config use_custom_sdk=on sdk_path=/root
+RUN gmsaas config set android-sdk-path /root
 CMD ["./geny_start.sh"]
