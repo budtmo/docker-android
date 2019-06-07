@@ -1,11 +1,11 @@
 [
 	{
-		"template": "Samsung Galaxy S7 - 6.0.0 - API 23 - 1440x2560",
+		"template": "a2a0c86c-7572-45fe-98d0-66f8efed9fa0",
 		"device": "SamsungS7V6",
 		"port": 38727
 	},
 	{
-		"template": "Google Nexus 6 - 8.0 - API 26 - 1440x2560",
+		"template": "80a67ae9-430c-4824-a386-befbb19518b9",
 		"device": "Nexus6V8"
 	}
 ]

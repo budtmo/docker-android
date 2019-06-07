@@ -7,12 +7,12 @@ echo "Selected type of deployment: $TYPE, Template file: $TEMPLATE"
 function prepare_geny_cloud() {
 	contents=$(cat $TEMPLATE)
 
-	# Register
-	echo "Register user"
-	gmtool config username="${USER}" password="${PASS}"
-	gmtool license register "${LICENSE}"
+	# LogIn
+	echo "Log In"
+	gmsaas auth login "${USER}" "${PASS}"
 
 	# Start device(s)
+	created_instances=()
 	echo "Creating device(s) based on given json file..."
 	for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
 		get_value() {
@@ -22,16 +22,24 @@ function prepare_geny_cloud() {
 	    template=$(get_value '.template')
 	    device=$(get_value '.device')
 	    port=$(get_value '.port')
-	    
+
+	    echo "Starting \"$device\" with template name \"$template\"..."
+	    instance_uuid=$(gmsaas instances start "${template}" "${device}")
+	    echo "Instance-ID: \"$instance_uuid\""
+	    created_instances+=("${instance_uuid}")
 
 	    if [[ $port != null ]]; then
-	    	echo "Starting \"$device\" with template name \"$template\" on port \"$port\"..."
-	    	gmtool --cloud admin startdisposable "${template}" "${device}" --adb-serial-port "${port}"
+			echo "Connect device on port \"$port\"..."
+			gmsaas instances adbconnect "${instance_uuid}" --adb-serial-port "${port}"
 	    else
-	    	echo "Starting \"$device\" with template name \"$template\"..."
-			gmtool --cloud admin startdisposable "${template}" "${device}"
+			echo "Connect device on port..."
+			gmsaas instances adbconnect "${instance_uuid}"
 	    fi
 	done
+
+	# Store created instances in a file
+	echo "All created instances: ${created_instances[@]}"
+	echo "${created_instances[@]}" > "${INSTANCES_PATH}"
 }
 
 function prepare_geny_aws() {

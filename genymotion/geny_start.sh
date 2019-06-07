@@ -38,16 +38,26 @@ export TYPES=${types[@]}
 getAbort() {
     case $TYPE in
     "${types[0]}" )
-        contents=$(cat $TEMPLATE)
-        echo "ABORT SIGNAL detected! Stopping all created emulators..."
-        for row in $(echo "${contents}" | jq -r '.[] | @base64'); do
-            get_value() {
-                echo ${row} | base64 --decode | jq -r ${1}
-            }
+        echo "ABORT SIGNAL detected! Stopping all created instances / emulators..."
 
-            gmtool --cloud admin stopdisposable $(get_value '.device')
-        done
-        echo "Done"
+        # Get the list of created instances from the instance.txt
+        if [ ! -f "$INSTANCES_PATH" ]; then
+            echo "File not found! Nothing to do!"
+            exit 1
+        else
+            content=$(cat ${INSTANCES_PATH})
+            read -a instances <<< $content
+            echo "All created instances: ${instances[@]}"
+
+            # Stop the instance one by one
+            for i in "${instances[@]}"
+            do
+                echo "stop instance with id \"${i}\""
+                gmsaas instances stop "${i}"
+                echo "stopped"
+            done
+            echo "Done"
+        fi
         ;;
     "${types[1]}" )
         contents=$(cat $TEMPLATE)

@@ -11,9 +11,8 @@ You can easily scale your Appium tests on Genymotion Android virtual devices in 
 	```bash
 	export USER="xxx"
 	export PASS="xxx"
-	export LICENSE="xxx"
 
-	docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root/tmp -e TYPE=SaaS -e USER=$USER -e PASS=$PASS -e LICENSE=$LICENSE budtmo/docker-android-genymotion
+	docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root/tmp -e TYPE=SaaS -e USER=$USER -e PASS=$PASS budtmo/docker-android-genymotion
 	```
 
 2. On PaaS (AWS) <br />
