@@ -12,7 +12,7 @@ services:
 
   # Please stop this container by using docker stop instead of docker-compose stop
   saas:
-    image: budtmo/docker-android-genymotion
+    image: budtmo/docker-android-genymotion:1.8-p2-beta
     depends_on:
       - selenium_hub
     privileged: true
@@ -24,12 +24,11 @@ services:
       - TEMPLATE=/root/tmp/devices.json
       - USER=$USER
       - PASS=$PASS
-      - LICENSE=$LICENSE
       - CONNECT_TO_GRID=true
 
   # Please stop this container by using docker stop instead of docker-compose stop
   aws:
-    image: budtmo/docker-android-genymotion
+    image: budtmo/docker-android-genymotion:1.8-p2-beta
     depends_on:
       - selenium_hub
     privileged: true
