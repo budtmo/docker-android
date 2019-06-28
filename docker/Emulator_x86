@@ -47,7 +47,7 @@ WORKDIR /root
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-ADD docker/sources1810.list /etc/sources.list.d/
+ADD docker/sources1810.list /etc/apt/sources.list.d/
 ADD docker/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
