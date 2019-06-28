@@ -47,8 +47,8 @@ WORKDIR /root
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-ADD ./sources1810.list /etc/sources.list.d/
-ADD ./x11vnc.pref /etc/apt/preferences.d/
+ADD docker/sources1810.list /etc/sources.list.d/
+ADD docker/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
     supervisor \
