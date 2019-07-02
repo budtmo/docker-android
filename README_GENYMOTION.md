@@ -3,7 +3,7 @@ Genymotion Cloud
 
 ![Genymotion](images/logo_genymotion.png)
 
-You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud. They are available on SaaS or as virtual images on AWS, GCP or Alibaba Cloud.
+You can easily scale your Appium tests on Genymotion Android virtual devices in the cloud. They are available on [SaaS](http://bit.ly/2YP0P1l) or as virtual images on AWS, GCP or Alibaba Cloud.
 
 1. On SaaS <br />
 	Use [device.json](genymotion/example/sample_devices/devices.json) to define the device to start. You can specify the port on which the device will start so you don't need to change the device name in your tests every time you need to run those tests. Then run following command
