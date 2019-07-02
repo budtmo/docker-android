@@ -7,6 +7,18 @@ LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 #=============
 WORKDIR /root
 
+#===========
+# Polyverse
+# https://polyverse.io/how-it-works/
+#===========
+ARG TOKEN=xxx
+
+RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
+    if [ $? -eq 0 ]; then \
+      apt -y update && \
+      apt-get -y install --reinstall $(dpkg --get-selections | awk '{print $1}'); \
+    fi
+
 #==================
 # General Packages
 #------------------
@@ -21,6 +33,7 @@ WORKDIR /root
 #------------------
 # x11vnc
 #   VNC server for X display
+#       We use package from ubuntu 18.10 to fix crashing issue
 # openbox
 #   Windows manager
 # menu
@@ -46,6 +59,8 @@ WORKDIR /root
 # ubuntu-vm-builder
 # bridge-utils
 #==================
+ADD docker/sources1810.list /etc/apt/sources.list.d/
+ADD docker/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
     supervisor \
@@ -61,19 +76,8 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     libvirt-bin \
     ubuntu-vm-builder \
     bridge-utils \
+ && apt clean all \
  && rm -rf /var/lib/apt/lists/*
-
-#===========
-# Polyverse
-# https://polyverse.io/how-it-works/
-#===========
-ARG TOKEN=xxx
-
-RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
-    if [ $? -eq 0 ]; then \
-      apt -y update && \
-      apt-get -y install --reinstall $(dpkg --get-selections | awk '{print $1}'); \
-    fi
 
 #=======
 # noVNC
