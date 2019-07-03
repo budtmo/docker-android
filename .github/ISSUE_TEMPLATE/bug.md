@@ -1,10 +1,16 @@
-**Please make sure that it is an issue / a feature request. If it is a question / help wanted, please visit [our group chat](https://gitter.im/budtmo/docker-android). Thank you!**
+---
+
+name: 🐛 Bug report
+about: Report a bug to improve the tool
+---
+
+## 🐛 Bug Report
 
 Operating System: 
-<!-- OSX Yosemite, Ubuntu 16.04, Windows 10 etc -->
+<!-- OSX Yosemite, Ubuntu 18.04, Windows 10 etc -->
 
 Docker Image:
-<!-- butomo1989/docker-android-x86-7.1.1, butomo1989/docker-android-real-device etc -->
+<!-- budtmo/docker-android-x86-7.1.1, budtmo/docker-android-real-device etc -->
 
 Docker Version:  
 <!-- 17.09.0-ce, 17.06.2-ce etc -->
