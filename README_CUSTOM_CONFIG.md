@@ -1,11 +1,12 @@
 Proxy
 -----
 
-You can enable proxy inside container by passing following environment variables:
+You can enable proxy inside container and Android emulator by passing following environment variables:
 
-- HTTP_PROXY="\<docker\_bridge\_ip\_address>"
-- HTTPS_PROXY="\<docker\_bridge\_ip\_address>"
+- HTTP_PROXY="http://\<docker\_bridge\_ip>:<port>"
+- HTTPS_PROXY=""http://\<docker\_bridge\_ip>:<port>"
 - NO_PROXY="localhost"
+- ENABLE_PROXY_ON_EMULATOR=true
 
 Language
 --------

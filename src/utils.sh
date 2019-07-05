@@ -38,6 +38,45 @@ function disable_animation () {
   adb shell "settings put global animator_duration_scale 0.0"
 }
 
+function enable_proxy_if_needed () {
+  if [ "$ENABLE_PROXY_ON_EMULATOR" = true ]; then
+    if [ ! -z "${HTTP_PROXY// }" ]; then
+      if [[ $HTTP_PROXY == *"http"* ]]; then
+        protocol="$(echo $HTTP_PROXY | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+        proxy="$(echo ${HTTP_PROXY/$protocol/})"
+        echo "[EMULATOR] - Proxy: $proxy"
+
+        IFS=':' read -r -a p <<< "$proxy"
+
+        echo "[EMULATOR] - Proxy-IP: ${p[0]}"
+        echo "[EMULATOR] - Proxy-Port: ${p[1]}"
+
+        wait_emulator_to_be_ready
+        echo "Enable proxy on Android emulator. Please make sure that docker-container has internet access!"
+        adb root
+
+        echo "Mount system to read write access"
+        adb shell "mount -o rw,remount /system"
+
+        echo "Updateing Proxy"
+
+        adb shell "content update --uri content://telephony/carriers --bind proxy:s:"${p[0]}" --bind port:s:"${p[1]}" --where "mcc=310" --where "mnc=260""
+
+        echo "remount system back to read only"
+        adb shell "mount -o ro,remount /system"
+        adb unroot
+      else
+        echo "Please use http:// in the beginning!"
+      fi
+    else
+      echo "$HTTP_PROXY is not given! Please pass it through environment variable!"
+      exit 1
+    fi
+  fi
+}
+
+enable_proxy_if_needed
+sleep 1
 change_language_if_needed
 sleep 1
 install_google_play
