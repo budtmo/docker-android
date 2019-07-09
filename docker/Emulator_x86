@@ -158,6 +158,13 @@ ENV DISPLAY=:0 \
     VIDEO_PATH=/tmp/video \
     LOG_PATH=/var/log/supervisor
 
+#================================================
+# openbox configuration
+# Update the openbox configuration files to:
+#   + Use a single virtual desktop to prevent accidentally switching 
+#================================================
+RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml
+
 #===============
 # Expose Ports
 #---------------
