@@ -7,6 +7,18 @@ LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 #=============
 WORKDIR /root
 
+#===========
+# Polyverse
+# https://polyverse.io/how-it-works/
+#===========
+ARG TOKEN=xxx
+
+RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
+    if [ $? -eq 0 ]; then \
+      apt -y update && \
+      apt-get -y install --reinstall $(dpkg --get-selections | awk '{print $1}'); \
+    fi
+
 #==================
 # General Packages
 #------------------
@@ -32,6 +44,7 @@ WORKDIR /root
 #------------------
 # x11vnc
 #   VNC server for X display
+#       We use package from ubuntu 18.10 to fix crashing issue
 # openbox
 #   Windows manager
 # menu
@@ -48,6 +61,8 @@ WORKDIR /root
 # jq
 #   Sed for JSON data
 #==================
+ADD docker/sources1810.list /etc/apt/sources.list.d/
+ADD docker/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
     supervisor \
@@ -63,19 +78,8 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     net-tools \
     ffmpeg \
     jq \
+ && apt clean all \
  && rm -rf /var/lib/apt/lists/*
-
-#===========
-# Polyverse
-# https://polyverse.io/how-it-works/
-#===========
-ARG TOKEN=xxx
-
-RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
-    if [ $? -eq 0 ]; then \
-      apt -y update && \
-      apt-get -y install --reinstall $(dpkg --get-selections | awk '{print $1}'); \
-    fi
 
 #=======
 # noVNC
@@ -115,6 +119,13 @@ ENV DISPLAY=:0 \
     GA_API_VERSION="1" \
     APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
     APP_TYPE=Genymotion
+
+#================================================
+# openbox configuration
+# Update the openbox configuration files to:
+#   + Use a single virtual desktop to prevent accidentally switching 
+#================================================
+RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml
 
 #============
 # Set Locale
