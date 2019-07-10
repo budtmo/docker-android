@@ -36,6 +36,10 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 #       We use package from ubuntu 18.10 to fix crashing issue
 # openbox
 #   Windows manager
+# feh
+#   ScreenBackground
+# python-xdg
+#   Required by openbox autostart function
 # menu
 #   Debian menu
 # python-numpy
@@ -50,14 +54,16 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 # jq
 #   Sed for JSON data
 #==================
-ADD src/sources1810.list /etc/apt/sources.list.d/
-ADD src/x11vnc.pref /etc/apt/preferences.d/
+ADD docker/configs/sources1810.list /etc/apt/sources.list.d/
+ADD docker/configs/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
     supervisor \
     socat \
     x11vnc \
     openbox \
+    feh \
+    python-xdg \
     menu \
     python-numpy \
     net-tools \
@@ -121,8 +127,12 @@ ENV DISPLAY=:0 \
 # openbox configuration
 # Update the openbox configuration files to:
 #   + Use a single virtual desktop to prevent accidentally switching 
+#   + Add background
 #================================================
-RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml
+ADD images/logo_dockerandroid_small.png /root/logo.png
+ADD docker/configs/.fehbg 
+RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml \
+    && echo 'eval `cat $HOME/.fehbg` &' >> /etc/xdg/openbox/autostart
 
 #=========================
 # Set default variables

@@ -1,4 +1,4 @@
-FROM appium/appium:1.14.0-p0
+FROM appium/appium:1.13.0-p0
 
 LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
@@ -38,8 +38,6 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 #   Windows manager
 # feh
 #   ScreenBackground
-# python-xdg
-#   Required by openbox autostart function
 # menu
 #   Debian menu
 # python-numpy
@@ -63,8 +61,8 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-ADD src/sources1810.list /etc/apt/sources.list.d/
-ADD src/x11vnc.pref /etc/apt/preferences.d/
+ADD docker/configs/sources1810.list /etc/apt/sources.list.d/
+ADD docker/configs/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
     supervisor \
@@ -72,7 +70,6 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     x11vnc \
     openbox \
     feh \
-    python-xdg \
     menu \
     python-numpy \
     net-tools \
@@ -171,9 +168,9 @@ ENV DISPLAY=:0 \
 #   + Add background
 #================================================
 ADD images/logo_dockerandroid_small.png /root/logo.png
-ADD src/.fehbg /root/.fehbg
+ADD docker/configs/.fehbg 
 RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml \
-    && echo /root/.fehbg >> /etc/xdg/openbox/autostart
+    && echo 'eval `cat $HOME/.fehbg` &' >> /etc/xdg/openbox/autostart
 
 #===============
 # Expose Ports
