@@ -61,8 +61,8 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 # ubuntu-vm-builder
 # bridge-utils
 #==================
-ADD docker/sources1810.list /etc/apt/sources.list.d/
-ADD docker/x11vnc.pref /etc/apt/preferences.d/
+ADD docker/configs/sources1810.list /etc/apt/sources.list.d/
+ADD docker/configs/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \
     supervisor \
@@ -167,9 +167,9 @@ ENV DISPLAY=:0 \
 #   + Use a single virtual desktop to prevent accidentally switching 
 #   + Add background
 #================================================
-ADD images/logo_dockerandroid_small.png /root/
+ADD images/logo_dockerandroid_small.png /root/logo.png
+ADD docker/configs/.fehbg
 RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml \
-    && feh --bg-max logo_dockerandroid_small.png \
     && echo 'eval `cat $HOME/.fehbg` &' >> /etc/xdg/openbox/autostart
 
 #===============
