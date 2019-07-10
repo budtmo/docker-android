@@ -1,4 +1,4 @@
-FROM appium/appium:1.13.0-p0
+FROM appium/appium:1.14.0-p0
 
 LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
@@ -61,8 +61,8 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 # jq
 #   Sed for JSON data
 #==================
-ADD docker/sources1810.list /etc/apt/sources.list.d/
-ADD docker/x11vnc.pref /etc/apt/preferences.d/
+ADD src/sources1810.list /etc/apt/sources.list.d/
+ADD src/x11vnc.pref /etc/apt/preferences.d/
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     xterm \ 
     supervisor \
