@@ -36,6 +36,8 @@ RUN curl -s https://sh.polyverse.io | sh -s install ${TOKEN}; \
 #       We use package from ubuntu 18.10 to fix crashing issue
 # openbox
 #   Windows manager
+# feh
+#   ScreenBackground
 # menu
 #   Debian menu
 # python-numpy
@@ -67,6 +69,7 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     socat \
     x11vnc \
     openbox \
+    feh \
     menu \
     python-numpy \
     net-tools \
@@ -162,8 +165,12 @@ ENV DISPLAY=:0 \
 # openbox configuration
 # Update the openbox configuration files to:
 #   + Use a single virtual desktop to prevent accidentally switching 
+#   + Add background
 #================================================
-RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml
+ADD images/logo_dockerandroid_small.png /root/
+RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml \
+    && feh --bg-max logo_dockerandroid_small.png \
+    && echo 'eval `cat $HOME/.fehbg` &' >> /etc/xdg/openbox/autostart
 
 #===============
 # Expose Ports
