@@ -133,9 +133,9 @@ ENV DISPLAY=:0 \
 #   + Add background
 #================================================
 ADD images/logo_dockerandroid_small.png /root/logo.png
-ADD docker/configs/.fehbg 
+ADD src/.fehbg /root/.fehbg
 RUN sed -i "s/<number>4<\/number>/<number>1<\/number>/g" /etc/xdg/openbox/rc.xml \
-    && echo 'eval `cat $HOME/.fehbg` &' >> /etc/xdg/openbox/autostart
+    && echo /root/.fehbg >> /etc/xdg/openbox/autostart
 
 #============
 # Set Locale
