@@ -1,0 +1,6 @@
+Package: *
+Pin: release n=bionic
+Pin-Priority: -10
+Package: x11vnc*
+Pin: release n=cosmic
+Pin-Priority: 500
