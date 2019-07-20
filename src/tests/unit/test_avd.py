@@ -18,7 +18,7 @@ class TestAvd(TestCase):
     def test_nexus_avd_as_default(self, mocked_suprocess, mocked_open):
         self.assertFalse(mocked_suprocess.called)
         self.assertFalse(mocked_open.called)
-        app.prepare_avd('Nexus 5', self.avd_name)
+        app.prepare_avd('Nexus 5', self.avd_name, '550m')
         self.assertTrue(mocked_suprocess.called)
         self.assertTrue(mocked_open.called)
 
@@ -28,7 +28,7 @@ class TestAvd(TestCase):
         self.assertFalse(mocked_sys_link.called)
         self.assertFalse(mocked_suprocess.called)
         self.assertFalse(mocked_open.called)
-        app.prepare_avd('Samsung Galaxy S6', self.avd_name)
+        app.prepare_avd('Samsung Galaxy S6', self.avd_name, '550m')
         self.assertTrue(mocked_sys_link.called)
         self.assertTrue(mocked_suprocess.called)
         self.assertTrue(mocked_open.called)
