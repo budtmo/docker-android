@@ -50,8 +50,22 @@ def convert_str_to_bool(str: str) -> bool:
         logger.error(err)
 
 
-def is_initialized() -> bool:
-    return os.path.exists(os.path.join(ROOT, '.android', 'devices.xml'))
+def is_initialized(device_name) -> bool:
+    config_path = os.path.join(ROOT, 'android_emulator', 'config.ini')
+
+    if os.path.exists(config_path):
+        logger.info('Found existing config file at {}.'.format(config_path))
+        with open(config_path, 'r') as f:
+            if any('hw.device.name={}'.format(device_name) in line for line in f):
+                logger.info('Existing config file references {}. Assuming device was previously initialized.'.format(device_name))
+                return True
+            else:
+                logger.info('Existing config file does not reference {}. Assuming new device.'.format(device_name))
+                return False
+
+    logger.info('No config file file was found at {}. Assuming new device.'.format(config_path))
+    return False
+
 
 ANDROID_HOME = get_or_raise('ANDROID_HOME')
 ANDROID_VERSION = get_or_raise('ANDROID_VERSION')
@@ -68,7 +82,7 @@ logger.info('Android version: {version} \n'
                                             img=SYS_IMG, img_type=IMG_TYPE))
 
 
-def prepare_avd(device: str, avd_name: str):
+def prepare_avd(device: str, avd_name: str, dp_size: str):
     """
     Create and run android virtual device.
 
@@ -101,6 +115,8 @@ def prepare_avd(device: str, avd_name: str):
     config_path = '/'.join([avd_path, 'config.ini'])
     with open(config_path, 'a') as file:
         file.write('skin.path={sp}'.format(sp=skin_path))
+        file.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
+
     logger.info('Skin was added in config.ini')
 
 
@@ -192,21 +208,23 @@ def run():
 
     avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
     logger.info('AVD name: {avd}'.format(avd=avd_name))
-    is_first_run = not is_initialized()
+    is_first_run = not is_initialized(device)
+
+    dp_size = os.getenv('DATAPARTITION', '550m')
 
     if is_first_run:
         logger.info('Preparing emulator...')
-        prepare_avd(device, avd_name)
+        prepare_avd(device, avd_name, dp_size)
 
     logger.info('Run emulator...')
-    dp_size = os.getenv('DATAPARTITION', '550m')
-    with open("/root/android_emulator/config.ini", "a") as cfg:
-        cfg.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
 
     if is_first_run:
+        logger.info('Emulator was not previously initialized. Preparing a new one...')
         cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -wipe-data -writable-system -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
     else:
+        logger.info('Using previously initialized AVD...')
         cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -verbose -writable-system {custom_args}'.format(name=avd_name, custom_args=custom_args)
+
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
         subprocess.Popen(cmd.split())
