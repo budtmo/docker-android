@@ -17,7 +17,7 @@ function wait_emulator_to_be_ready () {
 function change_language_if_needed() {
   if [ ! -z "${LANGUAGE// }" ] && [ ! -z "${COUNTRY// }" ]; then
     wait_emulator_to_be_ready
-    echo "Languge will be changed to ${LANGUAGE}-${COUNTRY}"
+    echo "Language will be changed to ${LANGUAGE}-${COUNTRY}"
     adb root && adb shell "setprop persist.sys.language $LANGUAGE; setprop persist.sys.country $COUNTRY; stop; start" && adb unroot
     echo "Language is changed!"
   fi
