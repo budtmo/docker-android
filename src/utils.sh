@@ -55,15 +55,9 @@ function enable_proxy_if_needed () {
         echo "Enable proxy on Android emulator. Please make sure that docker-container has internet access!"
         adb root
 
-        echo "Mount system to read write access"
-        adb shell "mount -o rw,remount /system"
-
-        echo "Updateing Proxy"
-
+        echo "Set up the Proxy"
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"${p[0]}" --bind port:s:"${p[1]}" --where "mcc=310" --where "mnc=260""
 
-        echo "remount system back to read only"
-        adb shell "mount -o ro,remount /system"
         adb unroot
       else
         echo "Please use http:// in the beginning!"
