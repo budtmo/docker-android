@@ -7,6 +7,13 @@ import mock
 from src import app
 
 
+# https://bugs.python.org/issue21258
+def mock_open(*args, **kargs):
+    f_open = mock.mock_open(*args, **kargs)
+    f_open.return_value.__iter__ = lambda self : iter(self.readline, '')
+    return f_open
+
+
 class TestApp(TestCase):
     """Unit test class to test other methods in the app."""
 
@@ -60,7 +67,6 @@ class TestApp(TestCase):
             os.environ['APPIUM'] = str(True)
             app.run()
             self.assertTrue(mocked_avd.called)
-            self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertTrue(mocked_appium.called)
 
@@ -73,7 +79,6 @@ class TestApp(TestCase):
             os.environ['RELAXED_SECURITY'] = str(True)
             app.run()
             self.assertTrue(mocked_avd.called)
-            self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertTrue(mocked_appium.called)
 
@@ -85,24 +90,32 @@ class TestApp(TestCase):
             os.environ['APPIUM'] = str(False)
             app.run()
             self.assertTrue(mocked_avd.called)
-            self.assertTrue(mocked_open.called)
             self.assertTrue(mocked_subprocess.called)
             self.assertFalse(mocked_appium.called)
 
     @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
     @mock.patch('os.path.exists', mock.MagicMock(return_value=False))
-    def test_run_first_run(self, mocked_open, mocked_subprocess):
+    def test_it_prepares_avd_on_first_run(self, mocked_open, mocked_subprocess):
         with mock.patch('src.app.prepare_avd') as mocked_prepare_avd:
             app.run()
-            self.assertFalse(app.is_initialized())
+            self.assertFalse(app.is_initialized('Nexus 5'))
             self.assertTrue(mocked_prepare_avd.called)
 
-    @mock.patch('builtins.open')
     @mock.patch('subprocess.Popen')
     @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
-    def test_run_next_run(self, mocked_open, mocked_subprocess):
+    @mock.patch('builtins.open', mock_open(read_data="\nhw.device.name=Nexus 5\n"))
+    def test_it_doesnt_prepare_avd_if_config_exists(self, mocked_subprocess):
         with mock.patch('src.app.prepare_avd') as mocked_prepare_avd:
             app.run()
-            self.assertTrue(app.is_initialized())
+            self.assertTrue(app.is_initialized('Nexus 5'))
             self.assertFalse(mocked_prepare_avd.called)
+
+    @mock.patch('subprocess.Popen')
+    @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
+    @mock.patch('builtins.open', mock_open(read_data="\nhw.device.name=Samsung S7\n"))
+    def test_it_prepares_avd_if_config_is_for_another_device(self, mocked_subprocess):
+        with mock.patch('src.app.prepare_avd') as mocked_prepare_avd:
+            app.run()
+            self.assertFalse(app.is_initialized('Nexus 5'))
+            self.assertTrue(mocked_prepare_avd.called)
