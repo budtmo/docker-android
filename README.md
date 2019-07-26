@@ -59,6 +59,9 @@ List of Devices
 
 Type   | Device Name
 -----  | -----
+Phone  | Samsung Galaxy S10
+Phone  | Samsung Galaxy S9
+Phone  | Samsung Galaxy S8
 Phone  | Samsung Galaxy S7 Edge
 Phone  | Samsung Galaxy S7
 Phone  | Samsung Galaxy S6
@@ -241,7 +244,7 @@ docker exec -it android-container tail -f /var/log/supervisor/docker-android.std
 
 Emulator Skins
 --------------
-The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](https://developer.samsung.com/home.do)
+The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](e)
 
 Security
 --------
