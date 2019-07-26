@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<d:devices xmlns:d="http://schemas.android.com/sdk/devices/2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <d:device>
+        <d:name>Samsung Galaxy S10</d:name>
+        <d:manufacturer>User</d:manufacturer>
+        <d:meta/>
+        <d:hardware>
+            <d:screen>
+                <d:screen-size>large</d:screen-size>
+                <d:diagonal-length>6.1</d:diagonal-length>
+                <d:pixel-density>xxxhdpi</d:pixel-density>
+                <d:screen-ratio>long</d:screen-ratio>
+                <d:dimensions>
+                    <d:x-dimension>1440</d:x-dimension>
+                    <d:y-dimension>3040</d:y-dimension>
+                </d:dimensions>
+                <d:xdpi>575.92</d:xdpi>
+                <d:ydpi>575.92</d:ydpi>
+                <d:touch>
+                    <d:multitouch>jazz-hands</d:multitouch>
+                    <d:mechanism>finger</d:mechanism>
+                    <d:screen-type>capacitive</d:screen-type>
+                </d:touch>
+            </d:screen>
+            <d:networking>
+                Bluetooth
+                Wifi
+                NFC
+            </d:networking>
+            <d:sensors>
+                Accelerometer
+                Barometer
+                Compass
+                GPS
+                Gyroscope
+                LightSensor
+                ProximitySensor
+            </d:sensors>
+            <d:mic>true</d:mic>
+            <d:camera>
+                <d:location>back</d:location>
+                <d:autofocus>true</d:autofocus>
+                <d:flash>true</d:flash>
+            </d:camera>
+            <d:camera>
+                <d:location>front</d:location>
+                <d:autofocus>true</d:autofocus>
+                <d:flash>true</d:flash>
+            </d:camera>
+            <d:keyboard>qwerty</d:keyboard>
+            <d:nav>nonav</d:nav>
+            <d:ram unit="GiB">4</d:ram>
+            <d:buttons>hard</d:buttons>
+            <d:internal-storage unit="GiB">
+                4
+            </d:internal-storage>
+            <d:removable-storage unit="TiB"/>
+            <d:cpu>Generic CPU</d:cpu>
+            <d:gpu>Generic GPU</d:gpu>
+            <d:abi>
+                armeabi-v7a
+                x86
+                x86_64
+            </d:abi>
+            <d:dock/>
+            <d:power-type>battery</d:power-type>
+        </d:hardware>
+        <d:software>
+            <d:api-level>-</d:api-level>
+            <d:live-wallpaper-support>true</d:live-wallpaper-support>
+            <d:bluetooth-profiles/>
+            <d:gl-version>2.0</d:gl-version>
+            <d:gl-extensions/>
+            <d:status-bar>false</d:status-bar>
+        </d:software>
+        <d:state default="true" name="Portrait">
+            <d:description>The device in portrait orientation</d:description>
+            <d:screen-orientation>port</d:screen-orientation>
+            <d:keyboard-state>keyshidden</d:keyboard-state>
+            <d:nav-state>navhidden</d:nav-state>
+        </d:state>
+        <d:state name="Landscape">
+            <d:description>The device in landscape orientation</d:description>
+            <d:screen-orientation>land</d:screen-orientation>
+            <d:keyboard-state>keyshidden</d:keyboard-state>
+            <d:nav-state>navhidden</d:nav-state>
+        </d:state>
+        <d:state name="Portrait with keyboard">
+            <d:description>The device in portrait orientation with a keyboard open</d:description>
+            <d:screen-orientation>port</d:screen-orientation>
+            <d:keyboard-state>keysexposed</d:keyboard-state>
+            <d:nav-state>navhidden</d:nav-state>
+        </d:state>
+        <d:state name="Landscape with keyboard">
+            <d:description>The device in landscape orientation with a keyboard open</d:description>
+            <d:screen-orientation>land</d:screen-orientation>
+            <d:keyboard-state>keysexposed</d:keyboard-state>
+            <d:nav-state>navhidden</d:nav-state>
+        </d:state>
+    </d:device>
+</d:devices>
