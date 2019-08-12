@@ -24,4 +24,18 @@ You can easily scale your Appium tests on Genymotion Android virtual devices in 
 	docker run -it --rm -p 4723:4723 -v $PWD/genymotion/example/sample_devices:/root/tmp -v ~/.aws:/root/.aws -e TYPE=aws budtmo/docker-android-genymotion
 	```
 
+	Existing security group and subnet can be used:
+
+	```json
+	[
+		{
+			"region": "us-west-2",
+			"instance": "t2.small",
+			"AMI": "ami-0673cbd39ef84d97c",
+			"SG": "sg-000aaa",
+			"subnet_id": "subnet-000aaa"
+		}
+	]
+	``` 
+
 You can also use [this docker-compose file](genymotion/example/geny.yml). 
