@@ -303,8 +303,9 @@ function run_appium() {
 		CMD+=" --relaxed-security"
 	fi
 
-	echo "Preparation is done"
-  	$CMD
+	echo "Preparation is done"  	
+	TERM="xterm -T AppiumServer -n AppiumServer -e $CMD"
+	$TERM
 }
 
 function ga(){
