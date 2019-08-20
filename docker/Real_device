@@ -183,7 +183,6 @@ EXPOSE 4723 6080 5555
 #===================
 # Run docker-appium
 #===================
-#COPY sm/asm.jar /root/
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
