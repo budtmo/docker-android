@@ -3,6 +3,6 @@
 if [ -z "$REAL_DEVICE"]; then
   echo "Container is using android emulator"
 else
-  echo "Starting android screen mirror..."
-  /root/scrcpy/run /root/scrcpy/x
+  echo "Starting android screen copy..."
+  /usr/local/bin/scrcpy
 fi
