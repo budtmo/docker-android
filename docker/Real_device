@@ -71,14 +71,8 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     jq \
     curl \
     libavcodec-dev \
-    libavdevice-dev \
-    libavfilter-dev \
     libavformat-dev \
-    libavresample-dev \
     libavutil-dev \
-    libpostproc-dev \
-    libswresample-dev \
-    libswscale-dev \
     gcc \
     git \
     make \
