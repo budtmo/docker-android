@@ -69,8 +69,37 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     net-tools \
     ffmpeg \
     jq \
+    curl \
+    libavcodec-dev \
+    libavformat-dev \
+    libavutil-dev \
+    gcc \
+    git \
+    make \
+    meson \
+    musl-dev \
+    pkgconf \
+    libsdl2-dev \
  && apt clean all \
  && rm -rf /var/lib/apt/lists/*
+
+
+#===========
+# scrcpy - screen copy
+# https://github.com/Genymobile/scrcpy
+#===========
+ARG SCRCPY_VER=1.10
+ARG SERVER_HASH="cbeb1a4e046f1392c1dc73c3ccffd7f86dec4636b505556ea20929687a119390"
+
+RUN mkdir /root/scrcpy
+RUN curl -L -o /root/scrcpy/scrcpy-code.zip https://github.com/Genymobile/scrcpy/archive/v${SCRCPY_VER}.zip
+RUN curl -L -o /root/scrcpy/scrcpy-server.jar https://github.com/Genymobile/scrcpy/releases/download/v${SCRCPY_VER}/scrcpy-server-v${SCRCPY_VER}.jar
+RUN echo "$SERVER_HASH scrcpy/scrcpy-server.jar" | sha256sum -c -
+RUN cd scrcpy && unzip -x scrcpy-code.zip
+RUN cd scrcpy/scrcpy-${SCRCPY_VER} && meson x --buildtype release --strip -Db_lto=true -Dprebuilt_server=/root/scrcpy/scrcpy-server.jar
+RUN cd scrcpy/scrcpy-${SCRCPY_VER}/x && ninja && ninja install
+RUN rm -rf scrcpy/
+
 
 #===========
 # Polyverse
@@ -156,7 +185,6 @@ EXPOSE 4723 6080 5555
 #===================
 # Run docker-appium
 #===================
-COPY sm/asm.jar /root/
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf

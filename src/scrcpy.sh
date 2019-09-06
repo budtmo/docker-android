@@ -3,6 +3,6 @@
 if [ -z "$REAL_DEVICE"]; then
   echo "Container is using android emulator"
 else
-  echo "Starting android screen mirror..."
-  java -jar /root/asm.jar $ANDROID_HOME
+  echo "Starting android screen copy..."
+  /usr/local/bin/scrcpy
 fi
