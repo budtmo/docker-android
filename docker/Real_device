@@ -1,4 +1,4 @@
-FROM appium/appium:1.14.2-p0
+FROM appium/appium:1.15.1-p0
 
 LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
