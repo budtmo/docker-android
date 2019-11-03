@@ -25,7 +25,7 @@ As far as we can tell it would be impossible for Google to match the randomly ge
 Docker-Android's analytics are sent throughout Docker-Android's execution to Google Analytics over HTTPS.
 
 ## Who?
-Docker-Android's analytics are accessible to Docker-Android's current maintainers. Contact [@butomo1989](https://github.com/butomo1989) if you are a maintainer and need access.
+Docker-Android's analytics are accessible to Docker-Android's current maintainers. Contact [@budtmo](https://github.com/budtmo) if you are a maintainer and need access.
 
 ## How?
 The code is viewable in [this lines](./src/appium.sh#L225-L247).
