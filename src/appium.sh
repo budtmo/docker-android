@@ -23,8 +23,15 @@ function prepare_geny_cloud() {
 	    device=$(get_value '.device')
 	    port=$(get_value '.port')
 
-	    echo "Starting \"$device\" with template name \"$template\"..."
-	    instance_uuid=$(gmsaas instances start "${template}" "${device}")
+		if [[ $device != null ]]; then
+			echo "Starting \"$device\" with template name \"$template\"..."
+			instance_uuid=$(gmsaas instances start "${template}" "${device}")
+		else
+			echo "Starting Device with Random name..."
+			random_device_name=$(python3  -c 'import uuid; print(str(uuid.uuid4()).upper())')
+			instance_uuid=$(gmsaas instances start "${template}" "${random_device_name}")
+		fi
+
 	    echo "Instance-ID: \"$instance_uuid\""
 	    created_instances+=("${instance_uuid}")
 
