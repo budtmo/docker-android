@@ -16,6 +16,15 @@ You can change the language setting of Android Emulator on the fly by passing fo
 - LANGUAGE="\<language>"
 - COUNTRY="\<country>"
 
+Data partition size
+-------------------
+
+The size of the data partition can be set by passing the following environment variable:
+
+- DATAPARTITION="\<size>"
+
+The value can be specified in the same format that is used by the emulator config file (`disk.dataPartition.size`), e.g. `800m`.
+
 Camera
 ------
 
