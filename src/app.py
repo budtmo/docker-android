@@ -206,7 +206,7 @@ def run():
     custom_args=os.getenv('EMULATOR_ARGS', '')
     logger.info('Custom Args: {custom_args}'.format(custom_args=custom_args))
 
-    avd_name = '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION)
+    avd_name = os.getenv('AVD_NAME', '{device}_{version}'.format(device=device.replace(' ', '_').lower(), version=ANDROID_VERSION))
     logger.info('AVD name: {avd}'.format(avd=avd_name))
     is_first_run = not is_initialized(device)
 
