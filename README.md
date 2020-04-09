@@ -113,16 +113,16 @@ Build Android project
 
 Docker-Android can be used for building Android project and executing its unit test. This following steps will illustrate how to build Android project:
 
-1. Clone [this sample test project](https://github.com/googlesamples/android-testing).
+1. Clone [this sample test project](https://github.com/android/testing-samples).
 
     ```bash
-    git clone git@github.com:googlesamples/android-testing.git
+    git clone git@github.com:android/testing-samples.git
     ```
 
 2. Build the project
 
     ```bash
-    docker run -it --rm -v $PWD/android-testing/ui/espresso/BasicSample:/root/tmp budtmo/docker-android-x86-8.1 tmp/gradlew build
+    docker run -it --rm -v $PWD/testing-samples/ui/espresso/BasicSample:/tmp -w /tmp budtmo/docker-android-x86-8.1 /tmp/gradlew build
     ```
     
 Control Android connected to host (Emulator or Real Device)
