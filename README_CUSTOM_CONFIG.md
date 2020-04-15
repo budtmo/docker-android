@@ -32,6 +32,14 @@ Passing following environment variable to be able to connect laptop / pc camera 
 
 - EMULATOR_ARGS="-camera-back webcam0"
 
+Custom Avd name Arguments
+-------------------------
+
+Passing following environment variable to set a custom avd name
+
+- AVD_NAME="customName"
+
+
 Custom Emulator Arguments
 -------------------------
 
