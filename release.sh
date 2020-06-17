@@ -147,13 +147,16 @@ function build() {
             # It is because there is no ARM EABI v7a System Image for 6.0
             IMG_TYPE=google_apis
             BROWSER=browser
-        elif [ "$v" == "9.0" ]; then
-            IMG_TYPE=default
-            BROWSER=chrome
+        elif [ "$v" == "" ]; then
+            IMG_TYPE=google_apis
+            BROWSER=chrome            
         else
             #adb root cannot be run in IMG_TYPE=google_apis_playstore 
             IMG_TYPE=google_apis
             BROWSER=chrome
+            if [ "$v" == "9.0" ]; then
+                processor=x86_64
+            fi
         fi
         echo "[BUILD] IMAGE TYPE: $IMG_TYPE"
         level=${list_of_levels[$v]}
@@ -162,8 +165,8 @@ function build() {
         echo "[BUILD] System Image: $sys_img"
         chrome_driver="${chromedriver_versions[$v]}"
         echo "[BUILD] chromedriver version: $chrome_driver"
-        image_version="$IMAGE-$processor-$v:$RELEASE"
-        image_latest="$IMAGE-$processor-$v:latest"
+        image_version="$IMAGE-x86-$v:$RELEASE"
+        image_latest="$IMAGE-x86-$v:latest"
         echo "[BUILD] Image name: $image_version and $image_latest"
         echo "[BUILD] Dockerfile: $FILE_NAME"
         docker build -t $image_version --build-arg TOKEN=$TOKEN --build-arg ANDROID_VERSION=$v --build-arg API_LEVEL=$level \
@@ -177,8 +180,8 @@ function build() {
 function push() {
     # Push docker image(s)
     for v in "${versions[@]}"; do
-        image_version="$IMAGE-$processor-$v:$RELEASE"
-        image_latest="$IMAGE-$processor-$v:latest"
+        image_version="$IMAGE-x86-$v:$RELEASE"
+        image_latest="$IMAGE-x86-$v:latest"
         echo "[PUSH] Image name: $image_version and $image_latest"
         docker push $image_version
         docker push $image_latest
