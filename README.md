@@ -101,7 +101,7 @@ Quick Start
 
    - For different OS, localhost should work.
 
-3. Open ***http://docker-host-ip-address:6080*** from web browser.
+3. Open ***http://docker-host-ip-address:6080*** from web browser. Note: Adding ```?view_only=true``` will give user only view only permission.
 
 Custom configurations
 ---------------------
