@@ -147,6 +147,9 @@ function build() {
             # It is because there is no ARM EABI v7a System Image for 6.0
             IMG_TYPE=google_apis
             BROWSER=browser
+        elif [ "$v" == "9.0" ]; then
+            IMG_TYPE=default
+            BROWSER=chrome
         else
             #adb root cannot be run in IMG_TYPE=google_apis_playstore 
             IMG_TYPE=google_apis
