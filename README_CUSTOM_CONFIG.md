@@ -1,3 +1,8 @@
+VNC pass
+--------
+
+Passing ```VNC_PASSWORD="your_pass_here"``` will secure your vnc connection. 
+
 Proxy
 -----
 
