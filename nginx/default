@@ -18,8 +18,4 @@ server {
         # Disable cache
         proxy_buffering off;
     }
-
-    location /emu2/ {
-        proxy_pass http://127.0.0.1:6081/;
-    }
 }
