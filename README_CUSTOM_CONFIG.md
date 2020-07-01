@@ -77,3 +77,8 @@ docker run --privileged -d -p 6080:6080 -p 4723:4723 -p 5554:5554 -p 5555:5555 -
 ```
 
 For the first run, this will create a new avd and all the changes will be accessible in the `local_backup` directory. Now for all future runs, it will reuse the avds. Even this should work with new releases of `docker-android`
+
+Nginx
+-----
+
+You can have 1 nginx service to handle multiple containers. Sample nginx configuration is [this](nginx/default) and sample call is ```http://127.0.0.1/container-1/?nginx=&path=/container-1/websockify&view_only=true&password=secr3t```

@@ -1,0 +1,21 @@
+server {
+    listen 80;
+    server_name _;
+
+    location /container-1/ {
+        proxy_pass http://127.0.0.1:6080/;
+    }
+
+    location /container-1/websockify {
+        proxy_pass http://127.0.0.1:6080/;
+	proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # VNC connection timeout
+        proxy_read_timeout 61s;
+
+        # Disable cache
+        proxy_buffering off;
+    }
+}
