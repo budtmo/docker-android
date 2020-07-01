@@ -81,4 +81,4 @@ For the first run, this will create a new avd and all the changes will be access
 Nginx
 -----
 
-You can have 1 nginx service to handle multiple containers. Sample nginx configuration is [this](nginx/default) and sample call is ```http://127.0.0.1/container-1/?nginx=&path=/container-1/websockify&view_only=true```
+You can have 1 nginx service to handle multiple containers. Sample nginx configuration is [this](nginx/default) and sample call is ```http://127.0.0.1/container-1/?nginx=&path=/container-1/websockify&view_only=true&password=secr3t```
