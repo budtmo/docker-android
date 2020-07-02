@@ -36,7 +36,7 @@ for (var pos = 0; pos < devices.length; pos++) {
             td.appendChild(link);
         } else if (index === 2) {
             var object = document.createElement("object");
-            object.type = "text/html"
+            object.type = "text/html";
             object.data = content;
             object.width = "950px";
             object.height = "950px";
