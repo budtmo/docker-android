@@ -24,6 +24,7 @@ It is also possible to connect appium server that run inside docker-android with
 - APPIUM_PORT=\<port\_number>
 - SELENIUM_HOST="\<host\_ip\_address>"
 - SELENIUM_PORT=\<port\_number>
+- SELENIUM_TIMEOUT=\<timeout\_in\_seconds>
 
 To run tests for mobile browser, following parameter can be passed:
 
