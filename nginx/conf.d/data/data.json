@@ -1,0 +1,11 @@
+containers = '[\
+    {\
+        "No": "1", \
+        "Name": "Emulator 01", \
+        "VNC": "http://127.0.0.1/container-1/?nginx=&path=/container-1/websockify&view_only=true"\
+    }, \
+    {\
+        "No": "2", \
+        "Name": "Emulator 02", \
+        "VNC": "http://127.0.0.1/container-2/?nginx=&path=/container-2/websockify&view_only=true"\
+}]';
