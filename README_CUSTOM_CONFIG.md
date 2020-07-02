@@ -81,4 +81,4 @@ For the first run, this will create a new avd and all the changes will be access
 Nginx
 -----
 
-Sample nginx configuration can be found [here](nginx/README.md)
+Sample nginx configuration can be found [here](nginx)
