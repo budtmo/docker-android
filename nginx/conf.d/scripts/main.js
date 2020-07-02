@@ -29,7 +29,7 @@ for (var pos = 0; pos < devices.length; pos++) {
         var td = document.createElement("td");
         var content = devices[pos][headers[index]];
 
-        if (index == 1) {
+        if (index === 1) {
             var link = document.createElement("a");
             link.href = devices[pos][headers[index+1]];
             link.innerHTML = content;
