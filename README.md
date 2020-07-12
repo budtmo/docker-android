@@ -208,8 +208,7 @@ SMS Simulation
 
 Google Play Services and Google Play Store
 ------------------------------------------
-
-Docker-Android contains Google Play Service (v12.8.74) and Google Play Store (v11.0.50). Both applications are downloaded from [apklinker](https://www.apklinker.com/), so please be aware of it in case you use private/company account to that applications.
+Not installed at this time.
 
 Jenkins
 -------
