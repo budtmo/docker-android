@@ -171,6 +171,13 @@ ADD src/.fehbg /root/.fehbg
 ADD src/rc.xml /etc/xdg/openbox/rc.xml
 RUN echo /root/.fehbg >> /etc/xdg/openbox/autostart
 
+#======================
+# Workarounds
+#======================
+# Fix emulator from crashing when running as root user.
+# See https://github.com/budtmo/docker-android/issues/223
+ENV QTWEBENGINE_DISABLE_SANDBOX=1
+
 #===============
 # Expose Ports
 #---------------
