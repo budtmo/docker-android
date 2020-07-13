@@ -251,6 +251,12 @@ Security
 --------
 All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please read [this](https://polyverse.io/how-it-works/)
 
+Users
+-----
+Docker-Android are being used by 100+ countries around the world.
+
+[![ga-datastudio-docker-android](./images/users.png)](https://datastudio.google.com/s/ht7HVKHKAQE)
+
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
