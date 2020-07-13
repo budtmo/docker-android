@@ -28,7 +28,7 @@ Docker-Android's analytics are sent throughout Docker-Android's execution to Goo
 Docker-Android's analytics are accessible to Docker-Android's current maintainers. Contact [@budtmo](https://github.com/budtmo) if you are a maintainer and need access.
 
 ## How?
-The code is viewable in [this lines](./src/appium.sh#L225-L247).
+The code is viewable in [this lines](./src/appium.sh#L318-L340).
 
 ## Opting out before starting Docker-Android
 Docker-Android analytics helps us, maintainers and leaving it on is appreciated. However, if you want to opt out and not send any information, you can do this by using passing environment variable GA=false to the Docker container.
