@@ -255,7 +255,7 @@ Users
 -----
 Docker-Android are being used by 100+ countries around the world.
 
-[![ga-datastudio-docker-android](./images/users.png)](https://datastudio.google.com/s/ht7HVKHKAQE)
+[![ga-datastudio-docker-android](./images/docker-android_users.png)](https://datastudio.google.com/s/ht7HVKHKAQE)
 
 Special Thanks
 --------------
