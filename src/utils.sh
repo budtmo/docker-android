@@ -31,13 +31,6 @@ function install_google_play () {
   adb install -r "/root/google_play_store.apk"
 }
 
-function disable_animation () {
-  # To improve performance
-  adb shell "settings put global window_animation_scale 0.0"
-  adb shell "settings put global transition_animation_scale 0.0"
-  adb shell "settings put global animator_duration_scale 0.0"
-}
-
 function enable_proxy_if_needed () {
   if [ "$ENABLE_PROXY_ON_EMULATOR" = true ]; then
     if [ ! -z "${HTTP_PROXY// }" ]; then
@@ -76,4 +69,3 @@ sleep 1
 enable_proxy_if_needed
 sleep 1
 install_google_play
-disable_animation
