@@ -257,6 +257,11 @@ Docker-Android are being used by 100+ countries around the world.
 
 [![ga-datastudio-docker-android](./images/docker-android_users.png)](https://datastudio.google.com/s/ht7HVKHKAQE)
 
+Stargazers over time
+--------------------
+
+[![Stargazers over time](https://starchart.cc/budtmo/docker-android.svg)](https://starchart.cc/budtmo/docker-android)
+
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
