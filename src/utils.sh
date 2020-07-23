@@ -54,6 +54,10 @@ function enable_proxy_if_needed () {
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"${p[0]}" --bind port:s:"${p[1]}" --where "mcc=310" --where "mnc=260""
 
         adb unroot
+
+        # Mobile data need to be restarted for Android 10 or higher
+        adb shell svc data disable
+        adb shell svc data enable
       else
         echo "Please use http:// in the beginning!"
       fi
