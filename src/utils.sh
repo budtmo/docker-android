@@ -52,7 +52,16 @@ function enable_proxy_if_needed () {
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"0.0.0.0" --bind port:s:"0000" --where "mcc=310" --where "mnc=260""
         sleep 5
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"${p[0]}" --bind port:s:"${p[1]}" --where "mcc=310" --where "mnc=260""
-
+        
+        if [ ! -z "${HTTP_PROXY_USER}" ]; then
+          sleep 2
+          adb shell "content update --uri content://telephony/carriers --bind user:s:"${HTTP_PROXY_USER}" --where "mcc=310" --where "mnc=260""
+        fi
+        if [ ! -z "${HTTP_PROXY_PASSWORD}" ]; then
+          sleep 2
+          adb shell "content update --uri content://telephony/carriers --bind password:s:"${HTTP_PROXY_PASSWORD}" --where "mcc=310" --where "mnc=260""
+        fi
+        
         adb unroot
 
         # Mobile data need to be restarted for Android 10 or higher
