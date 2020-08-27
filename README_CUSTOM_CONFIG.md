@@ -13,6 +13,15 @@ You can enable proxy inside container and Android emulator by passing following 
 - NO_PROXY="localhost"
 - ENABLE_PROXY_ON_EMULATOR=true
 
+Proxy with authentication
+----
+
+You can set proxy with authentication by passing following environment variable:
+
+- HTTP_PROXY_USER="\<username>"
+- HTTPS_PROXY_PASSWORD="\<password>"
+
+
 Language
 --------
 
