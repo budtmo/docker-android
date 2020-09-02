@@ -251,6 +251,10 @@ Security
 --------
 All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please visit [this link](https://youtu.be/eSZNP42n-pM)
 
+Monitoring
+----------
+You can use [cadvisor](https://github.com/google/cadvisor) combined with influxdb / prometheus and grafana if needed to monitor each running container.
+
 Users
 -----
 Docker-Android are being used by 100+ countries around the world.
