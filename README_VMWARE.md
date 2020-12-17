@@ -38,10 +38,19 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
     ![Enable nested virtualization for Parallels Desktop](images/parallels_enable_nested_virtualization.png)
 
 4. Enable kvm inside virtual machine
+
+    4.0 Check kvm version
+    ```bash
+    # version
+    $ 10.1
+    ```
+    
+    Go to http://tinycorelinux.net/10.x/x86_64/tcz/ and check your kvm version, for version 10.1 is kvm-4.19.10-tinycore64.tcz
+    
     4.1. Run as an account other than root to install kvm packages using tce-load.
     ```bash
     # su docker
-    $ tce-load -wi kvm
+    $ tce-load -wi kvm-4.19.10-tinycore64.tcz
     ```
 
     4.2. Run as root to load kvm module after kvm packages install.
