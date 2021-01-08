@@ -149,7 +149,7 @@ def appium_run(avd_name: str):
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
             selenium_timeout = int(os.getenv('SELENIUM_TIMEOUT', 30))
-            selenium_proxy_class = int(os.getenv('SELENIUM_PROXY_CLASS', 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy'))
+            selenium_proxy_class = os.getenv('SELENIUM_PROXY_CLASS', 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy')
             browser_name = default_web_browser if mobile_web_test else 'android'
             create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port,
                                selenium_timeout, selenium_proxy_class)
