@@ -58,7 +58,8 @@ class TestAppium(TestCase):
     def test_config_creation(self):
         from src import CONFIG_FILE
         self.assertFalse(os.path.exists(CONFIG_FILE))
-        app.create_node_config('test', 'android', '127.0.0.1', 4723, '127.0.0.1', 4444, 30)
+        app.create_node_config('test', 'android', '127.0.0.1', 4723, '127.0.0.1', 4444, 30,
+                               'org.openqa.grid.selenium.proxy.DefaultRemoteProxy')
         self.assertTrue(os.path.exists(CONFIG_FILE))
         os.remove(CONFIG_FILE)
 

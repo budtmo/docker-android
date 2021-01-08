@@ -149,9 +149,10 @@ def appium_run(avd_name: str):
             selenium_host = os.getenv('SELENIUM_HOST', '172.17.0.1')
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
             selenium_timeout = int(os.getenv('SELENIUM_TIMEOUT', 30))
+            selenium_proxy_class = int(os.getenv('SELENIUM_PROXY_CLASS', 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy'))
             browser_name = default_web_browser if mobile_web_test else 'android'
             create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port,
-                               selenium_timeout)
+                               selenium_timeout, selenium_proxy_class)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
@@ -160,7 +161,7 @@ def appium_run(avd_name: str):
 
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
-                       selenium_port: int, selenium_timeout: int):
+                       selenium_port: int, selenium_timeout: int, selenium_proxy_class: str):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
@@ -170,6 +171,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
     :param selenium_host: Host where selenium server is running
     :param selenium_port: Port number where selenium server is running
     :param selenium_timeout: Selenium session timeout in seconds
+    :param selenium_proxy_class: Selenium Proxy class created in Selenium hub
     """
     config = {
         'capabilities': [
@@ -185,7 +187,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
         'configuration': {
             'cleanUpCycle': 2000,
             'timeout': selenium_timeout,
-            'proxy': 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy',
+            'proxy': selenium_proxy_class,
             'url': 'http://{host}:{port}/wd/hub'.format(host=appium_host, port=appium_port),
             'host': appium_host,
             'port': appium_port,
