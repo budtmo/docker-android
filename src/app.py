@@ -191,7 +191,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
             'url': 'http://{host}:{port}/wd/hub'.format(host=appium_host, port=appium_port),
             'host': appium_host,
             'port': appium_port,
-            'maxSession': 6,
+            'maxSession': 1,
             'register': True,
             'registerCycle': 5000,
             'hubHost': selenium_host,
