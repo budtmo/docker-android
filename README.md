@@ -81,7 +81,14 @@ Docker is installed in your system.
 Quick Start
 -----------
 
-1. Run Docker-Android
+1. Your machine need to support virtualization. To check it:
+
+	```
+	sudo apt install cpu-checker
+	kvm-ok
+	```
+
+2. Run Docker-Android
 
 	- For ***Linux OS***, please use image name that contains "x86"
 
@@ -92,7 +99,7 @@ Quick Start
 	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization with Ubuntu OS
 
 
-2. Verify the ip address of docker host.
+3. Verify the ip address of docker host.
 
    - For OSX, you can find out by using following command:
 
@@ -102,7 +109,7 @@ Quick Start
 
    - For different OS, localhost should work.
 
-3. Open ***http://docker-host-ip-address:6080*** from web browser. Note: Adding ```?view_only=true``` will give user only view only permission.
+4. Open ***http://docker-host-ip-address:6080*** from web browser. Note: Adding ```?view_only=true``` will give user only view only permission.
 
 Custom configurations
 ---------------------
