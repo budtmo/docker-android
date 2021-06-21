@@ -4,7 +4,7 @@
 
 [![Analytics](https://ga-beacon.appspot.com/UA-133466903-1/github/budtmo/docker-android/README.md)](https://github.com/igrigorik/ga-beacon "Analytics")
 [![Join the chat at https://gitter.im/budtmo/docker-android](https://badges.gitter.im/budtmo/docker-android.svg)](https://gitter.im/budtmo/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/budtmo/docker-android.svg?branch=master)](https://travis-ci.org/budtmo/docker-android)
+[![Build Status](https://dev.azure.com/budtmoos/budtmoos/_apis/build/status/budtmo.docker-android.test?branchName=master)](https://dev.azure.com/budtmoos/budtmoos/_build/latest?definitionId=7&branchName=master)
 [![codecov](https://codecov.io/gh/budtmo/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/budtmo/docker-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
 [![GitHub release](https://img.shields.io/github/release/budtmo/docker-android.svg)](https://github.com/budtmo/docker-android/releases)
