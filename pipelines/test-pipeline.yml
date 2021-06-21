@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+    - master
+
+pr:
+  branches:
+    include:
+    - '*'
+
+variables:
+  - name: app_version
+    value: test
+
+jobs:
+- job: build_and_test
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.5'
+  - script: pip install -r requirements.txt 
+    displayName: 'Install pip packages'
+  - script: ./release.sh test 7.1.1 $(app_version) 
+    displayName: 'Build Docker image with Android 7.1.1 and run unit tests'
