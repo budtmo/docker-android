@@ -16,16 +16,11 @@ jobs:
 - job: build_and_test
   pool:
     vmImage: ubuntu-20.04
-  strategy:
-    maxParallel: 1
-    matrix:
-      python35:
-        python.version: '3.5'
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '$(python.version)'
-      displayName: 'Use Python $(python.version)'
+      versionSpec: '3.5'
+      displayName: 'Use Python 3.5'
   - script: pip install -r requirements.txt
     displayName: 'Install pip packages'
   - script: ./release.sh test 7.1.1 $(app_version) 
