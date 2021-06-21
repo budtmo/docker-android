@@ -18,8 +18,9 @@ jobs:
     vmImage: ubuntu-20.04
   steps:
   - task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.5'
+      inputs:
+        versionSpec: '$(pythonVersion)'
+        displayName: 'Use Python $(pythonVersion)'
   - script: pip install -r requirements.txt 
     displayName: 'Install pip packages'
   - script: ./release.sh test 7.1.1 $(app_version) 
