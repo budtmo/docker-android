@@ -4,7 +4,7 @@ trigger:
     - v*
 
 jobs:
-- job: build_and_release-genymotion-and-device
+- job: build_and_release_genymotion_and_device
   pool:
     vmImage: ubuntu-20.04
   strategy:

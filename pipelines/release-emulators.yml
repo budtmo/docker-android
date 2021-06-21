@@ -4,7 +4,7 @@ trigger:
     - v*
 
 jobs:
-- job: build_and_release-emulators
+- job: build_and_release_emulators
   pool:
     vmImage: ubuntu-20.04
   strategy:
