@@ -13,7 +13,7 @@ jobs:
       genymotion:
         script.name: './release_real.sh'
       real_device:
-        script.name: './release_genymotion.sh'
+        script.name: './release_geny.sh'
   steps:
   - script: |
       latest_tag=$(git describe --tags --abbrev=0)
