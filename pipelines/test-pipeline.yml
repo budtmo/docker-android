@@ -16,12 +16,17 @@ jobs:
 - job: build_and_test
   pool:
     vmImage: ubuntu-20.04
+  strategy:
+    maxParallel: 1
+    matrix:
+      python35:
+        python.version: '3.5'
   steps:
   - task: UsePythonVersion@0
       inputs:
-        versionSpec: '$(pythonVersion)'
-        displayName: 'Use Python $(pythonVersion)'
-  - script: pip install -r requirements.txt 
+        versionSpec: '$(python.version)'
+        displayName: 'Use Python $(python.version)'
+  - script: pip install -r requirements.txt
     displayName: 'Install pip packages'
   - script: ./release.sh test 7.1.1 $(app_version) 
     displayName: 'Build Docker image with Android 7.1.1 and run unit tests'
