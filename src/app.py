@@ -3,6 +3,7 @@
 import json
 import logging
 import os
+import re
 import subprocess
 import uuid
 
@@ -56,7 +57,7 @@ def is_initialized(device_name) -> bool:
     if os.path.exists(config_path):
         logger.info('Found existing config file at {}.'.format(config_path))
         with open(config_path, 'r') as f:
-            if any('hw.device.name={}'.format(device_name) in line for line in f):
+            if any(re.match(r'hw\.device\.name ?= ?{}'.format(device_name), line) for line in f):
                 logger.info('Existing config file references {}. Assuming device was previously initialized.'.format(device_name))
                 return True
             else:
