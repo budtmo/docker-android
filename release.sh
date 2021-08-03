@@ -143,6 +143,8 @@ function build() {
     FILE_NAME=docker/Emulator_x86
 
     for v in "${versions[@]}"; do
+        level=${list_of_levels[$v]}
+
         # Find image type and default web browser
         if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
             IMG_TYPE=default
@@ -158,12 +160,12 @@ function build() {
             #adb root cannot be run in IMG_TYPE=google_apis_playstore
             IMG_TYPE=google_apis
             BROWSER=chrome
-            if [ "$v" == "9.0" ] || [ "$v" == "12.0" ]; then
+            # Google dropped 32-bit support at Android 12
+            if [ "$v" == "9.0" ] || [ $level >= 31 ]; then
                 processor=x86_64
             fi
         fi
         echo "[BUILD] IMAGE TYPE: $IMG_TYPE"
-        level=${list_of_levels[$v]}
         echo "[BUILD] API Level: $level"
         sys_img=$processor
         echo "[BUILD] System Image: $sys_img"
