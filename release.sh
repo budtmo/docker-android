@@ -158,7 +158,7 @@ function build() {
             #adb root cannot be run in IMG_TYPE=google_apis_playstore
             IMG_TYPE=google_apis
             BROWSER=chrome
-            if [ "$v" == "9.0" ]; then
+            if [ "$v" == "9.0" ] || [ "$v" == "12.0" ]; then
                 processor=x86_64
             fi
         fi
