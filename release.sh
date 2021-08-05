@@ -161,7 +161,7 @@ function build() {
             IMG_TYPE=google_apis
             BROWSER=chrome
             # Google dropped 32-bit support at Android 12
-            if [ "$v" == "9.0" ] || [ $level >= 31 ]; then
+            if [ "$v" == "9.0" ] || [ $level -ge 31 ]; then
                 processor=x86_64
             fi
         fi
