@@ -30,6 +30,8 @@ jobs:
         android.version: '10.0'
       11.0:
         android.version: '11.0'
+      12.0:
+        android.version: '12.0'
   steps:
   - task: UsePythonVersion@0
     inputs:
