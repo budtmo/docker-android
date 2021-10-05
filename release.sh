@@ -10,7 +10,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Android version (5.0.1|5.1.1|6.0|7.0|7.1.1|8.0|8.1|9.0|10.0|11.0|12.0|all): " ANDROID_VERSION
+    read -p "Android version (6.0|7.0|7.1.1|8.0|8.1|9.0|10.0|11.0|12.0|all): " ANDROID_VERSION
 else
     ANDROID_VERSION=$2
 fi
@@ -22,8 +22,6 @@ else
 fi
 
 declare -A list_of_levels=(
-        [5.0.1]=21
-        [5.1.1]=22
         [6.0]=23
         [7.0]=24
         [7.1.1]=25
@@ -38,8 +36,6 @@ declare -A list_of_levels=(
 # The version of the Chrome browser installed on the Android emulator needs to be known beforehand
 # in order to chose the proper version of chromedriver (see http://chromedriver.chromium.org/downloads)
 declare -A chromedriver_versions=(
-        [5.0.1]="2.21"
-        [5.1.1]="2.13"
         [6.0]="2.18"
         [7.0]="2.23"
         [7.1.1]="2.28"
@@ -68,7 +64,7 @@ function get_android_versions() {
 
     # If version cannot be found in the list
     if [ -z "$versions" ]; then
-        echo "Android version \"$ANDROID_VERSION\" is not found in the list or not supported! Support only version 5.0.1, 5.1.1, 6.0, 7.0, 7.1.1, 8.0, 8.1, 9.0, 10.0, 11.0, 12.0"
+        echo "Android version \"$ANDROID_VERSION\" is not found in the list or not supported! Support only version 6.0, 7.0, 7.1.1, 8.0, 8.1, 9.0, 10.0, 11.0, 12.0"
         exit 1
     fi
 
@@ -146,10 +142,7 @@ function build() {
         level=${list_of_levels[$v]}
 
         # Find image type and default web browser
-        if [ "$v" == "5.0.1" ] || [ "$v" == "5.1.1" ]; then
-            IMG_TYPE=default
-            BROWSER=browser
-        elif [ "$v" == "6.0" ]; then
+        if [ "$v" == "6.0" ]; then
             # It is because there is no ARM EABI v7a System Image for 6.0
             IMG_TYPE=google_apis
             BROWSER=browser
