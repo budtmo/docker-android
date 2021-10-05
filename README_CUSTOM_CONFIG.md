@@ -19,7 +19,7 @@ Proxy with authentication
 You can set proxy with authentication by passing following environment variable:
 
 - HTTP_PROXY_USER="\<username>"
-- HTTPS_PROXY_PASSWORD="\<password>"
+- HTTP_PROXY_PASSWORD="\<password>"
 
 
 Language
