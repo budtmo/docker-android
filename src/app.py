@@ -226,10 +226,10 @@ def run():
 
     if is_first_run:
         logger.info('Emulator was not previously initialized. Preparing a new one...')
-        cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -wipe-data -writable-system -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
+        cmd = 'emulator/emulator {name} -gpu swiftshader_indirect -accel on -wipe-data -writable-system -verbose {custom_args}'.format(name=avd_name, custom_args=custom_args)
     else:
         logger.info('Using previously initialized AVD...')
-        cmd = 'emulator/emulator @{name} -gpu swiftshader_indirect -accel on -verbose -writable-system {custom_args}'.format(name=avd_name, custom_args=custom_args)
+        cmd = 'emulator/emulator {name} -gpu swiftshader_indirect -accel on -verbose -writable-system {custom_args}'.format(name=avd_name, custom_args=custom_args)
 
     appium = convert_str_to_bool(str(os.getenv('APPIUM', False)))
     if appium:
