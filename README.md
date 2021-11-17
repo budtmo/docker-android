@@ -256,7 +256,7 @@ The Emulator skins are taken from [Android Studio IDE](https://developer.android
 
 Security
 --------
-All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please visit [this link](https://youtu.be/eSZNP42n-pM)
+All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please visit [this link](https://polyverse.com/products/polymorphing-linux-security/)
 
 Monitoring
 ----------
