@@ -153,8 +153,9 @@ function build() {
             #adb root cannot be run in IMG_TYPE=google_apis_playstore
             IMG_TYPE=google_apis
             BROWSER=chrome
-            # Google dropped 32-bit support at Android 12
-            if [ "$v" == "9.0" ] || [ $level -ge 31 ]; then
+            # Android 9 & Android 11 had build issues that requires 64-bit
+            # Android 12+ Google dropped 32-bit support
+            if [ "$v" == "9.0" ] || [ $level -ge 30 ]; then
                 processor=x86_64
             fi
         fi
