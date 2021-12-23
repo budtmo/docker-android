@@ -39,7 +39,12 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
 
 4. Enable kvm inside virtual machine
 
-    4.0 Check kvm version
+    4.0 SSH to the machine
+    ```bash
+    docker-machine ssh vmware-dev
+    ```
+
+    4.1 Check kvm version
     ```bash
     # version
     $ 10.1
@@ -47,23 +52,23 @@ The following instructions are used for OS X. You'll need [docker-machine-parall
     
     Go to http://tinycorelinux.net/10.x/x86_64/tcz/ and check your kvm version, for version 10.1 is kvm-4.19.10-tinycore64.tcz
     
-    4.1. Run as an account other than root to install kvm packages using tce-load.
+    4.2. Run as an account other than root to install kvm packages using tce-load.
     ```bash
     # su docker
     $ tce-load -wi kvm-4.19.10-tinycore64.tcz
     ```
 
-    4.2. Run as root to load kvm module after kvm packages install.
+    4.3. Run as root to load kvm module after kvm packages install.
     ```bash
     $ sudo modprobe kvm_intel
     ```
 
-    4.3. Check if the kvm device is loaded.
+    4.4. Check if the kvm device is loaded.
     ```bash
     $ ls /dev/kvm
     ```
 
-    4.4. Check if your CPU supports hardware virtualization now
+    4.5. Check if your CPU supports hardware virtualization now
     ```bash
     $ egrep -c '(vmx|svm)' /proc/cpuinfo
     ```
