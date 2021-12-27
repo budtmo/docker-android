@@ -151,9 +151,10 @@ def appium_run(avd_name: str):
             selenium_port = int(os.getenv('SELENIUM_PORT', 4444))
             selenium_timeout = int(os.getenv('SELENIUM_TIMEOUT', 30))
             selenium_proxy_class = os.getenv('SELENIUM_PROXY_CLASS', 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy')
+            application_name = os.getenv('APPLICATION_NAME', avd_name)
             browser_name = default_web_browser if mobile_web_test else 'android'
             create_node_config(avd_name, browser_name, appium_host, appium_port, selenium_host, selenium_port,
-                               selenium_timeout, selenium_proxy_class)
+                               selenium_timeout, selenium_proxy_class, application_name)
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
@@ -162,7 +163,7 @@ def appium_run(avd_name: str):
 
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
-                       selenium_port: int, selenium_timeout: int, selenium_proxy_class: str):
+                       selenium_port: int, selenium_timeout: int, selenium_proxy_class: str, application_name: str):
     """
     Create custom node config file in json format to be able to connect with selenium server.
 
@@ -173,6 +174,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
     :param selenium_port: Port number where selenium server is running
     :param selenium_timeout: Selenium session timeout in seconds
     :param selenium_proxy_class: Selenium Proxy class created in Selenium hub
+    :param application_name: Selenium application name capability
     """
     config = {
         'capabilities': [
@@ -183,6 +185,7 @@ def create_node_config(avd_name: str, browser_name: str, appium_host: str, appiu
                 'browserName': browser_name,
                 'deviceName': avd_name,
                 'maxInstances': 1,
+                'applicationName': application_name
             }
         ],
         'configuration': {
