@@ -17,8 +17,8 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.5'
-      displayName: 'Use Python 3.5'
+      versionSpec: '3.8.12'
+      displayName: 'Use Python 3.8.12'
 
   - script: |
       latest_tag=$(git describe --tags --abbrev=0)

@@ -19,8 +19,8 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.5'
-      displayName: 'Use Python 3.5'
+      versionSpec: '3.8.12'
+      displayName: 'Use Python 3.8.12'
   - script: pip install -r requirements.txt
     displayName: 'Install pip packages'
   - script: ./release.sh test 7.1.1 $(app_version) 
