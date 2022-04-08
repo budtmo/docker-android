@@ -28,7 +28,7 @@ jobs:
 
   - script: |
       docker login -u $(DOCKER_USERNAME) -p=$(DOCKER_PASSWORD)
-      TOKEN=$(p_token) $(script.name) all $(release_version)
+      $(script.name) all $(release_version)
       docker logout
 
     displayName: 'Build docker image, run unit tests and push the docker image'

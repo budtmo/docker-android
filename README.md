@@ -252,11 +252,8 @@ docker exec -it android-container tail -f /var/log/supervisor/docker-android.std
 
 Emulator Skins
 --------------
-The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](e)
+The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](https://developer.samsung.com/)
 
-Security
---------
-All docker images are protected by [Polyverse](https://polyverse.io/) by scrambling the Linux packages. For more information please visit [this link](https://polyverse.com/products/polymorphing-linux-security/)
 
 Monitoring
 ----------

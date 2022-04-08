@@ -42,7 +42,7 @@ jobs:
 
   - script: |
       docker login -u $(DOCKER_USERNAME) -p=$(DOCKER_PASSWORD)
-      TOKEN=$(polyverse_token) ./release.sh all $(android.version) $(release_version)
+      ./release.sh all $(android.version) $(release_version)
       docker logout
 
     displayName: 'Build docker image, run unit tests and push the docker image'
