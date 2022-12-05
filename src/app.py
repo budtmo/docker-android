@@ -83,7 +83,7 @@ logger.info('Android version: {version} \n'
                                             img=SYS_IMG, img_type=IMG_TYPE))
 
 
-def prepare_avd(device: str, avd_name: str, dp_size: str):
+def prepare_avd(device: str, avd_name: str, dp_size: str, ram_size: str):
     """
     Create and run android virtual device.
 
@@ -117,6 +117,7 @@ def prepare_avd(device: str, avd_name: str, dp_size: str):
     with open(config_path, 'a') as file:
         file.write('skin.path={sp}'.format(sp=skin_path))
         file.write('\ndisk.dataPartition.size={dp}'.format(dp=dp_size))
+        file.write('\nhw.ramSize={ram}'.format(ram=ram_size))
 
     logger.info('Skin was added in config.ini')
 
@@ -217,10 +218,11 @@ def run():
     is_first_run = not is_initialized(device)
 
     dp_size = os.getenv('DATAPARTITION', '550m')
+    ram_size = os.getenv('RAMSIZE', '2048')
 
     if is_first_run:
         logger.info('Preparing emulator...')
-        prepare_avd(device, avd_name, dp_size)
+        prepare_avd(device, avd_name, dp_size, ram_size)
 
     logger.info('Run emulator...')
 

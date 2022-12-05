@@ -39,6 +39,15 @@ The size of the data partition can be set by passing the following environment v
 
 The value can be specified in the same format that is used by the emulator config file (`disk.dataPartition.size`), e.g. `800m`.
 
+RAM memory
+-------------------
+
+The size of the RAM memory of the emulated device can be set by passing the following environment variable:
+
+- RAMSIZE="\<size>"
+
+The value is specified in megabytes (as in the emulator config file's `hw.ramSize` entry), and is 2048 by default.
+
 Camera
 ------
 
