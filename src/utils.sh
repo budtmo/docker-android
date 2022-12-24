@@ -77,16 +77,6 @@ function enable_proxy_if_needed () {
   fi
 }
 
-function change_emulator_ram_size() {
-  echo '-------------------------------------------------'
-  echo 'Changing emulator ram size for better performance'
-  echo '-------------------------------------------------'
-  sed '/^hw.ramSize /s/=.*$/= 4096/' /root/android_emulator/hardware-qemu.ini
-  echo '-------------------------------------------------'
-  echo 'Emulator ram size changed to 4096'
-  echo '-------------------------------------------------'
-}
-
 function check_emulator_popups() {
   echo "Waiting for device..."
   wait_emulator_to_be_ready
@@ -114,7 +104,6 @@ function check_emulator_popups() {
       ;;
       *"Not Responding: com.android.systemui"*)
         echo "Dismiss System UI isn't responding alert"
-        change_emulator_ram_size
         adb shell su root 'kill $(pidof com.android.systemui)'
         first_launcher=1
       ;;
