@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import uuid
+import toml
 
 from src import CHROME_DRIVER, CONFIG_FILE, ROOT
 from src import log
@@ -50,6 +51,24 @@ def convert_str_to_bool(str: str) -> bool:
     except AttributeError as err:
         logger.error(err)
 
+def replace_str_in_file(file_path: str, find: str, replace: str):
+    """
+    Replace string in a file.
+
+    :param file_path: target file path
+    :param find: string to find
+    :param replace: string to replace
+    """
+    # Read in the file
+    with open(file_path, 'r') as file :
+        filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace(find, replace)
+
+    # Write the file out again
+    with open(file_path, 'w') as file:
+        file.write(filedata)
 
 def is_initialized(device_name) -> bool:
     config_path = os.path.join(ROOT, 'android_emulator', 'config.ini')
@@ -137,10 +156,13 @@ def appium_run(avd_name: str):
 
     default_web_browser = os.getenv('BROWSER')
     cmd += ' --chromedriver-executable {driver}'.format(driver=CHROME_DRIVER)
+    cmd_connect_grid_4 = ''
 
     grid_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID', False)))
     logger.info('Connect to selenium grid? {connect}'.format(connect=grid_connect))
-    if grid_connect:
+    grid4_connect = convert_str_to_bool(str(os.getenv('CONNECT_TO_GRID_4', False)))
+    logger.info('Connect to selenium grid 4? {connect}'.format(connect=grid4_connect))
+    if grid_connect and grid4_connect == False:
         # Ubuntu 16.04 -> local_ip = os.popen('ifconfig eth0 | grep \'inet addr:\' | cut -d: -f2 | awk \'{ print $1}\'').read().strip()
         local_ip = os.popen('ifconfig eth0 | grep \'inet\' | cut -d: -f2 | awk \'{ print $2}\'').read().strip()
         try:
@@ -157,9 +179,68 @@ def appium_run(avd_name: str):
             cmd += ' --nodeconfig {file}'.format(file=CONFIG_FILE)
         except ValueError as v_err:
             logger.error(v_err)
-    title = 'Appium Server'
-    subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\"'.format(title=title, cmd=cmd), shell=True)
+    elif grid4_connect == True:
+        local_ip = os.popen('ifconfig eth0 | grep \'inet\' | cut -d: -f2 | awk \'{ print $2}\'').read().strip()
+        try:
+            mobile_web_test = convert_str_to_bool(str(os.getenv('MOBILE_WEB_TEST', False)))
+            appium_host = os.getenv('APPIUM_HOST', local_ip)
+            appium_port = int(os.getenv('APPIUM_PORT', 4723))
+            plafform_name = 'android'
+            device_name = os.getenv('DEVICE', 'chrome')
+            browser_name = default_web_browser if mobile_web_test else device_name
+            create_node_config_selenium_grid_4(browser_name, appium_host, appium_port, plafform_name)
+            download_selenium_server_url = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar"
+            jar_url = '/opt/selenium/'
+            if not os.path.isdir(jar_url):
+                os.mkdir(jar_url)
+            start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
+            subprocess.check_call('wget -O /opt/selenium/selenium-server.jar {selenium_jar_url}'.format(selenium_jar_url=download_selenium_server_url), shell=True)
+            cmd_connect_grid_4 += "& sleep 3s; bash {start_node}".format(appium_host=appium_host, appium_port=appium_port, start_node=start_selenium_node)
+        except ValueError as v_err:
+            logger.error(v_err)
+    else:
+        logger.info('Skipping selenium grid connection')
 
+    title = 'Appium Server'
+    subprocess.check_call('xterm -T "{title}" -n "{title}" -e \"{cmd}\" {cmd_connect_grid_4}'.format(title=title, cmd=cmd, cmd_connect_grid_4=cmd_connect_grid_4), shell=True)
+
+def create_node_config_selenium_grid_4(browser_name: str, appium_host: str, appium_port: int, platform_name: str):
+    """
+    Create custom appium node config file in toml format to be able to connect with new selenium grid 4 architecture.
+    Documentation on this can be found here: https://www.selenium.dev/documentation/grid/configuration/toml_options/#relaying-commands-to-a-service-endpoint-that-supports-webdriver
+
+    :param browser_name: According to Relay options this can be whatever the browser name is set by default, even though, if not browser is provided we can just put the name of android virtual device / emulator
+    :param appium_host: Host where appium server is running
+    :param appium_port: Port number where where appium server is running
+    :param platform_name: Always set to android
+    """
+
+    config = {
+        "server": {
+            "port": 5556
+        },
+        "node": {
+            "detect-drivers": False
+        },
+        "relay": {
+            "url": 'http://{host}:{port}/wd/hub'.format(host=appium_host, port=appium_port),
+            "status-endpoint": "/status",
+            "configs": [
+                "1",
+                '{{"browserName": "{browser}", "platformName": "{platform}", "appium:platformVersion": "{version}"}}'.format(browser=browser_name, platform=platform_name, version=ANDROID_VERSION)
+            ]
+        }
+    }
+
+    logger.info('Creating new appium service endpoint configuration to connect to selenium server 4')
+    file_dir = '/opt/bin/'
+    output_file = os.path.join(file_dir, 'config.toml')
+    if not os.path.isdir(file_dir):
+        os.mkdir(file_dir)
+    with open(output_file, "w") as toml_file:
+        toml_string = toml.dump(config, toml_file)
+    replace_str_in_file(output_file, ',]', ']')
+    logger.info('Appium node config: {config}'.format(config=toml_string))
 
 def create_node_config(avd_name: str, browser_name: str, appium_host: str, appium_port: int, selenium_host: str,
                        selenium_port: int, selenium_timeout: int, selenium_proxy_class: str):

@@ -300,18 +300,29 @@ _EOF
 function run_appium() {
 	echo "Preparing appium-server..."
 	CMD="appium --log $APPIUM_LOG"
-	if [ "$CONNECT_TO_GRID" = true ]; then
+	CMD_CONNECT_TO_GRID_4=""
+	if [ "$CONNECT_TO_GRID" = true ] && ([ "$CONNECT_TO_GRID_4" = false ] || [ -z "$CONNECT_TO_GRID_4" ]); then
 		NODE_CONFIG_JSON="/root/src/nodeconfig.json"
-		/root/generate_config.sh $NODE_CONFIG_JSON
+		/root/src/generate_config.sh $NODE_CONFIG_JSON
 		CMD+=" --nodeconfig $NODE_CONFIG_JSON"
+  	elif [ "$CONNECT_TO_GRID_4" = true ]; then
+    	DOWNLOAD_URL_SELENIUM_SERVER="https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar"
+    	NODE_CONFIG_TOML="/opt/bin/config.toml"
+    	START_SELENIUM_NODE="/opt/bin/start-selenium-grid-node-docker.sh"
+		/root/src/generate_config.sh $NODE_CONFIG_TOML
+		echo "Starting new node configuration for selenium grid 4"
+		CMD_CONNECT_TO_GRID_4+="& sleep 2s; wget -O /opt/selenium/selenium-server.jar $DOWNLOAD_URL_SELENIUM_SERVER && bash $START_SELENIUM_NODE"
+  	else
+    	echo "Skipping selenium grid connection"
   	fi
+
 
 	if [ "$RELAXED_SECURITY" = true ]; then
 		CMD+=" --relaxed-security"
 	fi
 
-	echo "Preparation is done"  	
-	TERM="xterm -T AppiumServer -n AppiumServer -e $CMD"
+	echo "Preparation is done"
+	TERM="xterm -T AppiumServer -n AppiumServer -e $CMD $CMD_CONNECT_TO_GRID_4"
 	$TERM
 }
 
@@ -372,5 +383,5 @@ elif [ "$GENYMOTION" = true ]; then
 	esac
 else
 	echo "Using Emulator"
-	python3 -m src.app
+	bash /root/src/run_app.sh
 fi
