@@ -189,7 +189,10 @@ def appium_run(avd_name: str):
             device_name = os.getenv('DEVICE', 'chrome')
             browser_name = default_web_browser if mobile_web_test else device_name
             create_node_config_selenium_grid_4(browser_name, appium_host, appium_port, plafform_name)
-            download_selenium_server_url = "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar"
+            # Get the latest selenium server release version
+            selenium_jar_version = os.popen('curl -s https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"').read().strip()
+            logger.info('Latest selenium server jar found: {selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version))
+            download_selenium_server_url = 'https://github.com{selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version)
             jar_url = '/opt/selenium/'
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
