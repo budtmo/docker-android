@@ -6,9 +6,11 @@ version: "2.2"
 services:
   # Selenium hub
   selenium_hub:
-    image: selenium/hub:3.14.0-curium
+    image: selenium/hub:latest
     ports:
-      - 4444:4444
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
 
   # There is a bug for using appium. Issue: https://github.com/budtmo/docker-android/issues/73
   # Real devices
@@ -40,10 +42,22 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
+      - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
+      - $PWD/docker-resources/entry_point.sh:/root/entry_point.sh
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - $PWD/example/sample_apk:/root/tmp
     environment:
+      - CONNECT_TO_GRID_4=true
       - CONNECT_TO_GRID=true
-      - SELENIUM_HOST=selenium_hub
+      #- SELENIUM_HOST=selenium_hub
+      - APPIUM=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       # Enable it for msite testing
       #- BROWSER_NAME=chrome
 
@@ -55,18 +69,26 @@ services:
     scale: 1
     depends_on:
       - selenium_hub
-      - real_device
     ports:
       - 6080
     # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
     volumes:
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
+      - $PWD/docker-resources/generate_config.sh:/root/generate_config.sh
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
       - $PWD/example/sample_apk:/root/tmp/sample_apk
       - ./video-nexus_7.1.1:/tmp/video
     environment:
       - DEVICE=Nexus 5
-      - CONNECT_TO_GRID=true
+      - CONNECT_TO_GRID_4=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      #- SELENIUM_HOST=selenium_hub
       - AUTO_RECORD=true
 
   # Docker-Android for mobile website testing with chrome browser
@@ -78,18 +100,26 @@ services:
     scale: 1
     depends_on: 
       - selenium_hub
-      - real_device
     ports:
       - 6080
     volumes:
       - ./video-samsung_7.1.1:/tmp/video
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
+      #- SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
+      - CONNECT_TO_GRID_4=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
   # Docker-Android for mobile website testing with default browser
   # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
@@ -100,15 +130,23 @@ services:
     scale: 1
     depends_on:
       - selenium_hub
-      - real_device
     ports:
       - 6080
     volumes:
       - ./video-samsung_5.1.1:/tmp/video
+      - $PWD/docker-resources/supervisord.conf:/root/supervisord.conf
+      - $PWD/docker-resources/appium.sh:/root/src/appium.sh
+      - $PWD/docker-resources/run_app.sh:/root/src/run_app.sh
+      - $PWD/docker-resources/app.py:/root/src/app.py
+      - $PWD/docker-resources/start-selenium-grid-node-docker.sh:/opt/bin/start-selenium-grid-node-docker.sh
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
+      #- SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
+      - CONNECT_TO_GRID_4=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
