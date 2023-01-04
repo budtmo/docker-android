@@ -70,6 +70,23 @@ def replace_str_in_file(file_path: str, find: str, replace: str):
     with open(file_path, 'w') as file:
         file.write(filedata)
 
+def get_selenium_jar_url():
+    """
+    Get the latest selenium server jar url 
+    """
+    # Command to find jar url
+    command = 'curl -sk https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"'
+    
+    # Call to shell process to get the jar url
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
+    try:
+        stdout, errs = process.communicate(timeout=10)
+        return stdout.strip()
+    except subprocess.TimeoutExpired:
+        process.kill()
+        stdout, errs = process.communicate()
+        logger.error(errs)
+
 def is_initialized(device_name) -> bool:
     config_path = os.path.join(ROOT, 'android_emulator', 'config.ini')
 
@@ -190,9 +207,15 @@ def appium_run(avd_name: str):
             browser_name = default_web_browser if mobile_web_test else device_name
             create_node_config_selenium_grid_4(browser_name, appium_host, appium_port, plafform_name)
             # Get the latest selenium server release version
-            selenium_jar_version = os.popen('curl -s https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"').read().strip()
-            logger.info('Latest selenium server jar found: {selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version))
-            download_selenium_server_url = 'https://github.com{selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version)
+            proc = subprocess.popen('curl -s https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"').read().strip()
+            try:
+                outs, errs = proc.communicate(timeout=15)
+                logger.info('Latest selenium server jar found: {outs}'.format(outs=outs))
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                outs, errs = proc.communicate()
+            logger.info('Latest selenium server jar found: {selenium_jar_version}'.format(selenium_jar_version=outs))
+            download_selenium_server_url = 'https://github.com{selenium_jar_version}'.format(selenium_jar_version=outs)
             jar_url = '/opt/selenium/'
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
