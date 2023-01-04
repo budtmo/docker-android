@@ -54,3 +54,21 @@ docker-compose up -d
 ```
 
 [compose]: <images/compose.png>
+
+### Connect to Selenium Grid 4 (new architecture)
+
+Now it is possbile to connect appium server that run inside docker-android with the new selenium grid architecture released starting [selenium 4](https://www.selenium.dev/documentation/grid/architecture/) by passing following environment variables:
+
+- CONNECT\_TO\_GRID_4=true
+- APPIUM_HOST="\<host\_ip\_address>"
+- APPIUM_PORT=\<port\_number>
+- SE_EVENT_BUS_HOST=<event_bus_ip|event_bus_name>
+- SE_EVENT_BUS_PUBLISH_PORT=4442
+- SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+Here it is an [example of compose file](docker-compose-grid-4.yml) to run docker-android container as nodes and connect to the new selenium hub version.
+
+<img width="1478" alt="Screenshot 2023-01-03 at 9 54 00 PM" src="https://user-images.githubusercontent.com/33426940/210650123-65ceda10-a62b-4ed3-82e6-b037a37ca851.png">
+
+**Notes**: 
+- The selenium hub image version has to be higher than 4, otherwise nodes will fail trying to connect to selenium hub with the error: `[Appium] An attempt to register with the grid was unsuccessful: Request failed with status code 404` inside node logs at `var/log/supervisor/appium.log` 
