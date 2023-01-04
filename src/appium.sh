@@ -372,5 +372,5 @@ elif [ "$GENYMOTION" = true ]; then
 	esac
 else
 	echo "Using Emulator"
-	python3 -m src.app
+	bash /root/src/run_app.sh
 fi
