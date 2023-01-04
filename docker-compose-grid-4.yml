@@ -1,0 +1,82 @@
+# To execute this docker-compose yml file use `docker-compose -f docker-compose-grid-4.yml up`
+# Add the `-d` flag at the end for detached execution
+# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-grid-4.yml down`
+version: "2.2"
+
+services:
+  # Selenium hub
+  selenium_hub:
+    image: selenium/hub:latest
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+
+  # Docker-Android for Android application testing
+  nexus_7.1.1:
+    image: budtmo/docker-android-x86-7.1.1
+    privileged: true
+    # Increase scale number if needed
+    scale: 1
+    depends_on:
+      - selenium_hub
+    ports:
+      - 6080
+    # Change path of apk that you want to test. I use sample_apk that I provide in folder "example"
+    volumes:
+      - $PWD/example/sample_apk:/root/tmp/sample_apk
+      - ./video-nexus_7.1.1:/tmp/video
+    environment:
+      - DEVICE=Nexus 5
+      - APPIUM=true
+      - AUTO_RECORD=true
+      - CONNECT_TO_GRID_4=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # Docker-Android for mobile website testing with chrome browser
+  # Chrome browser exists only for version 7.0 and 7.1.1
+  samsung_galaxy_web_7.1.1:
+    image: budtmo/docker-android-x86-8.1
+    privileged: true
+    # Increase scale number if needed
+    scale: 1
+    depends_on: 
+      - selenium_hub
+    ports:
+      - 6080
+    volumes:
+      - ./video-samsung_7.1.1:/tmp/video
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - APPIUM=true
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
+      - CONNECT_TO_GRID_4=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  # Docker-Android for mobile website testing with default browser
+  # Default browser exists only for version 5.0.1, 5.1.1 and 6.0
+  samsung_galaxy_web_5.1.1:
+    image: budtmo/docker-android-x86-5.1.1
+    privileged: true
+    # Increase scale number if needed
+    scale: 1
+    depends_on:
+      - selenium_hub
+    ports:
+      - 6080
+    volumes:
+      - ./video-samsung_5.1.1:/tmp/video
+    environment:
+      - DEVICE=Samsung Galaxy S6
+      - APPIUM=true
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
+      - CONNECT_TO_GRID_4=true
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
