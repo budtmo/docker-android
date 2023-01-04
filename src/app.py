@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.8
 
 import json
 import logging
@@ -77,7 +77,7 @@ def get_selenium_jar_url():
     # Command to find jar url
     command = 'curl -sk https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"'
     
-    # Call to shell process to get the jar url
+    # Call to the shell process and wait until is finished
     process = subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
     try:
         stdout, errs = process.communicate(timeout=10)
@@ -206,21 +206,14 @@ def appium_run(avd_name: str):
             device_name = os.getenv('DEVICE', 'chrome')
             browser_name = default_web_browser if mobile_web_test else device_name
             create_node_config_selenium_grid_4(browser_name, appium_host, appium_port, plafform_name)
-            # Get the latest selenium server release version
-            proc = subprocess.popen('curl -s https://github.com/SeleniumHQ/selenium/releases/ | grep ".jar" | head -n 1 | grep -Eo "/[a-zA-Z0-9./?=_%:-]*"').read().strip()
-            try:
-                outs, errs = proc.communicate(timeout=15)
-                logger.info('Latest selenium server jar found: {outs}'.format(outs=outs))
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                outs, errs = proc.communicate()
-            logger.info('Latest selenium server jar found: {selenium_jar_version}'.format(selenium_jar_version=outs))
-            download_selenium_server_url = 'https://github.com{selenium_jar_version}'.format(selenium_jar_version=outs)
+            selenium_jar_version = get_selenium_jar_url()
+            logger.info('Latest selenium server jar found: {selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version))
+            download_selenium_server_url = 'https://github.com{selenium_jar_version}'.format(selenium_jar_version=selenium_jar_version)
             jar_url = '/opt/selenium/'
             if not os.path.isdir(jar_url):
                 os.mkdir(jar_url)
             start_selenium_node = "/opt/bin/start-selenium-grid-node-docker.sh"
-            subprocess.check_call('wget -O /opt/selenium/selenium-server.jar {selenium_jar_url}'.format(selenium_jar_url=download_selenium_server_url), shell=True)
+            subprocess.check_call('wget -O /opt/selenium/selenium-server.jar {selenium_jar_url} --no-check-certificate'.format(selenium_jar_url=download_selenium_server_url), shell=True)
             cmd_connect_grid_4 += "& sleep 3s; bash {start_node}".format(appium_host=appium_host, appium_port=appium_port, start_node=start_selenium_node)
         except ValueError as v_err:
             logger.error(v_err)
