@@ -44,7 +44,7 @@ declare -A chromedriver_versions=(
         [9.0]="2.40"
         [10.0]="74.0.3729.6"
         [11.0]="83.0.4103.39"
-        [12.0]="93.0.4577.15"
+        [12.0]="91.0.4472.101"
 )
 
 function get_android_versions() {

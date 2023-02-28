@@ -10,7 +10,7 @@ function wait_emulator_to_be_ready () {
       boot_completed=true
     else
       sleep 1
-    fi      
+    fi
   done
 }
 
@@ -52,7 +52,7 @@ function enable_proxy_if_needed () {
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"0.0.0.0" --bind port:s:"0000" --where "mcc=310" --where "mnc=260""
         sleep 5
         adb shell "content update --uri content://telephony/carriers --bind proxy:s:"${p[0]}" --bind port:s:"${p[1]}" --where "mcc=310" --where "mnc=260""
-        
+
         if [ ! -z "${HTTP_PROXY_USER}" ]; then
           sleep 2
           adb shell "content update --uri content://telephony/carriers --bind user:s:"${HTTP_PROXY_USER}" --where "mcc=310" --where "mnc=260""
@@ -61,7 +61,7 @@ function enable_proxy_if_needed () {
           sleep 2
           adb shell "content update --uri content://telephony/carriers --bind password:s:"${HTTP_PROXY_PASSWORD}" --where "mcc=310" --where "mnc=260""
         fi
-        
+
         adb unroot
 
         # Mobile data need to be restarted for Android 10 or higher
@@ -77,8 +77,69 @@ function enable_proxy_if_needed () {
   fi
 }
 
+function check_emulator_popups() {
+  echo "Waiting for device..."
+  wait_emulator_to_be_ready
+  $ANDROID_HOME/platform-tools/adb wait-for-device shell true
+
+  EMU_BOOTED=0
+  n=0
+  first_launcher=1
+  echo 1 > /tmp/failed
+  while [[ $EMU_BOOTED = 0 ]];do
+      echo "Test for current focus"
+      CURRENT_FOCUS=`$ANDROID_HOME/platform-tools/adb shell dumpsys window 2>/dev/null | grep -i mCurrentFocus`
+      echo "Current focus: ${CURRENT_FOCUS}"
+      case $CURRENT_FOCUS in
+        *"Launcher"*)
+        if [[ $first_launcher == 1 ]]; then
+          echo "Launcher seems to be ready, wait 10 sec for another popup..."
+          sleep 10
+          first_launcher=0
+        else
+          echo "Launcher is ready, Android boot completed"
+          EMU_BOOTED=1
+          rm /tmp/failed
+        fi
+      ;;
+      *"Not Responding: com.android.systemui"*)
+        echo "Dismiss System UI isn't responding alert"
+        adb shell su root 'kill $(pidof com.android.systemui)'
+        first_launcher=1
+      ;;
+      *"Not Responding: com.google.android.gms"*)
+        echo "Dismiss GMS isn't responding alert"
+        adb shell input keyevent KEYCODE_ENTER
+        first_launcher=1
+      ;;
+      *"Not Responding: system"*)
+        echo "Dismiss Process system isn't responding alert"
+        adb shell input keyevent KEYCODE_ENTER
+        first_launcher=1
+      ;;
+      *"ConversationListActivity"*)
+        echo "Close Messaging app"
+        adb shell input keyevent KEYCODE_ENTER
+        first_launcher=1
+      ;;
+      *)
+        n=$((n + 1))
+        echo "Waiting Android to boot 10 sec ($n)..."
+        sleep 10
+        if [ $n -gt 60 ]; then
+            echo "Android Emulator does not start in 10 minutes"
+            exit 2
+        fi
+      ;;
+      esac
+  done
+  echo "Android Emulator started."
+}
+
 change_language_if_needed
 sleep 1
 enable_proxy_if_needed
 sleep 1
 install_google_play
+sleep 1
+check_emulator_popups
