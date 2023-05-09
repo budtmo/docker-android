@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*-*'
+
+jobs:
+  run_test:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd cli
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run test
+      run: |
+        cd cli && nosetests -v
+
+  release_base:
+    runs-on: ubuntu-20.04
+    needs: run_test
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+
+    - name: Get release version
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Build and push base image (${RELEASE_VERSION})
+      run: |
+        docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{secrets.DOCKER_PASSWORD}}
+        ./app.sh push base ${RELEASE_VERSION}
+        docker logout
+
+  release_emulator:
+    runs-on: ubuntu-20.04
+    needs: release_base
+    strategy:
+      matrix:
+        android: ["9.0", "10.0", "11.0", "12.0", "13.0"]
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+
+    - name: Get release version
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    
+    - name: Build and push emulator image ${{ matrix.android }} (${RELEASE_VERSION})
+      run: |
+        docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{secrets.DOCKER_PASSWORD}}
+        ./app.sh push emulator ${RELEASE_VERSION} ${{ matrix.android }}
+        docker logout
+
+  release_genymotion:
+    runs-on: ubuntu-20.04
+    needs: release_base
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+
+    - name: Get release version
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Build and push genymotion image (${RELEASE_VERSION})
+      run: |
+        docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{secrets.DOCKER_PASSWORD}}
+        ./app.sh push genymotion ${RELEASE_VERSION}
+        docker logout

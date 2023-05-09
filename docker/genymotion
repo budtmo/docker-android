@@ -1,0 +1,66 @@
+ARG DOCKER_ANDROID_VERSION
+FROM budtmo/docker-android:base_${DOCKER_ANDROID_VERSION}
+
+#===================================================
+#    Install Genymotion CLI
+# (for user management and deployment on Geny Cloud)
+#===================================================
+ENV GMSAAS_CLI_VERSION="1.7.1"
+RUN pip install gmsaas==${GMSAAS_CLI_VERSION}
+
+#================
+# Cloud Packages
+#----------------
+# keychain
+#   ssh-key generator
+#================
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    keychain \
+ && apt autoremove -y \
+ && apt clean all \
+ && rm -rf /var/lib/apt/lists/*
+
+#=========================================
+#           Install Terraform
+# (for deployment on other cloud services)
+#=========================================
+ENV TERRAFORM_VERSION=1.4.6
+RUN wget -nv -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" \
+ && unzip -x terraform.zip \
+ && mv terraform /usr/local/bin \
+ && rm terraform.zip
+
+#==========
+# Copy app
+#==========
+RUN rm -rf ${SCRIPT_PATH}
+ENV SCRIPT_PATH="docker-android"
+ENV WORK_PATH="/home/androidusr"
+ENV APP_PATH=${WORK_PATH}/${SCRIPT_PATH}
+RUN mkdir -p ${APP_PATH}
+COPY mixins ${APP_PATH}/mixins
+COPY cli ${APP_PATH}/cli
+RUN chown -R 1300:1301 ${APP_PATH} \
+ && pip install --quiet -e ${APP_PATH}/cli
+
+#===================================
+# Create Genymotion Template folder
+#===================================
+ENV GENYMOTION_TEMPLATE_PATH=${WORK_PATH}/genymotion_template
+RUN mkdir -p ${GENYMOTION_TEMPLATE_PATH}
+
+#==================
+# Use created user
+#==================
+USER 1300:1301
+ENV LOG_PATH=${WORK_PATH}/logs \
+    WEB_LOG_PORT=9000
+EXPOSE 9000
+RUN mkdir -p ${LOG_PATH}
+
+#=========
+# Run App
+#=========
+STOPSIGNAL SIGTERM
+RUN gmsaas config set android-sdk-path ${ANDROID_HOME}
+ENTRYPOINT ["/home/androidusr/docker-android/mixins/scripts/run.sh"]

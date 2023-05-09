@@ -1,0 +1,48 @@
+FROM appium/appium:v1.22.3-p6
+
+LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
+
+USER root
+
+#================
+# Basic Packages
+#----------------
+# socat
+#   Port forwarder
+# supervisor
+#   Process manager
+#================
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    socat \
+    supervisor \
+ && apt autoremove -y \
+ && apt clean all \
+ && rm -rf /var/lib/apt/lists/*
+
+#==================
+# Configure Python
+#==================
+RUN apt-get -qqy update && \
+    apt-get -qqy --no-install-recommends install \
+    python3-pip \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+
+#=====================
+# Set release version
+#=====================
+ARG DOCKER_ANDROID_VERSION=test-version
+ENV DOCKER_ANDROID_VERSION=${DOCKER_ANDROID_VERSION}
+
+#===============
+# Expose Ports
+#---------------
+# 4723
+#   Appium port
+# 5554
+#   Emulator port
+# 5555
+#   ADB connection port
+#===============
+EXPOSE 4723 5554 5555

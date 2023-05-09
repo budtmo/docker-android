@@ -1,3 +1,6 @@
+# Git
+.git/
+
 # IDE
 **/*.idea
 backup
@@ -14,7 +17,3 @@ backup
 **/xunit.xml
 **/coverage
 tmp/
-
-# Dev-files
-n*.txt
-test-*.sh

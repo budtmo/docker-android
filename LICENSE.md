@@ -1,6 +1,6 @@
 ## License Information
 
-Copyright 2016 budi utomo
+Copyright 2023 budi utomo
 
 This program is subject to the terms of the Apache License, Version 2.0 AND the following amendments on forks and data processing. Thus, this is a Custom Apache 2.0 License, NOT a dual-license model you may choose from.
 
@@ -12,10 +12,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 ## Forks
-Additionally to Apache-2.0, when you fork this repo you are required to either remove our Google Analytics tracking ID: UA-133466903-1 or stop usage gathering completely.
+Additionally to Apache-2.0, when you fork this repo you are required to either remove our Google Form ID: 1FAIpQLSdrKWQdMh6Nt8v8NQdYvTIntohebAgqWCpXT3T9NofAoxcpkw or stop usage gathering completely.
 
 ## Data processing agreement
-By using this software you agree that the following non-PII (non personally identifiable information) data will be collected, processed and used by the maintainers for the purpose of improving the docker-android project. Anonymisation with respect of the IP address means that only the first two octets of the IP address are collected.
+By using this software you agree that the following non-PII (non personally identifiable information) data will be collected, processed and used by the maintainers for the purpose of improving the docker-android project.
 
 
 By using this software you also grant us a nonexclusive, irrevocable, world-wide, perpetual royalty-free permission to use, modify and publish these data for all purposes, internally or publicly, including the right to sub-license said permission rights.
@@ -23,14 +23,24 @@ By using this software you also grant us a nonexclusive, irrevocable, world-wide
 
 We collect, process and use the following data:
 
-* Release version of Docker-Android
-* Anonymized IP address (only first two octets)
-* Country and city
 * Date and time when Docker-Android started
-* User (it will collect the information about Release Version of Machine)
-* Application type, e.g. Emulator or Device or Genymotion
-* Emulator configuration, e.g. Processor type, Device name, Appium mode, Selenium grid mode and mobile test mode
+* User (it will collect the information about Release Version of Machine), e.g. Linux-5.4.0-146-generic-x86_64-with-glibc2.29_#163-Ubuntu_SMP_Fri_Mar_17_18:26:02_UTC_2023. This does not allow us to track individual users but does enable us to accurately measure user counts
+* City (the information come from https://ipinfo.io)
+* Region (the information come from https://ipinfo.io)
+* Country (the information come from https://ipinfo.io)
+* Release version of Docker-Android
+* Appium (Whether user use Appium or not - The possible value will be "true" or "false")
+* Appium Additional Arguments
+* Web-Log (Whether user use Web-Log feature or not - The possible value will be "true" or "false")
+* Web-Vnc (Whether user use Web-Vnc feature or not - The possible value will be "true" or "false")
+* Screen-Resolution
+* Device Type (Which docker image is used - The possible value will be "emulator" or "geny_cloud" or "geny_aws")
+* Emulator Device (Which device profile and skin is used if the user use device_type "emulator")
+* Emulator Android Version (Which Android version is used if the user use device_type "emulator"
+* Emulator No-Skin feature (Whether user use no-skin feature or not - The possible value will be "true" or "false")
+* Emulator Data Partition
+* Emulator Additional Arguments
 
 ## End of License Information
 
-More information about anonymized data collection can be seen [here](Analytics.md)
+More information about anonymized data collection can be seen [here](./documentations/USER_BEHAVIOR_ANALYTICS.md)

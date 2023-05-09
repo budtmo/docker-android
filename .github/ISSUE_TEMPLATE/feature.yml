@@ -1,0 +1,29 @@
+name: 🚀 Feature Request
+description: Submit your idea to have cool feature(s)
+title: "[🚀 Feature Request ]: "
+labels: [feature-request]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea
+      description: |
+        What is the idea that you want to share to improve the project?
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Probelm to solve
+      description: |
+        What is the problem that you want to solve with requested feature?
+    validations:
+      required: true
+  - type: textarea
+    id: Note
+    attributes:
+      label: Additional Note
+      description: |
+        Please share any additional information here if needed
+    validations:
+      required: false

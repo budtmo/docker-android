@@ -1,0 +1,45 @@
+name: 🐛 [Pro version] Bug Report
+description: File a bug report
+title: "[🐛 PRO | Bug ]: "
+labels: [bug, pro]
+body:
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: Which host operating system do you use?
+      placeholder: e.g. OSX Yosemite / Ubuntu 20.04 / Windows 10 etc
+    validations:
+      required: true
+  - type: input
+    id: docker-image
+    attributes:
+      label: Docker Image
+      description: Which docker image do you use?
+      placeholder: e.g. budtmo/docker-android-pro:emulator_10.0_v2.0 / budtmo/docker-android-pro:emulator_headless_10.0_v2.0 etc
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected behaviour
+      description: |
+        What behaviour that you expected?
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behaviour
+    attributes:
+      label: Actual behaviour
+      description: |
+        What is the actual behaviour?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Please provide logs here
+    validations:
+      required: false

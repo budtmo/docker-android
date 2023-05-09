@@ -1,0 +1,10 @@
+[
+    {
+      "name": "SamsungS7V6",
+      "template": "a2a0c86c-7572-45fe-98d0-66f8efed9fa0",
+      "local_port": 51345
+    },
+    {
+      "template": "80a67ae9-430c-4824-a386-befbb19518b9"
+    }
+]
