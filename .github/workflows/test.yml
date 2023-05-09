@@ -20,6 +20,3 @@ jobs:
 
     - name: Build emulator image and run unit-test
       run: script -e -c "./app.sh test emulator test 11.0 && sudo mv tmp/* . && ls -al"
-
-    - name: Publish test result
-      run: script -e -c "bash <(curl -s https://codecov.io/bash)"
