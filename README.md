@@ -123,6 +123,11 @@ The differences between normal version and pro version are:
 This [document](./documentations/DOCKER-ANDROID-PRO.md) contains detail information about how to use docker-android-pro.
 
 
+USERS
+-----
+
+[![docker-android-users](./images/docker-android_users.png)](https://lookerstudio.google.com/s/iGaemHJqQvg)
+
 LICENSE
 -------
 See [License](LICENSE.md)
