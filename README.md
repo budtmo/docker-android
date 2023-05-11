@@ -101,6 +101,14 @@ Emulator Skins
 --------------
 The Emulator skins are taken from [Android Studio IDE](https://developer.android.com/studio) and [Samsung Developer Website](https://developer.samsung.com/)
 
+USERS
+-----
+
+<a href="https://lookerstudio.google.com/s/iGaemHJqQvg">
+  <p align="center">
+    <img src="./images/docker-android_users.png" alt="docker-android-users" width="800" height="600">
+  </p>
+</a>
 
 PRO VERSION
 -----------
@@ -121,16 +129,6 @@ The differences between normal version and pro version are:
 |Video Recording|No|Yes (soon)|Helpful for debugging|
 
 This [document](./documentations/DOCKER-ANDROID-PRO.md) contains detail information about how to use docker-android-pro.
-
-
-USERS
------
-
-<a href="https://lookerstudio.google.com/s/iGaemHJqQvg">
-  <p align="center">
-    <img src="./images/docker-android_users.png" alt="docker-android-users" width="800" height="600">
-  </p>
-</a>
 
 LICENSE
 -------
