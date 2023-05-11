@@ -126,7 +126,11 @@ This [document](./documentations/DOCKER-ANDROID-PRO.md) contains detail informat
 USERS
 -----
 
-[![docker-android-users](./images/docker-android_users.png)](https://lookerstudio.google.com/s/iGaemHJqQvg)
+<a href="https://lookerstudio.google.com/s/iGaemHJqQvg">
+  <p align="center">
+    <img src="./images/docker-android_users.png" alt="docker-android-users" width="800" height="600">
+  </p>
+</a>
 
 LICENSE
 -------
