@@ -34,7 +34,7 @@ List of Docker-Images
 
 ***Note: Headless mode does not have any Web-UI***
 
-You can always pull the latest image tag. In case you want to see the release version that has been built with a changelog note and use that specific release version, you can see that information by logging into [docker-hub-ui](https://hub.docker.com) using given access token.
+You can always pull the latest image tag. In case you want to see the release version that has been built with a changelog note and use that specific release version, ythe information will be sent to you as well.
 
 
 List of Devices
