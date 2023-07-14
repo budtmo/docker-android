@@ -1,0 +1,40 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/docker"
+  schedule:
+    interval: daily
+    time: '01:00'
+    timezone: "Europe/Berlin"
+  commit-message:
+    prefix: "[docker] "
+  target-branch: "master"
+  open-pull-requests-limit: 99
+  reviewers:
+    - "budtmo"
+
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: '01:00'
+    timezone: "Europe/Berlin"
+  commit-message:
+    prefix: "[pip] "
+  target-branch: "master"
+  open-pull-requests-limit: 99
+  reviewers:
+    - "budtmo"
+
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: '01:00'
+    timezone: "Europe/Berlin"
+  commit-message:
+    prefix: "[github-action] "
+  target-branch: "master"
+  open-pull-requests-limit: 99
+  reviewers:
+    - "budtmo"
