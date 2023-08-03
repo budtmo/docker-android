@@ -73,6 +73,37 @@ Quick Start
     docker exec -it android-container cat device_status
     ```
 
+WSL2 Hardware acceleration (Windows 11 only)
+-----------
+
+Credit goes to [Guillaume - The Parallel Interface blog](https://www.paralint.com/2022/11/find-new-modified-and-unversioned-subversion-files-on-windows)
+
+[Microsoft - Advanced settings configuration in WSL](https://learn.microsoft.com/en-us/windows/wsl/wsl-config)
+
+
+1. Add yourself to the `kvm` usergroup.
+    ```
+    sudo usermod -a -G kvm ${USER}
+    ```
+
+2. Add necessary flags to `/etc/wsl2.conf` to their respective sections.
+    ```
+    [boot]
+    command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
+
+    [wsl2]
+    nestedVirtualization=true
+    ```
+3. Restart WSL2 via CMD prompt or Powershell
+    ```
+    wsl --shutdown
+    ```
+
+
+`command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'` sets `/dev/kvm` to `kvm` usergroup rather than the default `root` usergroup on WSL2 startup.
+
+`nestedVirtualization` flag is only available to Windows 11.
+
 Use-Cases
 ---------
 
