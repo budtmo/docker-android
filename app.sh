@@ -27,7 +27,7 @@ fi
 is_str_in_list ${p} ${projects[@]}
 
 if [ -z "${3}" ]; then
-    read -p "Release Version (v2.0-p0|v2.0-p1|etc) : " r_v
+    read -p "Release Version (v2.0.0-p0|v2.0.0-p1|etc) : " r_v
 else
     r_v=${3}
 fi
