@@ -12,6 +12,7 @@ The differences between normal version and pro version are:
 |language|No|Yes|Set up language on Android emulator on fly|
 |root-privileged|No|Yes|Able to run command with security privileged|
 |headless-mode|No|Yes|Save resources by using headless mode|
+|Selenium 4.x integration|No|Yes|Running Appium UI-Tests againt one (Selenium Hub) endpoint for Android- and iOS emulator(s) / device(s)|
 |multiple Android-Simulators|No|Yes (soon)|Save resources by having multiple Android-Simulators on one docker-container|
 |Google Play Store|No|Yes (soon)|-|
 |Video Recording|No|Yes (soon)|Helpful for debugging|
@@ -31,6 +32,7 @@ List of Docker-Images
 |11.0|30|Headless|budtmo2/docker-android-pro:emulator_headless_11.0|budtmo2/docker-android-pro:emulator_headless_11.0_<release_version>|
 |12.0|32|Headless|budtmo2/docker-android-pro:emulator_headless_12.0|budtmo2/docker-android-pro:emulator_headless_12.0_<release_version>|
 |13.0|33|Headless|budtmo2/docker-android-pro:emulator_headless_13.0|budtmo2/docker-android-pro:emulator_headless_13.0_<release_version>|
+|-|-|Selenium|budtmo2/docker-android-pro:selenium|budtmo2/docker-android-pro:selenium_<release_version>|
 
 ***Note: Headless mode does not have any Web-UI***
 
@@ -76,5 +78,14 @@ You can change the language setting of Android Emulator on the fly by passing fo
 - EMULATOR_LANGUAGE="\<language>"
 - EMULATOR_COUNTRY="\<country>"
 
+
+Selenium
+--------
+
+Pull and run image that contains Selenium with Appium urls and its capabilities which is stored inside node.json file:
+
+```
+docker run -t --rm --name selenium -p 4444:4444 -v $PWD/pro-example/node.json:/home/seleniumusr/selenium_node_config/node.json budtmo2/docker-android-pro:selenium
+```
 
 [<- BACK TO README](../README.md)

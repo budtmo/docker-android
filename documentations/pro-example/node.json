@@ -1,0 +1,16 @@
+[
+    {
+      "appium_url": "http://xx.xx.xx.xx:4723",
+      "capability_platform": "android",
+      "capability_platform_version": "11.0",
+      "capability_device_name": "samsung_galaxy_s6_11.0",
+      "capability_automation_name": "UIAutomator2"
+    },
+    {
+      "appium_url": "http://xx.xx.xx.xx:4724",
+      "capability_platform": "android",
+      "capability_platform_version": "10.0",
+      "capability_device_name": "nexus_5_10.0",
+      "capability_automation_name": "UIAutomator2"
+    }
+]
