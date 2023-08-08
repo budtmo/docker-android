@@ -155,7 +155,7 @@ The differences between normal version and pro version are:
 |language|No|Yes|Set up language on Android emulator on fly|
 |root-privileged|No|Yes|Able to run command with security privileged|
 |headless-mode|No|Yes|Save resources by using headless mode|
-|Selenium 4.x integration|No|Yes|Running UI-Tests againt one / Selenium Hub endpoint|
+|Selenium 4.x integration|No|Yes|Running Appium UI-Tests againt one (Selenium Hub) endpoint for Android- and iOS emulator(s) / device(s)|
 |multiple Android-Simulators|No|Yes (soon)|Save resources by having multiple Android-Simulators on one docker-container|
 |Google Play Store|No|Yes (soon)|-|
 |Video Recording|No|Yes (soon)|Helpful for debugging|
