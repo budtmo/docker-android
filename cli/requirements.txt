@@ -1,4 +1,4 @@
-autopep8==2.0.2
+autopep8==2.0.4
 click==8.1.7
 coverage==7.3.0
 mock==5.1.0
