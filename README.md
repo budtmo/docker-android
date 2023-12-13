@@ -63,14 +63,14 @@ Quick Start
 
 3. Run Docker-Android container
     ```
-    docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+    sudo docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
     ```
 
 4. Open ***http://localhost:6080*** to see inside running container.
 
 5. To check the status of the emulator
     ```
-    docker exec -it android-container cat device_status
+    sudo docker exec -it android-container cat device_status
     ```
 
 WSL2 Hardware acceleration (Windows 11 only)
