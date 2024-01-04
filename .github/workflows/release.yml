@@ -51,7 +51,7 @@ jobs:
     needs: release_base
     strategy:
       matrix:
-        android: ["9.0", "10.0", "11.0", "12.0", "13.0"]
+        android: ["9.0", "10.0", "11.0", "12.0", "13.0", "14.0"]
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
