@@ -26,6 +26,7 @@ List of Docker-Images
 |11.0|30|budtmo/docker-android:emulator_11.0|budtmo/docker-android:emulator_11.0_<release_version>|
 |12.0|32|budtmo/docker-android:emulator_12.0|budtmo/docker-android:emulator_12.0_<release_version>|
 |13.0|33|budtmo/docker-android:emulator_13.0|budtmo/docker-android:emulator_13.0_<release_version>|
+|14.0|34|budtmo/docker-android:emulator_14.0|budtmo/docker-android:emulator_14.0_<release_version>|
 |-|-|budtmo/docker-android:genymotion|budtmo/docker-android:genymotion_<release_version>|
 
 List of Devices
