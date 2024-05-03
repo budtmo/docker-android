@@ -134,10 +134,6 @@ class Emulator(Device):
             self.logger.info(f"{self.device_type} is created!")
 
     def change_permission(self) -> None:
-        not_first_run = self.is_initialized()
-        if not_first_run:
-            return
-
         kvm_path = "/dev/kvm"
         if os.path.exists(kvm_path):
             cmds = (f"sudo chown 1300:1301 {kvm_path}",
