@@ -11,7 +11,7 @@ Advantages of using this projects
 ---------------------------------
 1. Emulator with different device profile and skins, such as Samsung Galaxy S6, LG Nexus 4, HTC Nexus One and more.
 2. Support vnc to be able to see what happen inside docker container
-3. Support log sharing feature where all logs can be accessed from web-UI 
+3. Support log sharing feature where all logs can be accessed from web-UI
 4. Ability to control emulator from outside container by using adb connect
 5. Integrated with other cloud solutions, e.g. [Genymotion Cloud](https://www.genymotion.com/cloud/)
 6. It can be used to build Android project
@@ -72,6 +72,14 @@ Quick Start
 5. To check the status of the emulator
     ```
     docker exec -it android-container cat device_status
+    ```
+
+Persisting data
+-----------
+
+The default behaviour is to destroy the emulated device on container restart. To persist data, you need to mount a volume at `/home/androidusr`:
+    ```
+    docker run -v data:/home/androidusr budtmo/docker-android:emulator_11.0
     ```
 
 WSL2 Hardware acceleration (Windows 11 only)
