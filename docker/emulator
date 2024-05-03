@@ -99,6 +99,8 @@ ENV LOG_PATH=${WORK_PATH}/logs \
     WEB_LOG_PORT=9000
 EXPOSE 9000
 RUN mkdir -p ${LOG_PATH}
+RUN mkdir -p "${WORK_PATH}/.config/Android Open Source Project" \
+ && echo "[General]\nshowNestedWarning=false\n" > "${WORK_PATH}/.config/Android Open Source Project/Emulator.conf"
 
 #=========
 # Run App
