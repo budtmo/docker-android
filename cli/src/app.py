@@ -117,7 +117,7 @@ def start_vnc_server() -> None:
         last_arg = "-nopw"
 
     display = os.getenv(ENV.DISPLAY)
-    args = f"-display {display} -forever -shared {last_arg}"
+    args = f"-display {display} -forever -shared -noshm {last_arg}"
     vnc_server = Application("vnc_web", cmd, args, False)
     vnc_server.start()
 
