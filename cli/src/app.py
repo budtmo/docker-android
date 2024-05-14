@@ -122,7 +122,7 @@ def start_vnc_server() -> None:
         shm_arg = "-noshm"
 
     display = os.getenv(ENV.DISPLAY)
-    args = f"-display {display} -forever -shared ${shm_arg} {pass_arg}"
+    args = f"-display {display} -forever -shared {shm_arg} {pass_arg}"
     vnc_server = Application("vnc_web", cmd, args, False)
     vnc_server.start()
 
