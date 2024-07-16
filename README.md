@@ -7,8 +7,8 @@
 
 Docker-Android is a docker image built to be used for everything related to Android. It can be used for Application development and testing (native, web and hybrid-app).
 
-Advantages of using this projects
----------------------------------
+Advantages of using this project
+--------------------------------
 1. Emulator with different device profile and skins, such as Samsung Galaxy S6, LG Nexus 4, HTC Nexus One and more.
 2. Support vnc to be able to see what happen inside docker container
 3. Support log sharing feature where all logs can be accessed from web-UI
