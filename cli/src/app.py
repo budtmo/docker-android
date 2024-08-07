@@ -112,12 +112,17 @@ def start_vnc_server() -> None:
     if vnc_pass:
         pass_path = os.path.join(os.getenv(ENV.WORK_PATH), ".vncpass")
         subprocess.check_call(f"{cmd} -storepasswd {vnc_pass} {pass_path}", shell=True)
-        last_arg = f"-rfbauth {pass_path}"
+        pass_arg = f"-rfbauth {pass_path}"
     else:
-        last_arg = "-nopw"
+        pass_arg = "-nopw"
+
+    if convert_str_to_bool(os.getenv(ENV.VNC_USE_SHM, "true")):
+        shm_arg = ""
+    else:
+        shm_arg = "-noshm"
 
     display = os.getenv(ENV.DISPLAY)
-    args = f"-display {display} -forever -shared {last_arg}"
+    args = f"-display {display} -forever -shared {shm_arg} {pass_arg}"
     vnc_server = Application("vnc_web", cmd, args, False)
     vnc_server.start()
 
