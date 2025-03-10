@@ -117,6 +117,24 @@ class Emulator(Device):
                 sp="_no_skin" if self.no_skin else device_skin_path))
         self.logger.info(f"Skin is added in: '{self.path_emulator_config}'")
 
+    def _set_screen_dimensions_into_config(self) -> None:
+        screen_height = os.getenv(ENV.SCREEN_HEIGHT)
+        screen_width = os.getenv(ENV.SCREEN_WIDTH)
+
+        if screen_height is None or screen_width is None:
+            self.logger.warning("Environment variables for screen dimensions are not set correctly.")
+            return
+
+        self.logger.info("Starting to set screen dimensions in emulator config.")
+
+        try:
+            with open(self.path_emulator_config, "a") as cf:
+                cf.write(f"hw.lcd.height = {screen_height}\n")
+                cf.write(f"hw.lcd.width = {screen_width}\n")
+            self.logger.info(f"Screen dimensions set: height={screen_height}, width={screen_width}.")
+        except Exception as e:
+            self.logger.error(f"Failed to set screen dimensions: {e}")
+
     def create(self) -> None:
         super().create()
         first_run = not self.is_initialized()
@@ -131,6 +149,7 @@ class Emulator(Device):
             self.logger.info(f"Command to create emulator: '{creation_cmd}'")
             subprocess.check_call(creation_cmd, shell=True)
             self._add_skin()
+            self._set_screen_dimensions_into_config()
             self.logger.info(f"{self.device_type} is created!")
 
     def change_permission(self) -> None:
