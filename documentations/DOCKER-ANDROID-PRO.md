@@ -59,6 +59,7 @@ Phone  | Nexus 5
 Phone  | Nexus One
 Phone  | Nexus S
 Tablet | Nexus 7
+Tablet | Pixel C
 
 
 Proxy
