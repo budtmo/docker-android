@@ -22,7 +22,8 @@ class Emulator(Device):
         "Samsung Galaxy S7 Edge",
         "Samsung Galaxy S8",
         "Samsung Galaxy S9",
-        "Samsung Galaxy S10"
+        "Samsung Galaxy S10",
+        "Pixel C"
     )
 
     API_LEVEL = {
