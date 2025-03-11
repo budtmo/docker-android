@@ -57,5 +57,18 @@ Possible environment variable to configure the Emulator:
 
 The user can also pass needed arguments to android emulator through environment variable ***EMULATOR_ADDITIONAL_ARGS***. Please check [this page](https://developer.android.com/studio/run/emulator-commandline) for possible arguments that can be passed.
 
+EMULATOR - OVERRIDE CONFIG FILE
+-------------------------------
+
+To utilize this feature, ensure the following setup:
+
+- Set the config file path into environment variable EMULATOR_CONFIG_PATH, eg. `/tmp/emulator-override-config.ini` (the file name doesn't matter)
+- Mount the file as Docker volume (parameter `-v` for Docker run command) to the path as you set into ENV
+
+Example:
+
+```shell
+docker run -d -p 6080:6080 -e /tmp/emulator-override-config.ini -v /path/on/your/machine/emulator-override-config.ini:/tmp/emulator-override-config.ini -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_14.0
+```
 
 [<- BACK TO README](../README.md)
