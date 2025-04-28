@@ -56,20 +56,23 @@ class TestEmulator(BaseDeviceTest):
     @mock.patch("src.device.emulator.Emulator._add_profile")
     @mock.patch("subprocess.check_call")
     @mock.patch("src.device.emulator.Emulator._add_skin")
+    @mock.patch("src.device.emulator.Emulator._use_override_config")
     @mock.patch("src.device.emulator.Emulator.is_initialized", mock.MagicMock(return_value=False))
-    def test_create_device_not_exist(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin):
+    def test_create_device_not_exist(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin, mocked_override_config):
         self.emu.create()
         self.assertEqual(mocked_status.called, True)
         self.assertEqual(mocked_profile.called, True)
         self.assertEqual(mocked_subprocess.called, True)
         self.assertEqual(mocked_skin.called, True)
+        self.assertEqual(mocked_override_config.called, True)
 
     @mock.patch("src.device.Device.set_status")
     @mock.patch("src.device.emulator.Emulator._add_profile")
     @mock.patch("subprocess.check_call")
     @mock.patch("src.device.emulator.Emulator._add_skin")
+    @mock.patch("src.device.emulator.Emulator._use_override_config")
     @mock.patch("src.device.emulator.Emulator.is_initialized", mock.MagicMock(return_value=True))
-    def test_create_device_exists(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin):
+    def test_create_device_exists(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin, mocked_override_config):
         self.emu.create()
         self.assertEqual(mocked_status.called, False)
         self.assertEqual(mocked_profile.called, False)
@@ -85,3 +88,25 @@ class TestEmulator(BaseDeviceTest):
             with self.assertRaises(RuntimeError):
                 self.emu.check_adb_command(
                     self.emu.ReadinessCheck.BOOTED, "mocked_command", "1", 3, 0)
+
+    def test_use_override_config_no_env(self):
+        with mock.patch("os.getenv", return_value=None):
+            self.emu._use_override_config()
+
+    def test_use_override_config_file_not_exist(self):
+        with mock.patch("os.getenv", return_value="mock/path/to/config"):
+            with mock.patch("os.path.isfile", return_value=False):
+                self.emu._use_override_config()
+
+    def test_use_override_config_file_not_readable(self):
+        with mock.patch("os.getenv", return_value="mock/path/to/config"):
+            with mock.patch("os.path.isfile", return_value=True):
+                with mock.patch("os.access", return_value=False):
+                    self.emu._use_override_config()
+
+    def test_use_override_config_malformed_content(self):
+        with mock.patch("os.getenv", return_value="mock/path/to/config"):
+            with mock.patch("os.path.isfile", return_value=True):
+                with mock.patch("os.access", return_value=True):
+                    with mock.patch("builtins.open", mock.mock_open(read_data="malformed data")):
+                        self.emu._use_override_config()
