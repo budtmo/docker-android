@@ -31,7 +31,7 @@ jobs:
         cd cli && nosetests -v
 
   release_base:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: run_test
     steps:
     - name: Checkout the repo
@@ -47,7 +47,7 @@ jobs:
         docker logout
 
   release_emulator:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: release_base
     strategy:
       matrix:
@@ -66,7 +66,7 @@ jobs:
         docker logout
 
   release_genymotion:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: release_base
     steps:
     - name: Checkout the repo
