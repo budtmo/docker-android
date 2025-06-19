@@ -5,7 +5,7 @@ FROM budtmo/docker-android:base_${DOCKER_ANDROID_VERSION}
 #    Install Genymotion CLI
 # (for user management and deployment on Geny Cloud)
 #===================================================
-ENV GMSAAS_CLI_VERSION="1.7.1"
+ENV GMSAAS_CLI_VERSION="1.14.1"
 RUN pip install gmsaas==${GMSAAS_CLI_VERSION}
 
 #================

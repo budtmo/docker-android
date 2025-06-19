@@ -1,3 +1,9 @@
+	```
+	export USER="xxx"
+	export PASS="xxx"
+
+	docker run -d -p 4723:4723 -v ${PWD}/example/genycloud/saas.json:/home/androidusr/genymotion_template/saas.json -e DEVICE_TYPE=geny_saas -e GENY_SAAS_USER=${USER} -e GENY_SAAS_PASS=${PASS} -e APPIUM=true --name android-container budtmo/docker-android:genymotion
+	```
 Genymotion Cloud
 ----------------
 
@@ -9,11 +15,12 @@ You can use Genymotion Android virtual devices in the cloud. They are available 
 	Use [saas.json](../example/genymotion/saas.json) to define the devices that you want to use. You can specify the port on which the device will start so you don't need to change the device name in your tests every time you need to run those tests. Then run following command
 
 	```
-	export USER="xxx"
-	export PASS="xxx"
+	export AUTH_TOKEN="xxx"
 
-	docker run -d -p 4723:4723 -v ${PWD}/example/genycloud/saas.json:/home/androidusr/genymotion_template/saas.json -e DEVICE_TYPE=geny_saas -e GENY_SAAS_USER=${USER} -e GENY_SAAS_PASS=${PASS} -e APPIUM=true --name android-container budtmo/docker-android:genymotion
+	docker run -d -p 4723:4723 -v ${PWD}/example/genycloud/saas.json:/home/androidusr/genymotion_template/saas.json -e DEVICE_TYPE=geny_saas -e GENY_AUTH_TOKEN=${AUTH_TOKEN} -e APPIUM=true --name android-container budtmo/docker-android:genymotion
 	```
+
+    Genymotion has deprecated credential based login since gmsaas 1.10.0, but if necessary, you can still provide them using `-e GENY_SAAS_USER=${USER} -e GENY_SAAS_PASS=${PASS}` instead of `-e GENY_AUTH_TOKEN=${AUTH_TOKEN}`.
 
 	The deployed device(s) are automatically connected with adb inside docker container. Stopping the emulator will remove all deployed device(s) on Genymotion SaaS and user will be logged out at the end.
 
