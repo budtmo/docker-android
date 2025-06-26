@@ -81,9 +81,15 @@ echo "${IMAGE_NAME_SPECIFIC_RELEASE} or ${IMAGE_NAME_LATEST} "
 
 function build() {
     # autopep8 --recursive --exclude=.git,__pycache__,venv --max-line-length=120 --in-place .
-    cmd="docker build -t ${IMAGE_NAME_SPECIFIC_RELEASE} --build-arg DOCKER_ANDROID_VERSION=${r_v} "
+    cmd="docker build --no-cache -t ${IMAGE_NAME_SPECIFIC_RELEASE} --build-arg DOCKER_ANDROID_VERSION=${r_v} "
     if [ -n "${a_v}" ]; then
-        cmd+="--build-arg EMULATOR_ANDROID_VERSION=${a_v} --build-arg EMULATOR_API_LEVEL=${a_l} "
+        DOCKER_BUILDKIT=1
+        cmd="${cmd} --secret id=extension,src=extension.sh --build-arg EMULATOR_ANDROID_VERSION=${a_v} --build-arg EMULATOR_API_LEVEL=${a_l} "
+    fi
+
+    if [[ "${p}" == *"genymotion"* ]]; then
+        DOCKER_BUILDKIT=1
+        cmd="${cmd} --secret id=extension,src=extension.sh "
     fi
 
     cmd+="-f ${FOLDER_PATH} ."
@@ -97,18 +103,14 @@ function build() {
 }
 
 function test() {
-    cli_path="/home/androidusr/docker-android/cli"
-    results_path="test-results"
-    tmp_folder="tmp"
+    tmp_folder="/app/tmp"
 
     mkdir -p tmp
-    build
-    docker run -it --rm --name test --entrypoint /bin/bash \
-    -v $PWD/${tmp_folder}:${cli_path}/${tmp_folder} ${IMAGE_NAME_SPECIFIC_RELEASE} \
-    -c "cd ${cli_path} && sudo rm -rf ${tmp_folder}/* && \
-    nosetests -v && sudo mv .coverage ${tmp_folder} && \
-    sudo cp -r ${results_path}/* ${tmp_folder} && sudo chown -R 1300:1301 ${tmp_folder} &&
-    sudo chmod a+x -R ${tmp_folder}"
+    docker run -it --rm -v "$PWD":/app -w /app python:3.12-slim bash \
+    -c "cd cli && rm -rf ${tmp_folder}/* && \
+    pip install --upgrade pip && pip install -r requirements.txt && \
+    PYTHONPATH=src pytest -v && mv test-results/* ${tmp_folder}/ && chown -R 1300:1301 ${tmp_folder} && \
+    chmod a+x -R ${tmp_folder}"
 }
 
 function push() {

@@ -2,9 +2,9 @@ import logging
 import os
 import subprocess
 
-from src.device import Genymotion, DeviceType
-from src.helper import get_env_value_or_raise
-from src.constants import ENV, UTF8
+from device import Genymotion, DeviceType
+from helper import get_env_value_or_raise
+from constants import ENV, UTF8
 
 
 class GenySAAS(Genymotion):

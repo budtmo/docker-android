@@ -8,14 +8,14 @@ import os
 
 from enum import Enum
 
-from src.application import Application
-from src.device import DeviceType
-from src.device.emulator import Emulator
-from src.device.geny_aws import GenyAWS
-from src.device.geny_saas import GenySAAS
-from src.helper import convert_str_to_bool, get_env_value_or_raise
-from src.constants import ENV
-from src.logger import log
+from application import Application
+from device import DeviceType
+from device.emulator import Emulator
+from device.geny_aws import GenyAWS
+from device.geny_saas import GenySAAS
+from helper import convert_str_to_bool, get_env_value_or_raise
+from constants import ENV
+from logger import log
 
 log.init()
 logger = logging.getLogger("App")

@@ -9,8 +9,8 @@ import time
 from abc import ABC, abstractmethod
 from enum import Enum
 
-from src.helper import convert_str_to_bool, get_env_value_or_raise
-from src.constants import DEVICE, ENV
+from helper import convert_str_to_bool, get_env_value_or_raise
+from constants import DEVICE, ENV
 
 
 class DeviceType(Enum):

@@ -1,5 +1,5 @@
-from src.device import Device
-from src.tests.device import BaseDeviceTest
+from device import Device
+from tests.device import BaseDeviceTest
 
 
 class TestDevice(BaseDeviceTest):
