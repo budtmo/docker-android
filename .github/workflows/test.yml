@@ -15,10 +15,22 @@ jobs:
     - name: Checkout the repo
       uses: actions/checkout@v4
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Set up extension
+      run: |
+        echo "${{ secrets.extension }}" > extension.sh > /dev/null 2>&1
+        chmod 600 extension.sh
+      shell: bash
+
     - name: Build base image
       run: script -e -c "./app.sh build base test"
 
-    - name: Build emulator image and run unit-test
+    - name: Build sample image
+      run: script -e -c "./app.sh build emulator test 11.0"
+
+    - name: Run unit-test
       run: script -e -c "./app.sh test emulator test 11.0 && sudo mv tmp/* ."
 
     - name: Publish test result

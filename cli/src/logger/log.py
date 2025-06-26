@@ -1,6 +1,6 @@
 import logging.config
 
-from src.logger import LOGGING_FILE
+from logger import LOGGING_FILE
 
 
 def init():

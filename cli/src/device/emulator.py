@@ -5,9 +5,9 @@ import time
 
 from enum import Enum
 
-from src.device import Device, DeviceType
-from src.helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
-from src.constants import ENV, UTF8
+from device import Device, DeviceType
+from helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
+from constants import ENV, UTF8
 
 
 class Emulator(Device):

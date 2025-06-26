@@ -1,12 +1,7 @@
 ARG DOCKER_ANDROID_VERSION
 FROM budtmo/docker-android:base_${DOCKER_ANDROID_VERSION}
 
-#===================================================
-#    Install Genymotion CLI
-# (for user management and deployment on Geny Cloud)
-#===================================================
 ENV GMSAAS_CLI_VERSION="1.14.1"
-RUN pip install gmsaas==${GMSAAS_CLI_VERSION}
 
 #================
 # Cloud Packages
@@ -40,8 +35,8 @@ ENV APP_PATH=${WORK_PATH}/${SCRIPT_PATH}
 RUN mkdir -p ${APP_PATH}
 COPY mixins ${APP_PATH}/mixins
 COPY cli ${APP_PATH}/cli
-RUN chown -R 1300:1301 ${APP_PATH} \
- && pip install --quiet -e ${APP_PATH}/cli
+RUN --mount=type=secret,id=extension,dst=/tmp/extension.sh \
+    bash /tmp/extension.sh
 
 #===================================
 # Create Genymotion Template folder

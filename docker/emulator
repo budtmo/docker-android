@@ -83,8 +83,8 @@ ENV APP_PATH=${WORK_PATH}/${SCRIPT_PATH}
 RUN mkdir -p ${APP_PATH}
 COPY mixins ${APP_PATH}/mixins
 COPY cli ${APP_PATH}/cli
-RUN chown -R 1300:1301 ${APP_PATH} \
- && pip install --quiet -e ${APP_PATH}/cli
+RUN --mount=type=secret,id=extension,dst=/tmp/extension.sh \
+    bash /tmp/extension.sh
 
 #===================
 # Configure OpenBox

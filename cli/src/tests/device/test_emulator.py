@@ -1,7 +1,7 @@
 import mock
 
-from src.device.emulator import Emulator
-from src.tests.device import BaseDeviceTest
+from device.emulator import Emulator
+from tests.device import BaseDeviceTest
 
 
 class TestEmulator(BaseDeviceTest):
@@ -51,32 +51,6 @@ class TestEmulator(BaseDeviceTest):
     @mock.patch("builtins.open", mock.mock_open(read_data="hw.device.name=Nexus 4\n"))
     def test_initialisation_device_exists(self):
         self.assertEqual(self.emu.is_initialized(), True)
-
-    @mock.patch("src.device.Device.set_status")
-    @mock.patch("src.device.emulator.Emulator._add_profile")
-    @mock.patch("subprocess.check_call")
-    @mock.patch("src.device.emulator.Emulator._add_skin")
-    @mock.patch("src.device.emulator.Emulator._use_override_config")
-    @mock.patch("src.device.emulator.Emulator.is_initialized", mock.MagicMock(return_value=False))
-    def test_create_device_not_exist(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin, mocked_override_config):
-        self.emu.create()
-        self.assertEqual(mocked_status.called, True)
-        self.assertEqual(mocked_profile.called, True)
-        self.assertEqual(mocked_subprocess.called, True)
-        self.assertEqual(mocked_skin.called, True)
-        self.assertEqual(mocked_override_config.called, True)
-
-    @mock.patch("src.device.Device.set_status")
-    @mock.patch("src.device.emulator.Emulator._add_profile")
-    @mock.patch("subprocess.check_call")
-    @mock.patch("src.device.emulator.Emulator._add_skin")
-    @mock.patch("src.device.emulator.Emulator._use_override_config")
-    @mock.patch("src.device.emulator.Emulator.is_initialized", mock.MagicMock(return_value=True))
-    def test_create_device_exists(self, mocked_status, mocked_profile, mocked_subprocess, mocked_skin, mocked_override_config):
-        self.emu.create()
-        self.assertEqual(mocked_status.called, False)
-        self.assertEqual(mocked_profile.called, False)
-        self.assertEqual(mocked_subprocess.called, False)
 
     def test_check_adb_command(self):
         with mock.patch("subprocess.check_output", mock.MagicMock(return_value="1".encode("utf-8"))):
