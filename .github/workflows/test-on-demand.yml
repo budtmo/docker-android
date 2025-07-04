@@ -1,14 +1,11 @@
-name: Run Test
+name: Run Test on Demand
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   build_and_test:
     runs-on: ubuntu-24.04
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.actor == 'budtmo'
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
