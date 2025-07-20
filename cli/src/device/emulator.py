@@ -5,9 +5,9 @@ import time
 
 from enum import Enum
 
-from src.device import Device, DeviceType
-from src.helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
-from src.constants import ENV, UTF8
+from device import Device, DeviceType
+from helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
+from constants import ENV, UTF8
 
 
 class Emulator(Device):
@@ -22,7 +22,8 @@ class Emulator(Device):
         "Samsung Galaxy S7 Edge",
         "Samsung Galaxy S8",
         "Samsung Galaxy S9",
-        "Samsung Galaxy S10"
+        "Samsung Galaxy S10",
+        "Pixel C"
     )
 
     API_LEVEL = {
@@ -108,6 +109,30 @@ class Emulator(Device):
             symlink_force(path_device_profile_source, self.path_device_profile_target)
             self.logger.info("Samsung device profile is linked")
 
+    def _use_override_config(self) -> None:
+        override_confg_path = os.getenv(ENV.EMULATOR_CONFIG_PATH)
+
+        if override_confg_path is None:
+            self.logger.info(f"The environment variable 'EMULATOR_CONFIG_PATH' is not set")
+            return
+
+        self.logger.info(f"Environment variable 'EMULATOR_CONFIG_PATH' found: {override_confg_path}")
+
+        if not os.path.isfile(override_confg_path):
+            self.logger.warning(f"Source file '{override_confg_path}' does not exist.")
+            return
+
+        if not os.access(override_confg_path, os.R_OK):
+            self.logger.warning(f"Source file '{override_confg_path}' is not readable.")
+            return
+
+        try:
+            with open(override_confg_path, 'r') as src, open(self.path_emulator_config, 'a') as dst:
+                dst.write(src.read())
+            self.logger.info(f"Content from '{override_confg_path}' successfully appended to '{self.path_emulator_config}'.")
+        except Exception as e:
+            self.logger.error(f"An error occurred while copying file content: {e}")
+
     def _add_skin(self) -> None:
         device_skin_path = os.path.join(
             self.path_emulator_skins, "{fn}".format(fn=self.file_name))
@@ -132,6 +157,7 @@ class Emulator(Device):
             self.logger.info(f"Command to create emulator: '{creation_cmd}'")
             subprocess.check_call(creation_cmd, shell=True)
             self._add_skin()
+            self._use_override_config()
             self.logger.info(f"{self.device_type} is created!")
 
     def change_permission(self) -> None:

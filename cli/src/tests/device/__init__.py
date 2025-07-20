@@ -1,7 +1,7 @@
 import os
 
-from src.constants import ENV
-from src.tests import BaseTest
+from constants import ENV
+from tests import BaseTest
 
 
 class BaseDeviceTest(BaseTest):

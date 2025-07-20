@@ -1,9 +1,10 @@
 import logging
+import os
 import subprocess
 
-from src.device import Genymotion, DeviceType
-from src.helper import get_env_value_or_raise
-from src.constants import ENV, UTF8
+from device import Genymotion, DeviceType
+from helper import get_env_value_or_raise
+from constants import ENV, UTF8
 
 
 class GenySAAS(Genymotion):
@@ -14,9 +15,13 @@ class GenySAAS(Genymotion):
         self.created_devices = []
 
     def login(self) -> None:
-        user = get_env_value_or_raise(ENV.GENY_SAAS_USER)
-        password = get_env_value_or_raise(ENV.GENY_SAAS_PASS)
-        subprocess.check_call(f"gmsaas auth login {user} {password} > /dev/null 2>&1", shell=True)
+        if os.getenv(ENV.GENY_AUTH_TOKEN):
+            auth_token = get_env_value_or_raise(ENV.GENY_AUTH_TOKEN)
+            subprocess.check_call(f"gmsaas auth token {auth_token} > /dev/null 2>&1", shell=True)
+        else:
+            user = get_env_value_or_raise(ENV.GENY_SAAS_USER)
+            password = get_env_value_or_raise(ENV.GENY_SAAS_PASS)
+            subprocess.check_call(f"gmsaas auth login {user} {password} > /dev/null 2>&1", shell=True)
         self.logger.info("successfully logged in!")
 
     def create(self) -> None:
@@ -68,5 +73,8 @@ class GenySAAS(Genymotion):
                 for n, i in d.items():
                     subprocess.check_call(f"gmsaas instances stop {i}", shell=True)
                     self.logger.info(f"device '{n}' is successfully removed!")
-        subprocess.check_call("gmsaas auth logout", shell=True)
+        if os.getenv(ENV.GENY_AUTH_TOKEN):
+            subprocess.check_call("gmsaas auth reset", shell=True)
+        else:
+            subprocess.check_call("gmsaas auth logout", shell=True)
         self.logger.info("successfully logged out!")

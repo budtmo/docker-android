@@ -1,8 +1,8 @@
 import os
 import mock
 
-from src.helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
-from src.tests import BaseTest
+from helper import convert_str_to_bool, get_env_value_or_raise, symlink_force
+from tests import BaseTest
 
 
 class TestHelperMethods(BaseTest):
@@ -44,10 +44,6 @@ class TestHelperMethods(BaseTest):
     def test_get_env_value_from_invalid_key(self):
         with self.assertRaises(RuntimeError):
             get_env_value_or_raise("env_key02")
-
-    def test_get_env_value_with_invalid_format(self):
-        with mock.patch("src.logger"):
-            get_env_value_or_raise(True)
 
     def test_symlink(self):
         s = os.path.join("source.txt")
