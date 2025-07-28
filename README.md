@@ -163,7 +163,7 @@ The differences between normal version and pro version are:
 |user-behavior-analytics|Yes|No|-|
 |proxy|No|Yes|Set up company proxy on Android emulator on fly|
 |language|No|Yes|Set up language on Android emulator on fly|
-|Newer Android version|No|Yes|Support other newer Android version e.g. Android 15, etc|
+|Newer Android version|No|Yes|Support other newer Android version e.g. Android 15, Android 16, etc|
 |root-privileged|No|Yes|Able to run command with security privileged|
 |headless-mode|No|Yes|Save resources by using headless mode|
 |Selenium 4.x integration|No|Yes|Running Appium UI-Tests againt one (Selenium Hub) endpoint for Android- and iOS emulator(s) / device(s)|
