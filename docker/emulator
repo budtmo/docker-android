@@ -50,8 +50,8 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
 #=======
 # noVNC
 #=======
-ENV NOVNC_VERSION="1.4.0" \
-    WEBSOCKIFY_VERSION="0.11.0" \
+ENV NOVNC_VERSION="1.6.0" \
+    WEBSOCKIFY_VERSION="0.13.0" \
     OPT_PATH="/opt"
 RUN  wget -nv -O noVNC.zip "https://github.com/novnc/noVNC/archive/refs/tags/v${NOVNC_VERSION}.zip" \
  && unzip -x noVNC.zip \
