@@ -96,7 +96,7 @@ Credit goes to [Guillaume - The Parallel Interface blog](https://www.paralint.co
     sudo usermod -a -G kvm ${USER}
     ```
 
-2. Add necessary flags to `/etc/wsl2.conf` to their respective sections.
+2. Add necessary flags to `/etc/wsl.conf` to their respective sections.
     ```
     [boot]
     command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
