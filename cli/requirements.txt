@@ -2,7 +2,7 @@ autopep8==2.3.2
 click==8.2.1
 coverage==7.10.6
 mock==5.2.0
-pytest==8.4.1
+pytest==8.4.2
 pytest-cov==6.2.1
 pytest-xdist==3.8.0
 requests==2.32.5
