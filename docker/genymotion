@@ -1,7 +1,7 @@
 ARG DOCKER_ANDROID_VERSION
 FROM budtmo/docker-android:base_${DOCKER_ANDROID_VERSION}
 
-ENV GMSAAS_CLI_VERSION="1.14.1"
+ENV GMSAAS_CLI_VERSION="1.15.0"
 
 #================
 # Cloud Packages
