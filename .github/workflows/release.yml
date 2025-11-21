@@ -13,7 +13,7 @@ jobs:
         python-version: ["3.8"]
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Run unit-test
       run: script -e -c "./app.sh test emulator test 11.0 && sudo mv tmp/* ."
@@ -23,7 +23,7 @@ jobs:
     needs: run_test
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Get release version
       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -42,7 +42,7 @@ jobs:
         android: ["9.0", "10.0", "11.0", "12.0", "13.0", "14.0"]
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -67,7 +67,7 @@ jobs:
     needs: release_base
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
