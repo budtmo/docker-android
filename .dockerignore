@@ -1,5 +1,8 @@
 # Git
 .git/
+.github
+.gitignore
+.dockerignore
 
 # IDE
 **/*.idea
@@ -17,3 +20,10 @@ backup
 **/xunit.xml
 **/coverage
 tmp/
+
+docker
+documentations
+example
+images
+*.md
+*.sh
