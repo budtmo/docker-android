@@ -78,6 +78,7 @@ COPY mixins ${APP_PATH}/mixins
 COPY cli ${APP_PATH}/cli
 RUN --mount=type=secret,id=extension,dst=/tmp/extension.sh \
     bash /tmp/extension.sh
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 #===================
 # Configure OpenBox
