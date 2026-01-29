@@ -11,7 +11,7 @@ ENV EMULATOR_ANDROID_VERSION=${EMULATOR_ANDROID_VERSION} \
     EMULATOR_SYS_IMG=x86_64 \
     EMULATOR_IMG_TYPE=google_apis \
     EMULATOR_BROWSER=chrome
-ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
+ENV PATH=${PATH}:${ANDROID_HOME}/build-tools
 RUN yes | sdkmanager --licenses \
  && sdkmanager "platforms;android-${EMULATOR_API_LEVEL}" \
  "system-images;android-${EMULATOR_API_LEVEL};${EMULATOR_IMG_TYPE};${EMULATOR_SYS_IMG}" "emulator" \
@@ -20,14 +20,10 @@ RUN yes | sdkmanager --licenses \
 #=============
 # UI Packages
 #-------------
-# ffmpeg
-#   Video recorder
 # feh
 #   Screen background
 # libxcomposite-dev
 #   Window System for Emulator
-# menu
-#   Debian menu
 # openbox
 #   Windows manager
 # x11vnc
@@ -36,10 +32,8 @@ RUN yes | sdkmanager --licenses \
 #   Terminal emulator
 #==================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
-    ffmpeg \
     feh \
     libxcomposite-dev \
-    menu \
     openbox \
     x11vnc \
     xterm \
@@ -78,7 +72,6 @@ EXPOSE 5900 6080
 #==========
 RUN rm -rf ${SCRIPT_PATH}
 ENV SCRIPT_PATH="docker-android"
-ENV WORK_PATH="/home/androidusr"
 ENV APP_PATH=${WORK_PATH}/${SCRIPT_PATH}
 RUN mkdir -p ${APP_PATH}
 COPY mixins ${APP_PATH}/mixins
@@ -94,7 +87,7 @@ RUN echo ${APP_PATH}/mixins/configs/display/.fehbg >> /etc/xdg/openbox/autostart
 #==================
 # Use created user
 #==================
-USER 1300:1301
+USER ${USERID}:${GROUPID}
 ENV LOG_PATH=${WORK_PATH}/logs \
     WEB_LOG_PORT=9000
 EXPOSE 9000
@@ -107,4 +100,4 @@ RUN mkdir -p "${WORK_PATH}/.config/Android Open Source Project" \
 #=========
 STOPSIGNAL SIGTERM
 ENV DEVICE_TYPE=emulator
-ENTRYPOINT ["/home/androidusr/docker-android/mixins/scripts/run.sh"]
+CMD ["${APP_PATH}/mixins/scripts/run.sh"]

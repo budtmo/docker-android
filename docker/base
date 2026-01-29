@@ -1,4 +1,4 @@
-FROM appium/appium:v3.1.1-p0
+FROM appium/appium:v3.2.0-p0
 
 ARG AUTHORS="Budi Utomo"
 LABEL author="${AUTHORS} <budtmo.os@gmail.com>"
@@ -8,27 +8,30 @@ USER root
 #================
 # Basic Packages
 #----------------
+# ca-certificates
+#   SSL client
+# python3-pip
+#   python-pip
 # socat
 #   Port forwarder
 # supervisor
 #   Process manager
+# unzip
+#   Unzip zip file
+# wget
+#   Network downloader
 #================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    ca-certificates \
+    python3-pip \
     socat \
     supervisor \
+    unzip \
+    wget \
  && apt autoremove -y \
  && apt clean all \
- && rm -rf /var/lib/apt/lists/*
-
-#==================
-# Configure Python
-#==================
-RUN apt-get -qqy update && \
-    apt-get -qqy --no-install-recommends install \
-    python3-pip \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
-  && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+ && rm -rf /var/lib/apt/lists/* \
+ && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
 #=====================
 # Set release version

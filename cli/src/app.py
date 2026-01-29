@@ -60,7 +60,7 @@ def cli():
 
 def start_appium() -> None:
     if convert_str_to_bool(os.getenv(ENV.APPIUM)):
-        cmd = f"/usr/bin/appium"
+        cmd = f"/usr/local/bin/appium"
         app_appium = Application("Appium", cmd,
                                  os.getenv(ENV.APPIUM_ADDITIONAL_ARGS, ""), False)
         app_appium.start()

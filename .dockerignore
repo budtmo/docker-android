@@ -2,7 +2,6 @@
 .git/
 .github
 .gitignore
-.dockerignore
 
 # IDE
 **/*.idea
