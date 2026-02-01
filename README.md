@@ -100,11 +100,15 @@ Credit goes to [Guillaume - The Parallel Interface blog](https://www.paralint.co
     ```
     [boot]
     command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
+    ```
 
+    Then, using PowerShell, open a notepad on `notepad $env:USERPROFILE\.wslconfig`. Inside, put these other flags:
+    ```
     [wsl2]
     nestedVirtualization=true
     ```
-3. Restart WSL2 via CMD prompt or Powershell
+
+4. Restart WSL2 via CMD prompt or Powershell
     ```
     wsl --shutdown
     ```
@@ -113,6 +117,8 @@ Credit goes to [Guillaume - The Parallel Interface blog](https://www.paralint.co
 `command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'` sets `/dev/kvm` to `kvm` usergroup rather than the default `root` usergroup on WSL2 startup.
 
 `nestedVirtualization` flag is only available to Windows 11.
+
+If this setup does not work, you may have an old WSL version. In that case, ignore `\.wslconfig` and put everything on `/etc/wsl.conf`, including the `[wsl2]` flag.
 
 Use-Cases
 ---------
