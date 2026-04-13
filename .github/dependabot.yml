@@ -9,20 +9,10 @@ updates:
   commit-message:
     prefix: "[docker] "
   target-branch: "master"
-  open-pull-requests-limit: 99
-  reviewers:
-    - "budtmo"
-
-- package-ecosystem: pip
-  directory: "/"
-  schedule:
-    interval: daily
-    time: '01:00'
-    timezone: "Europe/Berlin"
-  commit-message:
-    prefix: "[pip] "
-  target-branch: "master"
-  open-pull-requests-limit: 99
+  open-pull-requests-limit: 10
+  labels:
+    - "dependabot"
+    - "docker"
   reviewers:
     - "budtmo"
 
@@ -35,6 +25,25 @@ updates:
   commit-message:
     prefix: "[github-action] "
   target-branch: "master"
-  open-pull-requests-limit: 99
+  open-pull-requests-limit: 10
+  labels:
+    - "dependabot"
+    - "github-action"
+  reviewers:
+    - "budtmo"
+
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: '01:00'
+    timezone: "Europe/Berlin"
+  commit-message:
+    prefix: "[pip] "
+  target-branch: "master"
+  open-pull-requests-limit: 10
+  labels:
+    - "dependabot"
+    - "pip"
   reviewers:
     - "budtmo"
