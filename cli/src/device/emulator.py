@@ -23,7 +23,9 @@ class Emulator(Device):
         "Samsung Galaxy S8",
         "Samsung Galaxy S9",
         "Samsung Galaxy S10",
-        "Pixel C"
+        "Pixel C",
+        "Pixel 8",
+        "Pixel 9"
     )
 
     API_LEVEL = {
@@ -151,7 +153,8 @@ class Emulator(Device):
             creation_cmd = "avdmanager create avd -f -n {n} -b {it}/{si} " \
                            "-k 'system-images;android-{al};{it};{si}' " \
                            "-d {d} -p {pe}".format(n=self.name, it=self.img_type, si=self.sys_img,
-                                                   al=self.api_level, d=self.device.replace(" ", "\ "),
+                                                   al=self.api_level,
+                                                   d=self.device.lower().replace(" ", "_") if "pixel" in self.device.lower() else self.device.replace(" ", "\ "),
                                                    pe=self.path_emulator)
             self.logger.info(f"Command to create emulator: '{creation_cmd}'")
             subprocess.check_call(creation_cmd, shell=True)
