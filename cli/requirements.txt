@@ -1,6 +1,6 @@
 autopep8==2.3.2
 click==8.4.2
-coverage==7.15.0
+coverage==7.15.2
 mock==5.2.0
 pytest==9.1.1
 pytest-cov==7.1.0
