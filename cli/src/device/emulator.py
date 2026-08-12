@@ -164,15 +164,14 @@ class Emulator(Device):
 
     def change_permission(self) -> None:
         kvm_path = "/dev/kvm"
-        if os.path.exists(kvm_path):
-            cmds = (f"sudo chown 1300:1301 {kvm_path}",
-                    "sudo sed -i '1d' /etc/passwd")
-            for c in cmds:
-                subprocess.check_call(c, shell=True)
-            self.logger.info("KVM permission is granted!")
-        else:
+        if not os.path.exists(kvm_path):
             raise RuntimeError("/dev/kvm cannot be found!")
-
+        subprocess.check_call(
+            f"sudo chown 1300:1301 {kvm_path}",
+            shell=True
+        )
+        self.logger.info("KVM permission is granted!")
+    
     def deploy(self):
         self.logger.info(f"Deploying the {self.device_type}")
 
