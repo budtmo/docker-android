@@ -1,5 +1,5 @@
 autopep8==2.3.2
-click==8.4.2
+click==8.5.0
 coverage==7.15.4
 mock==5.2.0
 pytest==9.1.1
