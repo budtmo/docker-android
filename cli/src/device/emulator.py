@@ -1,5 +1,6 @@
 import logging
 import os
+import shlex
 import subprocess
 import time
 
@@ -182,7 +183,7 @@ class Emulator(Device):
 
         start_cmd = f"{basic_cmd} {basic_args} {wipe_arg} {self.additional_args}"
         self.logger.info(f"Command to run {self.device_type}: '{start_cmd}'")
-        subprocess.Popen(start_cmd.split())
+        subprocess.Popen(shlex.split(start_cmd))
 
     def start(self) -> None:
         super().start()

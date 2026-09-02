@@ -63,6 +63,18 @@ class TestEmulator(BaseDeviceTest):
                 self.emu.check_adb_command(
                     self.emu.ReadinessCheck.BOOTED, "mocked_command", "1", 3, 0)
 
+    def test_deploy_preserves_spaces_in_quoted_additional_args(self):
+        self.emu.additional_args = '-turncfg "cat /tmp/turn.cfg"'
+
+        with mock.patch.object(self.emu, "is_initialized", return_value=True), \
+                mock.patch("subprocess.Popen") as popen:
+            self.emu.deploy()
+
+        popen.assert_called_once_with([
+            "emulator", "@my_emu", "-gpu", "swiftshader_indirect", "-accel", "on",
+            "-writable-system", "-verbose", "-turncfg", "cat /tmp/turn.cfg"
+        ])
+
     def test_use_override_config_no_env(self):
         with mock.patch("os.getenv", return_value=None):
             self.emu._use_override_config()
