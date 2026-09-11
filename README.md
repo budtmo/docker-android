@@ -194,6 +194,16 @@ SPONSORS
 
 [Learn more about Swiftproxy →](https://www.swiftproxy.net/?ref=budtmo)
 
+<p align="center">
+  <a href="https://www.rapidproxy.io/?ref=budtmo">
+    <img src="./images/sponsor_rapidproxy.png" alt="Rapidproxy" width="700">
+  </a>
+</p>
+
+**RapidProxy** — **RapidProxy** is a high-performance proxy provider built for automation and multi-account operations,     offering clean residential proxies and native static ISP IPs. Access 90 million+ residential IPs worldwide, with intelligent rotation, sticky sessions, and support for high-concurrency requests. Ideal for web scraping, browser automation, social media account management, e-commerce, and bulk account registration. Residential proxies start at just $0.55/GB, with bandwidth that never expires. **Use code RAPID10 for 10% off**.
+
+[Learn more about Rapidproxy →](https://www.rapidproxy.io/?ref=budtmo)
+
 LICENSE
 -------
 See [License](LICENSE.md)
