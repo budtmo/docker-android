@@ -8,8 +8,10 @@ The differences between normal version and pro version are:
 |Feature   |Normal   |Pro   |Comment|
 |:---|:---|:---|:---|
 |user-behavior-analytics|Yes|No|-|
+|ai-agent|No|Yes|Currently supported local AI-host/AI-provider: Ollama, VLLM|
 |proxy|No|Yes|Set up company proxy on Android emulator on fly|
 |language|No|Yes|Set up language on Android emulator on fly|
+|Newer Android version|No|Yes|Support other newer Android version e.g. Android 15, Android 16, Android 17, etc|
 |root-privileged|No|Yes|Able to run command with security privileged|
 |headless-mode|No|Yes|Save resources by using headless mode|
 |Selenium 4.x integration|No|Yes|Running Appium UI-Tests againt one (Selenium Hub) endpoint for Android- and iOS emulator(s) / device(s)|
@@ -30,6 +32,7 @@ List of Docker-Images
 |14.0|34|Normal|budtmo2/docker-android-pro:emulator_14.0|budtmo2/docker-android-pro:emulator_14.0_<release_version>|
 |15.0|35|Normal|budtmo2/docker-android-pro:emulator_15.0|budtmo2/docker-android-pro:emulator_15.0_<release_version>|
 |16.0|36|Normal|budtmo2/docker-android-pro:emulator_16.0|budtmo2/docker-android-pro:emulator_16.0_<release_version>|
+|17.0|37|Normal|budtmo2/docker-android-pro:emulator_17.0|budtmo2/docker-android-pro:emulator_17.0_<release_version>|
 |9.0|28|Headless|budtmo2/docker-android-pro:emulator_headless_9.0|budtmo2/docker-android-pro:emulator_headless_9.0_<release_version>|
 |10.0|29|Headless|budtmo2/docker-android-pro:emulator_headless_10.0|budtmo2/docker-android-pro:emulator_headless_10.0_<release_version>|
 |11.0|30|Headless|budtmo2/docker-android-pro:emulator_headless_11.0|budtmo2/docker-android-pro:emulator_headless_11.0_<release_version>|
@@ -38,6 +41,7 @@ List of Docker-Images
 |14.0|34|Headless|budtmo2/docker-android-pro:emulator_headless_14.0|budtmo2/docker-android-pro:emulator_headless_14.0_<release_version>|
 |15.0|35|Headless|budtmo2/docker-android-pro:emulator_headless_15.0|budtmo2/docker-android-pro:emulator_headless_15.0_<release_version>|
 |16.0|36|Headless|budtmo2/docker-android-pro:emulator_headless_16.0|budtmo2/docker-android-pro:emulator_headless_16.0_<release_version>|
+|17.0|37|Headless|budtmo2/docker-android-pro:emulator_headless_17.0|budtmo2/docker-android-pro:emulator_headless_17.0_<release_version>|
 |-|-|AI-Agent|budtmo2/docker-android-pro:agent|budtmo2/docker-android-pro:agent_<release_version>|
 |-|-|Selenium|budtmo2/docker-android-pro:selenium|budtmo2/docker-android-pro:selenium_<release_version>|
 

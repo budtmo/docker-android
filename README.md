@@ -174,7 +174,7 @@ The differences between normal version and pro version are:
 |Feature   |Normal   |Pro   |Comment|
 |:---|:---|:---|:---|
 |user-behavior-analytics|Yes|No|-|
-|ai-agent|No|Yes|Currently supported local AI-host/AI-provider: Ollama|
+|ai-agent|No|Yes|Currently supported local AI-host/AI-provider: Ollama, VLLM|
 |proxy|No|Yes|Set up company proxy on Android emulator on fly|
 |language|No|Yes|Set up language on Android emulator on fly|
 |Newer Android version|No|Yes|Support other newer Android version e.g. Android 15, Android 16, Android 17, etc|

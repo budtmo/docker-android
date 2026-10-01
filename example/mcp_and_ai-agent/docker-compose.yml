@@ -30,10 +30,12 @@ services:
       MCP_SERVER_URL: http://android-mcp:8000/mcp
       # Leave it empty if it doesnt need any Bearer token
       MCP_TOKEN: ""
-      OLLAMA_HOST: http://ollama:11434
+      # It could be http://local-llm:8000/v1 for vllm
+      LLM_BASE_URL: http://local-llm:11434/v1
       # Leave it empty if it doesnt need any Bearer token
-      OLLAMA_TOKEN: ""
-      OLLAMA_MODEL: qwen3.8:27b
+      LLM_API_KEY: ""
+      # It could be Qwen/Qwen3.8:27B for vllm
+      LLM_MODEL: qwen3.8:27b
     ports:
       - "8501:8501"
     depends_on:
@@ -41,8 +43,8 @@ services:
     networks:
       - android-net
     extra_hosts:
-      # Change with the ip where your local ollama is running
-      - "ollama:xx.xx.xx.xx"
+      # Change with the ip where your local-llm is running (it could be ollama or vllm)
+      - "local-llm:xx.xx.xx.xx"
     restart: unless-stopped
 
 networks:
