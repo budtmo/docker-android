@@ -33,7 +33,7 @@ services:
       # It could be http://local-llm:8000/v1 for vllm
       LLM_BASE_URL: http://local-llm:11434/v1
       # Leave it empty if it doesnt need any Bearer token
-      LLM_API_KEY: ""
+      LLM_API_KEY: "2ba0f07f7430d3acfa1856e2eb410c21c242e36ec4aef0ad59123be557caab25"
       # It could be Qwen/Qwen3.8:27B for vllm
       LLM_MODEL: qwen3.8:27b
     ports:
@@ -44,7 +44,7 @@ services:
       - android-net
     extra_hosts:
       # Change with the ip where your local-llm is running (it could be ollama or vllm)
-      - "local-llm:xx.xx.xx.xx"
+      - "local-llm:192.168.3.103"
     restart: unless-stopped
 
 networks:
