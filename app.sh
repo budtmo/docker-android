@@ -32,17 +32,17 @@ else
     r_v=${3}
 fi
 
-FOLDER_PATH=""
+DOCKERFILE_PATH=""
 IMAGE_NAME=""
 TAG_NAME=""
 
 if [[ "${p}" == "pro"* ]]; then
     IFS='-' read -ra arr <<<"${p}"
-    FOLDER_PATH+="docker/${arr[0]}/${arr[1]}"
+    DOCKERFILE_PATH+="docker/${arr[0]}/${arr[1]}/Dockerfile"
     IMAGE_NAME+="budtmo2/docker-android-${arr[0]}"
     TAG_NAME+="${arr[1]}"
 else
-    FOLDER_PATH+="docker/${p}"
+    DOCKERFILE_PATH+="docker/${p}/Dockerfile"
     IMAGE_NAME+="budtmo/docker-android"
     TAG_NAME+="${p}"
 fi
@@ -92,7 +92,7 @@ function build() {
         cmd="${cmd} --secret id=extension,src=extension.sh "
     fi
 
-    cmd+="-f ${FOLDER_PATH} ."
+    cmd+="-f ${DOCKERFILE_PATH} ."
     ${cmd}
     docker tag ${IMAGE_NAME_SPECIFIC_RELEASE} ${IMAGE_NAME_LATEST}
 
