@@ -16,8 +16,8 @@ Advantages of using this project
 5. Integrated with other cloud solutions, e.g. [Genymotion Cloud](https://www.genymotion.com/cloud/)
 6. It can be used to build Android project
 7. It can be used to run unit and UI-Test with different test-frameworks, e.g. Appium, Espresso, etc.
-8. It support mcp server (beta-version)
-9. It support ai-agent (beta-version) - supported local-LLM server: Ollama, VLLM
+8. It support (http) MCP-Server (beta-version)
+9. It support AI-Agent (beta-version) - supported local-LLM server: Ollama, VLLM
 
 <p align="center">
   <img src="./images/mcp_and_ai_agent.png">
