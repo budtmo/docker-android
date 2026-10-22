@@ -7,6 +7,17 @@
 
 Docker-Android is a docker image built to be used for everything related to Android. It can be used for Application development and testing (native, web and hybrid-app).
 
+Sponsors
+--------
+
+<p align="center">
+  <a href="https://proxy-seller.com/?utm_source=github&utm_medium=referral&utm_campaign=budtmo&utm_term=github">
+    <img src="./images/sponsor_proxyseller.png" alt="ProxySeller" width="500">
+  </a>
+</p>
+
+[Proxy-Seller](https://proxy-seller.com/?utm_source=github&utm_medium=referral&utm_campaign=budtmo&utm_term=github) gives you reliable proxy infrastructure for any workflow: private residential, mobile (4G/5G/LTE), ISP, and datacenter IPv4/IPv6 proxies, all with HTTP(S) and SOCKS5 support. Tap into 47M+ residential IPs across 220+ locations, target exactly the country, city, or ISP you need, and count on 99.7% uptime backed by 24/7 support. Get 15% off with promo code **BUDTMO**.
+
 Advantages of using this project
 --------------------------------
 1. Emulator with different device profile and skins, such as Samsung Galaxy S6, LG Nexus 4, HTC Nexus One and more.
