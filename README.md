@@ -35,6 +35,10 @@ Advantages of using this project
   <img src="./images/mcp_and_ai_agent.png">
 </p>
 
+<p align="center">
+  <img src="./images/mcp_appium_and_ai_agent.png">
+</p>
+
 List of Docker-Images
 ---------------------
 |Android   |API   |Image with latest release version   |Image with specific release version|
