@@ -22,10 +22,6 @@ RUN yes | sdkmanager --licenses \
 #-------------
 # feh
 #   Screen background
-# libxcomposite-dev
-#   Window System for Emulator
-# openbox
-#   Windows manager
 # x11vnc
 #   VNC server
 # xterm
@@ -33,8 +29,6 @@ RUN yes | sdkmanager --licenses \
 #==================
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     feh \
-    libxcomposite-dev \
-    openbox \
     x11vnc \
     xterm \
  && apt autoremove -y \
