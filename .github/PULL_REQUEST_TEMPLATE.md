@@ -1,8 +1,23 @@
-### Types of changes
-_Put an `x` in the boxes that apply_
+## Summary
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
+Describe what changed and why.
+
+## Type of change
+
+- [ ] Bugfix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation Update (if none of the other choices apply)
 
-### Purpose of changes
-<!-- Please describe why this change is required / What problem you want to solve. -->
+## Testing
+
+- [ ] Unit/integration tests pass
+- [ ] Manual testing completed (if applicable)
+
+## AI Usage disclosure
+- AI assistance: [ ] None  [ ] Yes
+- Tool(s): e.g., GitHub Copilot, Claude Code
+
+## Additional notes
+
+Optional information that reviewers need to know. 
