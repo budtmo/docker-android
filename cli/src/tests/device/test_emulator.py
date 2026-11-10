@@ -1,5 +1,6 @@
 import mock
 
+from constants import ENV
 from device.emulator import Emulator
 from tests.device import BaseDeviceTest
 
@@ -71,9 +72,27 @@ class TestEmulator(BaseDeviceTest):
             self.emu.deploy()
 
         popen.assert_called_once_with([
-            "emulator", "@my_emu", "-gpu", "swiftshader_indirect", "-accel", "on",
+            "emulator", "@my_emu", "-gpu", "software", "-accel", "on",
             "-writable-system", "-verbose", "-turncfg", "cat /tmp/turn.cfg"
         ])
+
+    def test_deploy_uses_gpu_mode_from_env(self):
+        with mock.patch.dict("os.environ", {ENV.EMULATOR_GPU: "host"}):
+            emu = Emulator(self.name, self.device, self.a_version, self.d_partition,
+                           self.additional_args, self.i_type, self.s_img)
+
+        with mock.patch.object(emu, "is_initialized", return_value=True), \
+                mock.patch("subprocess.Popen") as popen:
+            emu.deploy()
+
+        self.assertEqual(popen.call_args[0][0][2:4], ["-gpu", "host"])
+
+    def test_disable_animations(self):
+        with mock.patch("subprocess.check_call") as check_call:
+            self.emu.disable_animations()
+
+        self.assertEqual([c[0][0][-2] for c in check_call.call_args_list],
+                         ["window_animation_scale", "transition_animation_scale", "animator_duration_scale"])
 
     def test_use_override_config_no_env(self):
         with mock.patch("os.getenv", return_value=None):

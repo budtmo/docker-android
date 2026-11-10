@@ -43,9 +43,18 @@ services:
       LLM_MODEL: qwen3.8:27b
       AGENT_MAX_TOOL_ITERATIONS: 6
       REQUEST_TIMEOUT_SECONDS: 60
-
+      # To control Agent via REST-API
+      EXPOSE_API: "true"
     ports:
       - "8501:8501"
+      # To control Agent via REST-API
+      # e.g.
+      # curl http://localhost:8080/health
+      #
+      # curl -X POST http://localhost:8080/v1/chat \
+      # -H "Content-Type: application/json" \
+      # -d '{"message": "How many devices are available?"}'
+      - "8080:8080"
     depends_on:
       - android-mcp
     networks:

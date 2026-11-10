@@ -54,6 +54,7 @@ Possible environment variable to configure the Emulator:
 |EMULATOR_NAME|give emulator name (default name is a combination between Device name and Android version)|docker run ... -e EMULATOR_NAME=my_emu ...|
 |EMULATOR_DATA_PARTITION|set data partition on emulator (default value 550m)|docker run ... -e EMULATOR_DATA_PARTITION=900m ...|
 |EMULATOR_NO_SKIN|deploying emulator without skin|docker run ... -e EMULATOR_NO_SKIN=true ...|
+|EMULATOR_GPU|graphics acceleration mode passed to `-gpu` (default `software`). See [graphics acceleration](https://developer.android.com/studio/run/emulator-acceleration#command-gpu)|docker run ... -e EMULATOR_GPU=host ...|
 
 The user can also pass needed arguments to android emulator through environment variable ***EMULATOR_ADDITIONAL_ARGS***. Please check [this page](https://developer.android.com/studio/run/emulator-commandline) for possible arguments that can be passed.
 
