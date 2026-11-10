@@ -76,6 +76,7 @@ class Emulator(Device):
                                                 "configs", "devices", "skins")
         self.file_name = self.device.replace(" ", "_").lower()
         self.no_skin = convert_str_to_bool(os.getenv(ENV.EMULATOR_NO_SKIN))
+        self.gpu = os.getenv(ENV.EMULATOR_GPU) or "software"
         self.interval_after_booting = 15
         Emulator.adb_name_id += 2
         self.form_data.update({
@@ -178,7 +179,7 @@ class Emulator(Device):
         self.logger.info(f"Deploying the {self.device_type}")
 
         basic_cmd = "emulator @{n}".format(n=self.name)
-        basic_args = "-gpu swiftshader_indirect -accel on -writable-system -verbose"
+        basic_args = f"-gpu {self.gpu} -accel on -writable-system -verbose"
         wipe_arg = "-wipe-data" if not self.is_initialized() else ""
 
         start_cmd = f"{basic_cmd} {basic_args} {wipe_arg} {self.additional_args}"
@@ -249,7 +250,13 @@ class Emulator(Device):
 
         self.check_adb_command(self.ReadinessCheck.WELCOME_SCREEN,
                                focus_cmd, "launcheractivity", 60, self.interval_waiting)
+        self.disable_animations()
         self.logger.info(f"{self.device_type} is ready to use")
+
+    def disable_animations(self) -> None:
+        for setting in ("window_animation_scale", "transition_animation_scale", "animator_duration_scale"):
+            subprocess.check_call(["adb", "-s", self.adb_name, "shell", "settings", "put", "global", setting, "0"])
+        self.logger.info("Animations are disabled!")
 
     def tear_down(self, *args) -> None:
         self.logger.warning("Sigterm is detected! Nothing to do!")
