@@ -11,6 +11,14 @@ Sponsors
 --------
 
 <p align="center">
+  <a href="https://www.webshare.io/?referral_code=0f7q99htymgf">
+    <img src="./images/sponsor_webshare.png" alt="WebShare" width="500">
+  </a>
+</p>
+
+[Webshare](https://www.webshare.io/?referral_code=0f7q99htymgf) **offers premium residential, ISP, and datacenter proxies at the lowest prices**, with HTTP(S) and SOCKS5 support. 80M+ IPs in 195 countries, a 99.97% success rate, and 10 free proxies to start (no card required). **Get 20% off your first purchase with code BUDTMO20**. Try this now!.
+
+<p align="center">
   <a href="https://proxy-seller.com/?utm_source=github&utm_medium=referral&utm_campaign=budtmo&utm_term=github">
     <img src="./images/sponsor_proxyseller.png" alt="ProxySeller" width="500">
   </a>
