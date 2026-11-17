@@ -88,11 +88,17 @@ class TestEmulator(BaseDeviceTest):
         self.assertEqual(popen.call_args[0][0][2:4], ["-gpu", "host"])
 
     def test_disable_animations(self):
-        with mock.patch("subprocess.check_call") as check_call:
+        with mock.patch("subprocess.check_output", return_value="0".encode("utf-8")) as check_output:
             self.emu.disable_animations()
 
-        self.assertEqual([c[0][0][-2] for c in check_call.call_args_list],
+        self.assertEqual([c[0][0][-1] for c in check_output.call_args_list],
                          ["window_animation_scale", "transition_animation_scale", "animator_duration_scale"])
+
+    def test_disable_animations_out_of_attempts(self):
+        with mock.patch("subprocess.check_output", return_value="1".encode("utf-8")), \
+                mock.patch("time.sleep"):
+            with self.assertRaises(RuntimeError):
+                self.emu.disable_animations()
 
     def test_use_override_config_no_env(self):
         with mock.patch("os.getenv", return_value=None):

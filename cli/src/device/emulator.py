@@ -45,6 +45,7 @@ class Emulator(Device):
         RUN_STATE = "in running state"
         WELCOME_SCREEN = "in welcome screen"
         POP_UP_WINDOW = "pop up window"
+        ANIMATIONS_DISABLED = "in no-animation mode"
 
     def __init__(self, name: str, device: str, android_version: str, data_partition: str,
                  additional_args: str, img_type: str, sys_img: str) -> None:
@@ -255,8 +256,10 @@ class Emulator(Device):
 
     def disable_animations(self) -> None:
         for setting in ("window_animation_scale", "transition_animation_scale", "animator_duration_scale"):
-            subprocess.check_call(["adb", "-s", self.adb_name, "shell", "settings", "put", "global", setting, "0"])
-        self.logger.info("Animations are disabled!")
+            disable_cmd = f"adb -s {self.adb_name} shell settings put global {setting} 0 " \
+                          f"&& settings get global {setting}"
+            self.check_adb_command(self.ReadinessCheck.ANIMATIONS_DISABLED,
+                                   disable_cmd, "0", 5, self.interval_waiting)
 
     def tear_down(self, *args) -> None:
         self.logger.warning("Sigterm is detected! Nothing to do!")
