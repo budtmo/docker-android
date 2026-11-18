@@ -1,4 +1,4 @@
-FROM python:3.15.0-slim
+FROM python:3.15.2-slim
 
 RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
     adb \
