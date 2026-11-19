@@ -1,4 +1,4 @@
-FROM appium/appium:v3.9.0-p2
+FROM appium/appium:v3.9.1-p1
 
 ARG AUTHORS="Budi Utomo"
 LABEL author="${AUTHORS} <budtmo.os@gmail.com>"
