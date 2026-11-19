@@ -86,6 +86,21 @@ class TestEmulator(BaseDeviceTest):
             emu.deploy()
 
         self.assertEqual(popen.call_args[0][0][2:4], ["-gpu", "host"])
+        self.assertIn("-no-window", popen.call_args[0][0])
+
+    def test_wait_until_ready_starts_scrcpy_only_for_host_gpu(self):
+        for gpu, expected_calls in (("host", 1), ("software", 0)):
+            self.emu.gpu = gpu
+            with mock.patch.object(self.emu, "set_status"), \
+                    mock.patch.object(self.emu, "check_adb_command"), \
+                    mock.patch.object(self.emu, "disable_animations"), \
+                    mock.patch("time.sleep"), \
+                    mock.patch("subprocess.Popen") as popen:
+                self.emu.wait_until_ready()
+
+            self.assertEqual(popen.call_count, expected_calls)
+            if expected_calls:
+                popen.assert_called_once_with(["scrcpy", "-s", self.emu.adb_name])
 
     def test_disable_animations(self):
         with mock.patch("subprocess.check_output", return_value="0".encode("utf-8")) as check_output:

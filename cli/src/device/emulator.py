@@ -77,7 +77,7 @@ class Emulator(Device):
                                                 "configs", "devices", "skins")
         self.file_name = self.device.replace(" ", "_").lower()
         self.no_skin = convert_str_to_bool(os.getenv(ENV.EMULATOR_NO_SKIN))
-        self.gpu = os.getenv(ENV.EMULATOR_GPU) or "software"
+        self.gpu = (os.getenv(ENV.EMULATOR_GPU) or "software").lower()
         self.interval_after_booting = 15
         Emulator.adb_name_id += 2
         self.form_data.update({
@@ -181,6 +181,8 @@ class Emulator(Device):
 
         basic_cmd = "emulator @{n}".format(n=self.name)
         basic_args = f"-gpu {self.gpu} -accel on -writable-system -verbose"
+        if self.gpu == ENV.EMULATOR_GPU_HOST:
+            basic_args += " -no-window"
         wipe_arg = "-wipe-data" if not self.is_initialized() else ""
 
         start_cmd = f"{basic_cmd} {basic_args} {wipe_arg} {self.additional_args}"
@@ -252,6 +254,8 @@ class Emulator(Device):
         self.check_adb_command(self.ReadinessCheck.WELCOME_SCREEN,
                                focus_cmd, "launcheractivity", 60, self.interval_waiting)
         self.disable_animations()
+        if self.gpu == ENV.EMULATOR_GPU_HOST:
+            subprocess.Popen(["scrcpy", "-s", self.adb_name])
         self.logger.info(f"{self.device_type} is ready to use")
 
     def disable_animations(self) -> None:
