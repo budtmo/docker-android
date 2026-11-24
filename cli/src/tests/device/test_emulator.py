@@ -73,7 +73,7 @@ class TestEmulator(BaseDeviceTest):
 
         self.assertEqual(popen.call_args[0][0], [
             "emulator", "@my_emu", "-gpu", "software", "-accel", "on",
-            "-writable-system", "-verbose", "-turncfg", "cat /tmp/turn.cfg"
+            "-writable-system", "-no-boot-anim", "-verbose", "-turncfg", "cat /tmp/turn.cfg"
         ])
 
     def test_deploy_uses_gpu_mode_from_env(self):
