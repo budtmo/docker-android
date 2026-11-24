@@ -23,10 +23,10 @@ jobs:
       run: script -e -c "./app.sh build base test"
 
     - name: Build sample image
-      run: script -e -c "./app.sh build emulator test 11.0"
+      run: script -e -c "./app.sh build emulator test 14.0"
 
     - name: Run unit-test
-      run: script -e -c "./app.sh test emulator test 11.0 && sudo mv tmp/* ."
+      run: script -e -c "./app.sh test emulator test 14.0 && sudo mv tmp/* ."
 
     - name: Publish test result
       run: bash <(curl -s https://codecov.io/bash)

@@ -26,16 +26,16 @@ jobs:
       run: script -e -c "./app.sh build base test"
 
     - name: Build sample image
-      run: script -e -c "./app.sh build emulator test 11.0"
+      run: script -e -c "./app.sh build emulator test 14.0"
 
     - name: Build mcp image
       run: script -e -c "./app.sh build mcp test"
 
     - name: Run unit-test (app)
-      run: script -e -c "./app.sh test_app emulator test 11.0"
+      run: script -e -c "./app.sh test_app emulator test 14.0"
 
     - name: Run unit-test (mcp)
-      run: script -e -c "./app.sh test_mcp emulator test 11.0 && sudo mv tmp-mcp/* ."
+      run: script -e -c "./app.sh test_mcp emulator test 14.0 && sudo mv tmp-mcp/* ."
 
     - name: Publish test result
       run: bash <(curl -s https://codecov.io/bash)

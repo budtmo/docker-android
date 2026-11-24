@@ -18,7 +18,7 @@ else
 fi
 is_str_in_list ${t} ${tasks[@]}
 
-projects=("base" "emulator" "genymotion" "mcp" "pro-emulator" "pro-emulator_headless")
+projects=("base" "emulator" "genymotion" "mcp" "pro-emulator")
 if [ -z "${2}" ]; then
     read -p "Project ($(echo "${projects[@]}" | tr ' ' '|')) : " p
 else
@@ -48,10 +48,8 @@ else
 fi
 
 if [[ "${p}" == *"emulator"* ]]; then
-    supported_android_version=("9.0" "10.0" "11.0" "12.0" "13.0" "14.0")
+    supported_android_version=(""11.0" "12.0" "13.0" "14.0")
     declare -A api_levels=(
-        ["9.0"]=28
-        ["10.0"]=29
         ["11.0"]=30
         ["12.0"]=32
         ["13.0"]=33
