@@ -4,7 +4,7 @@ Run Appium Server
 Appium is automation test framework to test mobile website and mobile application, including Android. To be able to use Appium, you need to run Appium-Server. You run Appium-Server inside docker-android container by ***opening port 4723*** and ***passing an environment variable APPIUM=true***.
 
 ```
-docker run -d -p 6080:6080 -p 4723:4723 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e APPIUM=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+docker run -d -p 6080:6080 -p 4723:4723 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e APPIUM=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_14.0
 ```
 
 ### Additional parameters to Appium Server

@@ -96,7 +96,7 @@ Quick Start
 
 3. Run Docker-Android container
     ```
-    docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+    docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_14.0
     ```
 
 4. Open ***http://localhost:6080*** to see inside running container.
@@ -106,12 +106,29 @@ Quick Start
     docker exec -it android-container cat device_status
     ```
 
+Using Nvidia GPU
+----------------
+
+1. Make sure you have already installed and configured all needed nvidia components, e.g. nvidia-smi
+
+2. Run Docker-Android container
+    ```
+    docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e EMULATOR_GPU=host -e NVIDIA_DRIVER_CAPABILITIES=all --device /dev/kvm --gpus all --name android-container budtmo/docker-android:emulator_14.0
+    ```
+
+3. Make sure that Nvidia GPU is used
+    ```
+    docker exec -it android-container adb shell dumpsys SurfaceFlinger | grep -i GLES
+    ```
+
+**Note:** With `EMULATOR_GPU=host` on NVIDIA, the emulator renders on the GPU and runs headless, but its screen is black. Android works normally, so ADB, Appium and tests are unaffected. However, Some of Android's screen-composition shaders fail to compile on that path, so every captured frame is black. This affects noVNC, scrcpy, `screencap`, `screenrecord` and Appium screenshots.
+
 Persisting data
 -----------
 
 The default behaviour is to destroy the emulated device on container restart. To persist data, you need to mount a volume at `/home/androidusr`:
     ```
-    docker run -v data:/home/androidusr budtmo/docker-android:emulator_11.0
+    docker run -v data:/home/androidusr budtmo/docker-android:emulator_14.0
     ```
 
 WSL2 Hardware acceleration (Windows 11 only)

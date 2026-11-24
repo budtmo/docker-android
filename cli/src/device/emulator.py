@@ -180,14 +180,19 @@ class Emulator(Device):
         self.logger.info(f"Deploying the {self.device_type}")
 
         basic_cmd = "emulator @{n}".format(n=self.name)
-        basic_args = f"-gpu {self.gpu} -accel on -writable-system -verbose"
+        basic_args = f"-gpu {self.gpu} -accel on -writable-system -no-boot-anim -verbose"
+        env = dict(os.environ)
         if self.gpu == ENV.EMULATOR_GPU_HOST:
             basic_args += " -no-window"
+            # Xvfb has no NVIDIA GLX: use the bundled ANGLE EGL with its Vulkan backend (NVIDIA)
+            # instead of GLX/ANGLE-GL, which both fall back to Mesa llvmpipe
+            env["ANDROID_EGL_ON_EGL"] = "1"
+            env["ANGLE_DEFAULT_PLATFORM"] = "vulkan"
         wipe_arg = "-wipe-data" if not self.is_initialized() else ""
 
         start_cmd = f"{basic_cmd} {basic_args} {wipe_arg} {self.additional_args}"
         self.logger.info(f"Command to run {self.device_type}: '{start_cmd}'")
-        subprocess.Popen(shlex.split(start_cmd))
+        subprocess.Popen(shlex.split(start_cmd), env=env)
 
     def start(self) -> None:
         super().start()
@@ -254,8 +259,6 @@ class Emulator(Device):
         self.check_adb_command(self.ReadinessCheck.WELCOME_SCREEN,
                                focus_cmd, "launcheractivity", 60, self.interval_waiting)
         self.disable_animations()
-        if self.gpu == ENV.EMULATOR_GPU_HOST:
-            subprocess.Popen(["scrcpy", "-s", self.adb_name])
         self.logger.info(f"{self.device_type} is ready to use")
 
     def disable_animations(self) -> None:

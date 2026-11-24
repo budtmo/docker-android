@@ -12,7 +12,7 @@ Docker-Android can be used for building Android project and executing its unit t
 2. Build the project
 
     ```
-    docker run -it --rm -v $PWD/testing-samples/ui/espresso/BasicSample:/home/androidusr/tmp -w /home/androidusr/tmp --entrypoint "/bin/bash" budtmo/docker-android:emulator_11.0_v2.0 -c "./gradlew build"
+    docker run -it --rm -v $PWD/testing-samples/ui/espresso/BasicSample:/home/androidusr/tmp -w /home/androidusr/tmp --entrypoint "/bin/bash" budtmo/docker-android:emulator_14.0_v2.0 -c "./gradlew build"
     ```
 
 
