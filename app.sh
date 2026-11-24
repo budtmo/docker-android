@@ -48,7 +48,7 @@ else
 fi
 
 if [[ "${p}" == *"emulator"* ]]; then
-    supported_android_version=(""11.0" "12.0" "13.0" "14.0")
+    supported_android_version=("11.0" "12.0" "13.0" "14.0")
     declare -A api_levels=(
         ["11.0"]=30
         ["12.0"]=32
