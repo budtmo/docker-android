@@ -18,7 +18,7 @@ else
 fi
 is_str_in_list ${t} ${tasks[@]}
 
-projects=("base" "emulator" "genymotion" "mcp" "pro-emulator")
+projects=("base" "emulator" "genymotion" "mcp")
 if [ -z "${2}" ]; then
     read -p "Project ($(echo "${projects[@]}" | tr ' ' '|')) : " p
 else
@@ -36,16 +36,9 @@ DOCKERFILE_PATH=""
 IMAGE_NAME=""
 TAG_NAME=""
 
-if [[ "${p}" == "pro"* ]]; then
-    IFS='-' read -ra arr <<<"${p}"
-    DOCKERFILE_PATH+="docker/${arr[0]}/${arr[1]}/Dockerfile"
-    IMAGE_NAME+="budtmo2/docker-android-${arr[0]}"
-    TAG_NAME+="${arr[1]}"
-else
-    DOCKERFILE_PATH+="docker/${p}/Dockerfile"
-    IMAGE_NAME+="budtmo/docker-android"
-    TAG_NAME+="${p}"
-fi
+DOCKERFILE_PATH+="docker/${p}/Dockerfile"
+IMAGE_NAME+="budtmo/docker-android"
+TAG_NAME+="${p}"
 
 if [[ "${p}" == *"emulator"* ]]; then
     supported_android_version=("11.0" "12.0" "13.0" "14.0")
@@ -56,10 +49,8 @@ if [[ "${p}" == *"emulator"* ]]; then
         ["14.0"]=34
     )
 
-    # To get the last index
-    keys=("${!api_levels[@]}")
-    sorted_keys=($(printf '%s\n' "${keys[@]}" | sort)) 
-    last_key=${keys[-2]} # because 9.0 will be last
+    # The latest supported version is used for the "latest" tag
+    last_key=${supported_android_version[-1]}
 
     if [ -z "${4}" ]; then
         read -p "Android Version ($(echo "${supported_android_version[@]}" \
