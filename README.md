@@ -170,6 +170,14 @@ Credit goes to [Guillaume - The Parallel Interface blog](https://www.paralint.co
 
 If this setup does not work, you may have an old WSL version. In that case, ignore `\.wslconfig` and put everything on `/etc/wsl.conf`, including the `[wsl2]` flag.
 
+Talk to Your Emulator: AI-Agent & MCP
+-------------------------------------
+
+Control the emulator in plain language, e.g. *"open the Settings app"*, powered by your own local LLM (Ollama or vLLM). Ready-to-run examples:
+
+1. [Docker-Android MCP + AI-Agent](./example/docker_android_mcp_and_ai_agent/docker-compose.yml)
+2. [Appium MCP + AI-Agent](./example/appium_mcp_and_ai_agent/docker-compose.yml)
+
 Use-Cases
 ---------
 
