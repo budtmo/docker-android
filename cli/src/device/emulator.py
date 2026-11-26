@@ -69,6 +69,7 @@ class Emulator(Device):
         self.sys_img = sys_img
         workdir = get_env_value_or_raise(ENV.WORK_PATH)
         self.path_device_profile_target = os.path.join(workdir, ".android", "devices.xml")
+        self.path_adb_key = os.path.join(workdir, ".android", "adbkey")
         self.path_emulator = os.path.join(workdir, "emulator")
         self.path_emulator_config = os.path.join(workdir, "emulator", "config.ini")
         self.path_emulator_profiles = os.path.join(workdir, "docker-android", "mixins",
@@ -176,6 +177,16 @@ class Emulator(Device):
         else:
             raise RuntimeError("/dev/kvm cannot be found!")
 
+    def _add_adb_key(self) -> None:
+        # Play Store images enforce adb authorization; the emulator pre-authorizes this key at boot,
+        # so the language-dependent "Allow USB debugging?" dialog never appears
+        if ENV.EMULATOR_IMG_TYPE_PLAYSTORE not in self.img_type:
+            return
+        if not os.path.isfile(self.path_adb_key) or os.path.getsize(self.path_adb_key) == 0:
+            subprocess.check_call(["adb", "keygen", self.path_adb_key])
+            subprocess.check_call(["adb", "kill-server"])
+            self.logger.info(f"ADB key is generated in: '{self.path_adb_key}'")
+
     def deploy(self):
         self.logger.info(f"Deploying the {self.device_type}")
 
@@ -197,6 +208,7 @@ class Emulator(Device):
     def start(self) -> None:
         super().start()
         self.change_permission()
+        self._add_adb_key()
         self.deploy()
 
     def check_adb_command(self, readiness_check_type: ReadinessCheck, bash_command: str,

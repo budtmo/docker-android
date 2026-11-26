@@ -59,6 +59,7 @@ jobs:
     strategy:
       matrix:
         android: ["11.0", "12.0", "13.0", "14.0"]
+        img_type: ["googleapi", "playstore"]
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v7
@@ -75,10 +76,10 @@ jobs:
         chmod 700 extension.sh
       shell: bash
 
-    - name: Build and push emulator image ${{ matrix.android }} (${RELEASE_VERSION})
+    - name: Build and push emulator image ${{ matrix.android }} ${{ matrix.img_type }} (${RELEASE_VERSION})
       run: |
         docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{secrets.DOCKER_PASSWORD}}
-        ./app.sh push emulator ${RELEASE_VERSION} ${{ matrix.android }}
+        ./app.sh push emulator ${RELEASE_VERSION} ${{ matrix.android }} ${{ matrix.img_type }}
         docker logout
 
   release_genymotion:

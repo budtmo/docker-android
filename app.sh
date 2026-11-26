@@ -69,6 +69,18 @@ if [[ "${p}" == *"emulator"* ]]; then
     fi
     is_str_in_list ${a_v} ${supported_android_version[@]}
     a_l=${api_levels[${a_v}]}
+
+    if [[ "${p}" == "emulator" ]]; then
+        declare -A img_types=(
+            ["googleapi"]=google_apis
+            ["playstore"]=google_apis_playstore
+        )
+        i_t=${5:-googleapi}
+        is_str_in_list ${i_t} ${!img_types[@]}
+        if [[ "${i_t}" != "googleapi" ]]; then
+            TAG_NAME+="_${i_t}"
+        fi
+    fi
     TAG_NAME+="_${a_v}"
 fi
 
@@ -85,6 +97,10 @@ function build() {
         cmd="${cmd} --secret id=extension,src=extension.sh --build-arg EMULATOR_ANDROID_VERSION=${a_v} --build-arg EMULATOR_API_LEVEL=${a_l} "
     fi
 
+    if [ -n "${i_t}" ]; then
+        cmd="${cmd} --build-arg EMULATOR_IMG_TYPE=${img_types[${i_t}]} "
+    fi
+
     if [[ "${p}" == *"genymotion"* ]]; then
         DOCKER_BUILDKIT=1
         cmd="${cmd} --secret id=extension,src=extension.sh "
@@ -94,7 +110,7 @@ function build() {
     ${cmd}
     docker tag ${IMAGE_NAME_SPECIFIC_RELEASE} ${IMAGE_NAME_LATEST}
 
-    if [ -n "${a_v}" ] && [ "${a_v}" = "${last_key}" ]; then
+    if [ -n "${a_v}" ] && [ "${a_v}" = "${last_key}" ] && [ "${i_t:-googleapi}" = "googleapi" ]; then
         echo "${a_v} is the last version in the list, will use it as default image tag"
         docker tag ${IMAGE_NAME_SPECIFIC_RELEASE} ${IMAGE_NAME}:latest
     fi
@@ -126,7 +142,7 @@ function push() {
     build
     docker push ${IMAGE_NAME_SPECIFIC_RELEASE}
     docker push ${IMAGE_NAME_LATEST}
-    if [ -n "${a_v}" ] && [ "${a_v}" = "${last_key}" ]; then
+    if [ -n "${a_v}" ] && [ "${a_v}" = "${last_key}" ] && [ "${i_t:-googleapi}" = "googleapi" ]; then
         docker push ${IMAGE_NAME}:latest
     fi
 }
