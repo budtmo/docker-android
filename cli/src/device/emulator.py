@@ -187,6 +187,11 @@ class Emulator(Device):
             subprocess.check_call(["adb", "kill-server"])
             self.logger.info(f"ADB key is generated in: '{self.path_adb_key}'")
 
+    @staticmethod
+    def _is_nvidia() -> bool:
+        # The NVIDIA Container Toolkit (--gpus all) exposes these device nodes in the container
+        return os.path.exists("/dev/nvidiactl")
+
     def deploy(self):
         self.logger.info(f"Deploying the {self.device_type}")
 
@@ -195,10 +200,12 @@ class Emulator(Device):
         env = dict(os.environ)
         if self.gpu == ENV.EMULATOR_GPU_HOST:
             basic_args += " -no-window"
-            # Xvfb has no NVIDIA GLX: use the bundled ANGLE EGL with its Vulkan backend (NVIDIA)
-            # instead of GLX/ANGLE-GL, which both fall back to Mesa llvmpipe
-            env["ANDROID_EGL_ON_EGL"] = "1"
-            env["ANGLE_DEFAULT_PLATFORM"] = "vulkan"
+            if self._is_nvidia():
+                # Xvfb has no NVIDIA GLX: use the bundled ANGLE EGL with its Vulkan backend (NVIDIA)
+                # instead of GLX/ANGLE-GL, which both fall back to Mesa llvmpipe.
+                # Not for Mesa (AMD/Intel): with these variables the screen stays black.
+                env["ANDROID_EGL_ON_EGL"] = "1"
+                env["ANGLE_DEFAULT_PLATFORM"] = "vulkan"
         wipe_arg = "-wipe-data" if not self.is_initialized() else ""
 
         start_cmd = f"{basic_cmd} {basic_args} {wipe_arg} {self.additional_args}"

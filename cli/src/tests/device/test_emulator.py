@@ -76,19 +76,39 @@ class TestEmulator(BaseDeviceTest):
             "-writable-system", "-no-boot-anim", "-verbose", "-turncfg", "cat /tmp/turn.cfg"
         ])
 
-    def test_deploy_uses_gpu_mode_from_env(self):
+    def _deploy_with_host_gpu(self, nvidia):
         with mock.patch.dict("os.environ", {ENV.EMULATOR_GPU: "host"}):
             emu = Emulator(self.name, self.device, self.a_version, self.d_partition,
                            self.additional_args, self.i_type, self.s_img)
 
         with mock.patch.object(emu, "is_initialized", return_value=True), \
+                mock.patch.object(emu, "_is_nvidia", return_value=nvidia), \
                 mock.patch("subprocess.Popen") as popen:
             emu.deploy()
+        return popen
+
+    def test_deploy_uses_gpu_mode_from_env(self):
+        popen = self._deploy_with_host_gpu(nvidia=True)
 
         self.assertEqual(popen.call_args[0][0][2:4], ["-gpu", "host"])
         self.assertIn("-no-window", popen.call_args[0][0])
         self.assertEqual(popen.call_args[1]["env"]["ANDROID_EGL_ON_EGL"], "1")
         self.assertEqual(popen.call_args[1]["env"]["ANGLE_DEFAULT_PLATFORM"], "vulkan")
+
+    def test_deploy_host_gpu_without_nvidia_keeps_mesa_rendering(self):
+        popen = self._deploy_with_host_gpu(nvidia=False)
+
+        self.assertEqual(popen.call_args[0][0][2:4], ["-gpu", "host"])
+        self.assertIn("-no-window", popen.call_args[0][0])
+        self.assertNotIn("ANDROID_EGL_ON_EGL", popen.call_args[1]["env"])
+        self.assertNotIn("ANGLE_DEFAULT_PLATFORM", popen.call_args[1]["env"])
+
+    def test_is_nvidia_checks_the_toolkit_device_node(self):
+        with mock.patch("os.path.exists", return_value=True) as exists:
+            self.assertTrue(Emulator._is_nvidia())
+        exists.assert_called_once_with("/dev/nvidiactl")
+        with mock.patch("os.path.exists", return_value=False):
+            self.assertFalse(Emulator._is_nvidia())
 
     def test_disable_animations(self):
         with mock.patch("subprocess.check_output", return_value="0".encode("utf-8")) as check_output:
