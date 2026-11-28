@@ -125,6 +125,23 @@ Using Nvidia GPU
 
 **Note:** With `EMULATOR_GPU=host` on NVIDIA, the emulator renders on the GPU and runs headless, but its screen is black. Android works normally, so ADB, Appium and tests are unaffected. However, Some of Android's screen-composition shaders fail to compile on that path, so every captured frame is black. This affects noVNC, scrcpy, `screencap`, `screenrecord` and Appium screenshots.
 
+Using AMD or Intel GPU
+----------------------
+
+1. Make sure the host has a working Mesa driver (`amdgpu`/`i915`) and a render node, e.g. `ls -l /dev/dri/renderD128`
+
+2. Run Docker-Android container, passing the render node and its group so that the emulator user can open it
+    ```
+    docker run -d -e EMULATOR_DEVICE="Samsung Galaxy S10" -e EMULATOR_GPU=host --device /dev/kvm --device /dev/dri/renderD128 --group-add $(stat -c %g /dev/dri/renderD128) --name android-container budtmo/docker-android:emulator_14.0
+    ```
+
+3. Make sure that the GPU is used
+    ```
+    docker exec -it android-container grep "Selecting Vulkan device" /home/androidusr/logs/device.stdout.log
+    ```
+
+The emulator runs headless (`-no-window`), so noVNC does not show it, but ADB, Appium and `screencap` screenshots work. Tested with an AMD Radeon RX 5700 XT (RADV NAVI10) and the integrated GPU of a Ryzen 7 5700G (RADV RENOIR).
+
 Persisting data
 -----------
 

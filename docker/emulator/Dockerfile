@@ -36,6 +36,21 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
  && apt clean all \
  && rm -rf /var/lib/apt/lists/*
 
+#==============
+# GPU Packages
+#--------------
+# mesa-vulkan-drivers
+#   Vulkan drivers (RADV for AMD, ANV for Intel) used by "-gpu host"
+# libvulkan1
+#   Vulkan loader
+#==============
+RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
+    mesa-vulkan-drivers \
+    libvulkan1 \
+ && apt autoremove -y \
+ && apt clean all \
+ && rm -rf /var/lib/apt/lists/*
+
 #=======
 # noVNC
 #=======
